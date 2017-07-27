@@ -38,8 +38,8 @@
             "alfresco_username":"empOnbrdAus",
             "alfresco_password":"admin",
             "alfresco_folder_id":"87e592fc-c134-4b05-bf8e-ee1cc5f47ad9",
-            "clientUrl":"http://localhost:3000",
-            "adminUrl":"http://localhost:3001",
+            "clientUrl":"https://australiaconsumer.herokuapp.com",
+            "adminUrl":"https://australiaconsumer.herokuapp.com",
             "msgMediaUsername":"g8KQ9YoUolQQA732Ij5P",
             "msgMediaPassword":"VFVKtJCYtLg278D1xo73LqgcSW8SSW"			
     },
