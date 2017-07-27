@@ -1,0 +1,302 @@
+<div data-aos="fade-up">
+    <h3 class="card-title page-heading-mobile" data-step="2">Tax Information
+    </h3>
+    <!-- basic-info -->
+
+    <div>
+        <h3 class="card-title page-heading-desktop">Tell us your Tax details </h3>
+        <div class="basic-info">
+            <form class="form" (ngSubmit)="onSubmit(basicDetails.value)" #basicDetails="ngForm">
+                <div class="row">
+                    <div class="col-md-4 col-sm-4 has-min-height-106">
+                        <div [ngClass]="{'form-group has-success has-feedback':(tfn.valid && tfn.dirty ) }">
+                            <div [ngClass]="{'form-group has-error has-feedback':(tfn.invalid && tfn.dirty )}">
+                                <label for="tfn" class="form-label">TFN</label>
+                                <input type="text" [disabled]="reasonval!=''" (keyup)="tfnfunc($event)" class="form-control txtbox" name="tfn" maxlength="9"
+                                    onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));"
+                                    [(ngModel)]="model.tfn" #tfn="ngModel" id="tfn" tfnValidator>
+                                <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(tfn.valid && tfn.dirty)}"></span>
+                                <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(tfn.invalid && tfn.dirty )}"></span>
+                                <small [hidden]="tfn.valid || (tfn.pristine ) || model.tfn==null || model.tfn==''" class="text-danger">
+                                         {{configMsg?.tfn}}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8 col-sm-8">
+                        <div class="form-group">
+                            <label for="mname" class="form-label">Exemption reason </label>
+                            <select (change)="reasonfunc($event)" [disabled]="tfnval!=''||tfn.valid" class="form-control txtbox" id="exemption" name="exemption"
+                                [(ngModel)]="model.exemption" #exemption="ngModel">
+                                    
+                                        <option value="0" *ngIf="tfnval!=''">Not Applicable</option>
+                                
+                                     
+                                        <option value="0" *ngIf="tfnval==''">Select</option>
+                                        <option *ngFor="let details of items" [ngValue]= "details.prop_val"  >
+                                                    {{details.prop_desc}} 
+                                        </option>    
+                                     
+                              </select>
+                        </div>
+
+                    </div>
+                    <div class="col-md-8 col-sm-8">
+                        <small [hidden]="!err" class="text-danger">
+                               <!--{{configMsg?.email}}  This is a required field or Enter in abc@xyz.com format -->
+                               Either TFN or Exemption is required
+                        </small>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-8 col-sm-8 has-min-height-56">
+                            <div class="existing-member-login">
+                                <div [hidden]="!((model.tfn==null ||model.tfn=='' )&& model.exemption==0)" class="info-alert  center-msg tabs">
+                                    <div class="alert-msg"> {{wrn_002}}</div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div [hidden]="freetext1status==false" class="col-md-4 col-sm-6 has-min-height-106">
+                            <div [ngClass]="{'form-group has-success has-feedback':(taxinfofreetext1.valid && taxinfofreetext1.dirty ) }">
+                                <div [ngClass]="{'form-group has-error has-feedback':(taxinfofreetext1.invalid && taxinfofreetext1.dirty && (!model.taxinfofreetext1==''))}">
+                                    <label for="taxinfofreetext1" class="form-label">{{freetext1label}} </label>
+                                    <input type="text" class="form-control txtbox" placeholder="{{freetext1placeholder}}" [(ngModel)]="model.taxinfofreetext1"
+                                        id="taxinfofreetext1" name="taxinfofreetext1" #taxinfofreetext1="ngModel" alphanumericValidate>
+                                    <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(taxinfofreetext1.valid && taxinfofreetext1.dirty )}"></span>
+                                    <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(taxinfofreetext1.invalid && taxinfofreetext1.dirty && (!model.taxinfofreetext1==''))}"></span>
+                                    <small [hidden]="taxinfofreetext1.valid || taxinfofreetext1.pristine || model.taxinfofreetext1==null || model.taxinfofreetext1==''"
+                                        class="text-danger">
+                                {{configMsg?.mname}} <!--This is a required field and Can contain letters and apostrophe-->
+                                </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div [hidden]="freetext2status==false" class="col-md-4 col-sm-6 has-min-height-106">
+                            <div [ngClass]="{'form-group has-success has-feedback':(taxinfofreetext2.valid && taxinfofreetext2.dirty ) }">
+                                <div [ngClass]="{'form-group has-error has-feedback':(taxinfofreetext2.invalid && taxinfofreetext2.dirty && (!model.taxinfofreetext2==''))}">
+                                    <label for="taxinfofreetext2" class="form-label">{{freetext2label}} </label>
+                                    <input type="text" class="form-control txtbox" placeholder="{{freetext2placeholder}}" [(ngModel)]="model.taxinfofreetext2"
+                                        id="taxinfofreetext2" name="taxinfofreetext2" #taxinfofreetext2="ngModel" alphanumericValidate>
+                                    <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(taxinfofreetext2.valid && taxinfofreetext2.dirty )}"></span>
+                                    <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(taxinfofreetext2.invalid && taxinfofreetext2.dirty && (!model.taxinfofreetext2==''))}"></span>
+                                    <small [hidden]="taxinfofreetext2.valid || taxinfofreetext2.pristine || model.taxinfofreetext2==null || model.taxinfofreetext2==''"
+                                        class="text-danger">
+                                {{configMsg?.mname}} <!--This is a required field and Can contain letters and apostrophe-->
+                                </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-btn-wrapper">
+                        <a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>
+                        <!--<a tabindex="0" [routerLink]="['/PersonalContactInfo']"  class="btn btn-icon-back">  <img src="/assets/images/back-icon.svg" alt="back-icon" >-->
+                        <!--<a tabindex="0"  class="btn btn-form-primary ladda-button" data-style="expand-right" id="taxformInfoSubmit"><span class="ladda-label">CONTINUE</span></a>-->
+                        <!--<button type="submit" tabindex="0" class="btn btn-form-primary ladda-button" [ladda]="isLoading" data-style="expand-right"
+                            data-spinner-color="white" [disabled]="!(tfn.valid || !(model.exemption=='0'))"><span class="ladda-label" >CONTINUE</span></button>-->
+                        <span *ngIf="applicantTypeNormalFunc=='taxInformation'">
+                                <button type="submit" tabindex="0" class="btn btn-form-primary col-sm-push-2 col-xs-push-2 buttonPanlDetail ladda-button" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" [disabled]="!(tfn.valid || !(model.exemption=='0'))"><span class="ladda-label" >CONTINUE</span></button>
+                        </span>
+
+                        <span *ngIf="applicantType=='taxInformation'">
+                                <button type="submit" tabindex="0" class="btn btn-form-primary col-sm-push-2 col-xs-push-2 buttonPanlDetail ladda-button" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" [disabled]="!(tfn.valid || !(model.exemption=='0'))"><span class="ladda-label" > CONTINUE</span></button>
+                        </span>
+
+                        <span *ngIf="applicantType=='taxInformationTwo'">
+                                <button type="submit" tabindex="0" class="btn btn-form-primary col-sm-push-2 col-xs-push-2 buttonPanlDetail ladda-button" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" [disabled]="!(tfn.valid || !(model.exemption=='0'))"><span class="ladda-label" >CONTINUE</span></button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- wrapper -->
+<div id="onlineid-check" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-pop matching-customer-details">
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="matching-customer-des">
+
+                    <div>
+                        <h3>ID Check</h3>
+                        <p>Consent for this Electronic Verification of Identity</p>
+                        <p>The Anti-Money Laundering and Counter-Terrorism Financing Act 2006 requires Bank Australia to verify
+                            your identity before providing you with any of its financial services for the first time.
+                        </p>
+                        <p>
+                            By selecting "YES" you consent to Bank Australia verify your identity by having a credit reporting agency check your personal
+                            information(name,address and date of birth)aginst personal information files held by the credit
+                            reporting agency.This will not be recorded as enquiry on your personal credit information file.
+                        </p>
+                        <div class="row" style="margin-bottom:10px">
+                            <div class="col-md-12">
+                                <input type="radio" class="styled" name="consent" (click)="setNextFlag('yes')" id="consentyes" [(ngModel)]="nextflag" value="yes">&nbsp;<b>Yes</b>                                , I would like to use Electronic Verifcation</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="radio" class="styled" name="consent" (click)="setNextFlag('no')" id="consentno" [(ngModel)]="nextflag" value="no">&nbsp;<b>No</b>,
+                                I would like to skip this check and I am aware the account would be opened with debit freeze
+                                mode and would be enabled post ID check validation by submitting documents to bank manually
+                            </div>
+                        </div>
+
+                        <!--<p><button [class.btn-success]="nextflag" class="modal_radio" (click)="nextflag=true">YES</button> I
+                            would like to use Electronic Verifcation</p>
+                        <p><button [class.btn-success]="!nextflag" class="modal_radio" (click)="nextflag=false"> NO</button>                            I would like to skip this check and I am aware the account would be opened with debit freeze
+                            mode and would be enabled post ID check validation by submitting documents to bank manually
+                        </p>-->
+                        <!-- <div  class="online-check-links">
+                             <a [hidden]="model.is_admin" class="skip-btn" data-toggle="modal" data-dismiss="modal" (click)="getAccno()">NEXT</a>
+                        </div>-->
+                        <div *ngIf="flagStatus=='yes'" class="online-check-links">
+                            <a [routerLink]="['../onlineIdCheck']" class="btn btn-form-primary" data-dismiss="modal">NEXT</a>
+                        </div>
+                        <div *ngIf="flagStatus=='no'" class="online-check-links">
+                            <a class="btn btn-form-primary" data-toggle="modal" data-dismiss="modal" (click)="getAccno()">NEXT</a>
+                        </div>
+                        <!--<span class="info-icon"><img src="/assets/images/onlineid-user.svg" alt=""></span>
+                        <h2>Please perform an <br> online ID check
+                        </h2>
+                        <div  class="online-check-links">
+                             <a [hidden]="model.is_admin" class="skip-btn" data-toggle="modal" data-dismiss="modal" (click)="getAccno()">skip</a>
+                            <a [routerLink]="['../onlineIdCheck']"  class="btn btn-form-primary" data-dismiss="modal">CHECK NOW</a>
+                        </div>
+                        <div class="existing-member-login">
+                            <div class="info-alert  center-msg">
+                                <div class="alert-msg"> {{inf_002}}</div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <br>
+                        <br>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="success" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-pop matching-customer-details">
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="success-modal">
+                    <button type="button" class="close" (cick)="reload()" data-dismiss="modal" [routerLink]="['/home']"><img src="/assets/images/close.svg" alt=""></button>
+                    <div class="center-content">
+                        <span class="info-icon successicon"><img src="/assets/images/success.svg" alt=""></span>
+                        <h2>Success!</h2>
+                        <h4>Your everyday account has been set up.</h4>
+                        <div class="customer-details">
+                            <!--chandan-->
+                            <div class="details-label">
+                                <p class="cust-id">Customer ID </p>
+                            </div>
+                            <div class="sybmol">
+                                <p class="cust-id"> :</p>
+                            </div>
+                            <div class="cus-details-value">
+                                <p class="cust-id"><strong>{{model.core_customer_id}}</strong></p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="customer-details">
+                            <div class="details-label">
+                                <p class="bsb">BSB </p>
+                            </div>
+                            <div class="sybmol">
+                                <p class="bsb"> :</p>
+                            </div>
+                            <div class="cus-details-value">
+                                <p class="bsb"><strong>{{model.bank_bsb_number}}</strong></p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="customer-details">
+                            <div class="details-label">
+                                <p class="act-no">Account number </p>
+                            </div>
+                            <div class="sybmol">
+                                <p class="act-no"> :</p>
+                            </div>
+                            <div class="cus-details-value">
+                                <p class="act-no"><strong>{{model.core_account_number}}</strong></p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <!--<div class="existing-member-login">
+                            <div [hidden]="userExistingFlag" class="info-alert  center-msg">
+                                <div  class="alert-msg"> {{inf_003}}
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>-->
+                        <ul>
+                            <li>You will receive all the details on your registered email address.</li>
+                            <li>You can check the status of your application through our chat bot feature.</li>
+                            <li>For any other issues You can call our customer care number 14000012222 .</li>
+                        </ul>
+                        <div [hidden]="userExistingFlag">
+                            <!--<p  class="continue-qstn">Do you want to continue with Internet Banking registration</p>-->
+                        </div>
+                        <a [routerLink]="['/home']" class="regbtn" style="margin-bottom: 10px;padding-left: 20px;" data-dismiss="modal" (click)="reload()">HOME</a>
+                        <a id="reb" [routerLink]="['../passwordSetup']" (click)="moveToNetBankingReg()" class="regbtn" data-dismiss="modal">REGISTER FOR INTERNET BANKING</a>
+                        <a id="mlogin" [routerLink]="['/login']" class="regbtn align_anchor" (click)="clear()" data-dismiss="modal">LOGIN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="success_loan" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-pop matching-customer-details">
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="success-modal">
+                    <button type="button" class="close" data-dismiss="modal" [routerLink]="['/Home']" (click)="clear()"><img src="/assets/images/close.svg" alt=""></button>
+                    <div class="center-content">
+                        <span class="info-icon successicon icon_margin"><img src="/assets/images/success.svg" alt=""></span>
+                        <h2>Success!</h2>
+                    </div>
+                    <div>
+                        <h4>Your {{model.product_type}} request has been submitted successfully.</h4>
+
+                        <ul>
+                            <li>You will receive all the details on your registered email address.</li>
+                            <li>You can check the status of your application through our chat bot feature.</li>
+                            <li>For any other issues You can call our customer care number 14000012222 .</li>
+                        </ul>
+
+                        <div class="existing-member-login">
+                            <!-- <div class="info-alert  center-msg">
+               <div class="alert-msg"> {{inf_loan}}
+                </div>
+                <div class="clearfix"></div>
+              </div>-->
+                        </div>
+                        <!--<div class="customer-details">
+              <div class="details-label">
+                <p class="cust-id">Application Reference</p>
+              </div>
+              <div class="sybmol">
+                <p class="cust-id"> :</p>
+              </div>
+              <div class="cus-details-value">
+                <p class="cust-id"><strong>{{model.application_id}}</strong></p>
+              </div>
+              <div class="clearfix"></div>
+            </div>-->
+                        <a [routerLink]="['/home']" class="regbtn align_anchor" data-dismiss="modal" (click)="clear()">HOME</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

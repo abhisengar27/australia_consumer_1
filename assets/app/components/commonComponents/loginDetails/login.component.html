@@ -1,0 +1,26 @@
+<div class="login-wrapper">
+         <!--Login Starts-->
+         <div id="login">
+            <h1>Login</h1>
+            <!--<form  id="loginForm">-->
+             <form  id="loginForm" class="form" (ngSubmit)="onSubmit()">
+               <div class="form-group">
+                  <label for="userName">Username</label>
+                  <input type="text" class="form-control txtbox" id="userName" (keyup)="onkeyUp()" [(ngModel)]="model.userName" name="userName" required>
+               </div>
+               <div class="form-group">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control txtbox"  id="password" (keyup)="onkeyUp()" [(ngModel)]="model.password" name="password" required>
+               </div>
+               <!--<div class="checkbox">
+                  <input id="rememberme" class="styled" type="checkbox">
+                  <label for="rememberme">Remember me</label>
+               </div>-->
+                 <button type="submit" class="btn btn-default btn-login ladda-button" data-style="expand-right" id="loginSubmit"><span class="ladda-label">SIGN IN</span></button>
+               <!-- <a href="#" class="forgot-pwd">Forgot Password?</a> -->
+            </form>
+            <h5 style="color:red;padding-top: 20px;padding-left: 20px;" >{{error_message}}</h5>
+         </div>
+         <!--Login Ends-->
+      </div>
+      <!-- login-wrapper -->

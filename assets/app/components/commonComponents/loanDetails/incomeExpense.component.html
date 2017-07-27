@@ -1,0 +1,556 @@
+<div data-aos="fade-up">
+
+	<h3 class="card-title" data-step="3" *ngIf="!default_tab">Give us some info about your employment status</h3>
+	<h3 class="card-title" data-step="3" *ngIf="default_tab">Lets calculate your expenses</h3>
+	<ul id="myTab" hidden class="nav nav-tabs nav-tabs-responsive  responsive remove-style-tab"
+	 role="tablist">
+		<li role="presentation" class="remove-style-tab">
+			<a href="#default_details" id="default_details-tab" role="tab" data-toggle="tab" aria-controls="default_details" aria-expanded="true">
+			</a>
+		</li>
+		<li role="presentation" class="next remove-style-tab">
+			<a href="#calculator_details" role="tab" id="calculator_details-tab" data-toggle="tab" aria-controls="calculator_details">
+			</a>
+		</li>
+	</ul>
+
+	<form class="form" (ngSubmit)="onSubmit()" #basicDetails="ngForm">
+		<div id="myTabContent" class="tab-content responsive">
+			<div role="tabpanel" class="tab-pane fade in remove-style-tab" [ngClass]="{'active':!default_tab}" id="default_details" aria-labelledby="default_details-tab">
+				<!-- <div class="row">
+					<div class="col-md-8 col-sm-12 col-xs-12">
+
+						<fieldset id="interesttype">
+					<label class="form-label  radio-toolbar" for="employed1" [ngClass]="{'highlightradio':model.employed=='EMPLOYED'}">
+                                    <div class="form-group">
+                                    <input type="radio" class="styled" name="employed" [checked] id="employed1" [(ngModel)]="model.employed" value="EMPLOYED">
+                                  EMPLOYED
+                                    </div>
+                                </label>
+                                <label class="form-label  radio-toolbar" for="employed2" [ngClass]="{'highlightradio':model.employed=='SELF-EMPLOYED'}"> 
+                                    <div class="form-group">
+                                    <input type="radio"  class="styled"  name="employed" id="employed2" [(ngModel)]="model.employed" value="SELF-EMPLOYED">
+                                   SELF-EMPLOYED
+                                    </div>
+                                </label>
+                            </fieldset>
+
+
+
+					</div>
+				</div> -->
+				<!-- <div class="row">
+					<div class="col-md-2 col-sm-3 col-xs-6" id="radio1">
+						<div class="panel panel-default text-center">
+							<img src="/assets/images/employed.png" alt="Card image cap">
+							<div class="panel-body panel-body-radio">
+								<h5 class="panel-title">Employed</h5>
+							</div>
+							<div class="panel-footer radio-select" *ngIf='!employmentFlag'>
+								<span class="radio-image">Select</span>
+							</div>
+							<div class="panel-footer mera" *ngIf="employmentFlag">
+								<span><img class="radio-image" src="/assets/images/check-white.png"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-2 col-sm-3 col-xs-6" id="radio2">
+						<div class="panel panel-default text-center">
+							<img src="/assets/images/selfEmployed.png" alt="Card image cap">
+							<div class="panel-body panel-body-radio">
+								<h5 class="panel-title">Self employed</h5>
+							</div>
+							<div class="panel-footer mera" *ngIf='!employmentFlag'>
+								<span><img class="radio-image" src="/assets/images/check-white.png"></span>
+							</div>
+							<div class="panel-footer radio-select" *ngIf='employmentFlag'>
+								<span>Select</span>
+							</div>
+
+						</div>
+					</div>
+				</div> -->
+
+				<div class="row">
+					<div class="col-md-4 col-sm-6 has-min-height-106">
+						<label class="form-label">Select the employment status</label>
+						<select class="form-control txtbox" required id="employed" name="employed" [(ngModel)]="model.employed" #employed="ngModel">
+                                         <!-- <option value="">Select</option>  -->
+                                        <option *ngFor="let details of employmentTypeList" [ngValue]= "details.property_val">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+						<small [hidden]="employed.valid || (employed.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+					</div>
+				</div>
+
+				<div [hidden]="model.employed == 'Retired' || model.employed == ''">
+					<div class="row" [hidden]="model.employed =='Self_employed'">
+						<div class="col-md-4 col-sm-6 has-min-height-106">
+							<div [ngClass]="{'form-group has-success has-feedback':(employer.valid  && employer.dirty) }">
+								<div [ngClass]="{'form-group has-error has-feedback':(employer.invalid && employer.dirty )}">
+									<label for="employer" class="form-label">Where are you currently employed ?</label>
+									<input type="text" [required]="model.employed=='EMPLOYED'" class="form-control txtbox" id="employer" [(ngModel)]="model.employer"
+									 name="employer" #employer="ngModel" autofocus alphanumericValidate>
+									<!-- /input-group -->
+									<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(employer.valid  && employer.dirty)}"></span>
+									<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(employer.invalid && employer.dirty )}"></span>
+									<small [hidden]="employer.valid || (employer.pristine )" class="text-danger">
+                                {{configMsg?.mname}}
+                                </small>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-6 has-min-height-106">
+							<div [ngClass]="{'form-group has-success has-feedback':(service.valid  && service.dirty) }">
+								<div [ngClass]="{'form-group has-error has-feedback':(service.invalid && service.dirty )}">
+									<label for="service" class="form-label">How long have you been working here ? </label>
+									<input type="number" [required]="model.employed=='EMPLOYED'" class="form-control txtbox" id="service" [(ngModel)]="model.service"
+									 name="service" #service="ngModel" splitValidator>
+									<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(service.valid  && service.dirty)}"></span>
+									<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(service.invalid && service.dirty)}"></span>
+									<small [hidden]="service.valid || (service.pristine )" class="text-danger">
+                                     {{configMsg?.number1_99}}
+                                </small>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row" [hidden]="model.employed !='Self_employed'">
+						<div class="col-md-4 col-sm-6 has-min-height-106">
+							<div [ngClass]="{'form-group has-success has-feedback':(companyName.valid  && companyName.dirty) }">
+								<div [ngClass]="{'form-group has-error has-feedback':(companyName.invalid && companyName.dirty )}">
+
+									<label for="companyName" class="form-label">What is your company name ?</label>
+									<input type="text" [required]="model.employed=='SELF-EMPLOYED'" class="form-control txtbox" id="companyName" [(ngModel)]="model.companyName"
+									 name="companyName" #companyName="ngModel" alphanumericValidate>
+									<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(companyName.valid  && companyName.dirty)}"></span>
+									<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(companyName.invalid && companyName.dirty )}"></span>
+									<small [hidden]="companyName.valid || (companyName.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+								</div>
+							</div>
+
+						</div>
+						<div class="col-md-4 col-sm-6 has-min-height-106">
+							<div [ngClass]="{'form-group has-success has-feedback':(yearsEstablished.valid && yearsEstablished.dirty) }">
+								<div [ngClass]="{'form-group has-error has-feedback':(yearsEstablished.invalid && yearsEstablished.dirty )}">
+									<label for="yearsEstablished  " class="form-label">When was it established ?</label>
+									<input type="number" [required]="model.employed=='SELF-EMPLOYED'" class="form-control txtbox" id="yearsEstablished" [(ngModel)]="model.yearsEstablished"
+									 name="yearsEstablished" #yearsEstablished="ngModel" yearValidator>
+									<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(yearsEstablished.valid && yearsEstablished.dirty)}"></span>
+									<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(yearsEstablished.invalid && yearsEstablished.dirty)}"></span>
+									<small [hidden]="yearsEstablished.valid || (yearsEstablished.pristine )" class="text-danger">
+                                 {{configMsg?.number1_9999}}
+                                </small>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row" [hidden]="model.employed =='Retired' ">
+						<div class="col-md-4 col-sm-6 has-min-height-106">
+							<div class="form-group">
+								<div [ngClass]="{'form-group has-success has-feedback':(earnPerMonth.valid && earnPerMonth.dirty)&& !(model.eanPerMonnth=='0.00')}">
+									<div [ngClass]="{'form-group has-error has-feedback':(earnPerMonth.invalid && earnPerMonth.dirty ) || model.eanPerMonnth=='0.00'}">
+										<label for="earnPerMonth" class="form-label">How much do you earn ?</label>
+										<div class="input-group">
+											<span class="input-group-addon">A$</span>
+											<input type="text" required class="form-control txtbox" id="earnPerMonth" [(ngModel)]="model.earnPerMonth" name="earnPerMonth"
+											 #earnPerMonth="ngModel" maxlength="18" (focus)="revert(earnPerMonth.value,'earnPerMonth')"  (blur)="AmountFormatter(earnPerMonth.value,'earnPerMonth')"
+											  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+											<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(earnPerMonth.valid  && earnPerMonth.dirty)&& !(model.eanPerMonnth=='0.00')}"></span>
+											<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(earnPerMonth.invalid && earnPerMonth.dirty)||model.eanPerMonnth=='0.00'}"></span>
+										</div>
+										<small [hidden]="!((earnPerMonth.invalid && earnPerMonth.dirty ) || model.eanPerMonnth=='0.00')" class="text-danger">
+                                 {{configMsg?.amount}}
+                                </small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-6 has-min-height-106">
+							<label class="form-label">Income frequency</label>
+							<select class="form-control txtbox" required id="incomeFrequency" name="incomeFrequency" [(ngModel)]="model.incomeFrequency"
+							 #incomeFrequency="ngModel">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let details of incomeFrequencies" [ngValue]= "details.property_val">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+							<small [hidden]="incomeFrequency.valid || (incomeFrequency.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+						</div>
+					</div>
+				</div>
+
+				<div [hidden]="model.employed !='Retired'">
+					<div class="row">
+						<div class="col-md-4 col-sm-4 ">
+							<label for="retirement" class="form-label">Time in retirement </label>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-4 col-sm-4 has-min-height-106">
+							<label for="retirementYears" class="form-label">Years </label>
+							<select class="form-control txtbox" id="retirementYears" [(ngModel)]="model.retirementYears" name="retirementYears" #retirementYears="ngModel">
+								<option value="" >Select</option>
+								<option value="0" >0 Year</option>
+								<option value="1">1 Year</option>
+								<option value="2">2 Years</option>
+								<option value="3">3 Years</option>	
+								<option value="4">4 Years</option>
+								<option value="5">5 Years</option>
+								<option value="6">6 Years</option>
+								<option value="7">7 Years</option>
+								<option value="8">8 Years</option>
+								<option value="9">9 Years</option>
+								<option value="10">10 or More than 10 Years</option>
+							</select>
+							<small [hidden]="retirementYears.valid || (retirementYears.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+						</div>
+
+						<div class="col-md-4 col-sm-4 has-min-height-106">
+							<label for="retirementMonths" class="form-label">Months </label>
+							<select class="form-control txtbox" [(ngModel)]="model.retirementMonths" id="retirementMonths" name="retirementMonths" #retirementMonths="ngModel">
+								<option value="" >Select</option>
+								<option value="0">0 Month</option>
+								<option value="1">1 Month</option>
+								<option value="2">2 Months</option>
+								<option value="3">3 Months</option>
+								<option value="4">4 Months</option>
+								<option value="5">5 Months</option>
+								<option value="6">6 Months</option>
+								<option value="7">7 Months</option>
+								<option value="8">8 Months</option>
+								<option value="9">9 Months</option>
+								<option value="10">10 Months</option>
+								<option value="11">11 Months</option>
+							</select>
+							<small [hidden]="retirementMonths.valid || (retirementMonths.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-4 col-sm-6">
+						<div class="checkbox">
+							<input id="secondJob" (change)='clearData()' class="styled" type="checkbox" name="secondJob" value="secondJob" [(ngModel)]="model.secondJob"
+							 #secondJob="ngModel">
+							<label for="secondJob">Do you have a second job ?</label>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="row" *ngIf="model.secondJob">
+					<div class="col-md-4 col-sm-6 has-min-height-106">
+						<div class="form-group">
+							<div [ngClass]="{'form-group has-success has-feedback':(secondJobEarning.valid && secondJobEarning.dirty)&& !(model.secondJobEarning=='0.00') }">
+								<div [ngClass]="{'form-group has-error has-feedback':(secondJobEarning.invalid && secondJobEarning.dirty )|| model.secondJobEarning=='0.00'}">
+									<label for="secondJobEarning" class="form-label">How much do you earn ?</label>
+									<div class="input-group">
+										<span class="input-group-addon">A$</span>
+										<input type="text" required class="form-control txtbox" id="secondJobEarning" [(ngModel)]="model.secondJobEarning" name="secondJobEarning"
+										 #secondJobEarning="ngModel" maxlength="18" (focus)="revert(secondJobEarning.value,'secondJobEarning')"  (blur)="AmountFormatter(secondJobEarning.value,'secondJobEarning')"
+										 onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+										<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(secondJobEarning.valid  && secondJobEarning.dirty)&& !(model.secondJobEarning=='0.00') }"></span>
+										<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(secondJobEarning.invalid && secondJobEarning.dirty)|| model.secondJobEarning=='0.00'}"></span>
+									</div>
+									<small [hidden]="!((secondJobEarning.invalid && secondJobEarning.dirty )|| model.secondJobEarning=='0.00')" class="text-danger">
+                                 {{configMsg?.amount}}
+                                </small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-6 has-min-height-106">
+						<label class="form-label">Income frequency</label>
+						<select class="form-control txtbox" required id="secondJobIncomeFrequency" name="secondJobIncomeFrequency" [(ngModel)]="model.secondJobIncomeFrequency"
+						 #secondJobIncomeFrequency="ngModel">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let details of incomeFrequencies" [ngValue]= "details.property_val">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+						<small [hidden]="secondJobIncomeFrequency.valid || (secondJobIncomeFrequency.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+					</div>
+				</div>
+				<!-- <div class="row">
+					<div class="col-md-5 col-sm-6">
+						<div class="checkbox">
+							<input id="otherIncome" (change)="clearData('otherIncome')" class="styled" type="checkbox" name="otherIncome" value="otherIncome"
+								[(ngModel)]="model.otherIncome" #otherIncome="ngModel">
+							<label for="otherIncome">Do you receive any other income ?</label>
+						</div>
+					</div>
+				</div> -->
+				<div class="row" [hidden]="model.employed =='Retired'">
+					<div class="col-md-5 col-sm-6">
+						<div class="checkbox">
+							<input id="otherIncome" (change)="clearData('otherIncome')" class="styled" type="checkbox" name="otherIncome" value="otherIncome"
+							 [(ngModel)]="model.otherIncome" #otherIncome="ngModel">
+							<label for="otherIncome">Do you receive any other income ?</label>
+						</div>
+					</div>
+				</div>
+				<div class="row" [hidden]="model.employed !='Retired'">
+					<div class="col-md-5 col-sm-6">
+						<div class="checkbox">
+							<input id="otherIncome" (change)="clearData('otherIncome')" class="styled" type="checkbox" name="otherIncome" value="otherIncome"
+							 [(ngModel)]="model.otherIncome" #otherIncome="ngModel">
+							<label for="otherIncome">Do you receive any income ?</label>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="row" *ngIf="model.otherIncome">
+					<form (ngSubmit)="addOtherIncomeSource()" #basicDetails="ngForm">
+						<div class="col-md-3 col-sm-5 has-min-height-106">
+							<div [hidden]="model.employed =='Retired'">
+								<label class="form-label">Source of other income</label>
+							</div>
+							<div [hidden]="model.employed !='Retired'">
+								<label class="form-label">Source of income</label>
+							</div>
+							<select class="form-control txtbox" required id="otherIncomeSource" name="otherIncomeSource" [(ngModel)]="model.otherIncomeSource"
+							 #otherIncomeSource="ngModel">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let details of otherIncomeSources" [ngValue]= "details.property_desc">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+						</div>
+						<div class="col-md-3 col-sm-5 has-min-height-106">
+							<div class="form-group">
+								<div [ngClass]="{'form-group has-success has-feedback':(otherIncomeEarning.valid && otherIncomeEarning.dirty && !(model.otherIncomeEarning=='0') && !(model.otherIncomeEarning=='null') &&  !(model.otherIncomeEarning=='')) }">
+									<div [ngClass]="{'form-group has-error has-feedback':(otherIncomeEarning.invalid && otherIncomeEarning.dirty )|| model.otherIncomeEarning=='0.00'}">
+										<label for="otherIncomeEarning" class="form-label">How much do you earn ?</label>
+										<div class="input-group">
+											<span class="input-group-addon">A$</span>
+											<input type="text" required class="form-control txtbox" id="otherIncomeEarning" [(ngModel)]="model.otherIncomeEarning" name="otherIncomeEarning"
+											 #otherIncomeEarning="ngModel" maxlength="18" (focus)="revert(otherIncomeEarning.value,'otherIncomeEarning')"  (blur)="AmountFormatter(otherIncomeEarning.value,'otherIncomeEarning')"
+											  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+											<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(otherIncomeEarning.valid  && otherIncomeEarning.dirty && !(model.otherIncomeEarning=='0') && !(model.otherIncomeEarning==null) &&  !(model.otherIncomeEarning==''))}"></span>
+											<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(otherIncomeEarning.invalid && otherIncomeEarning.dirty)|| model.otherIncomeEarning=='0.00'}"></span>
+										</div>
+										<small [hidden]="!((otherIncomeEarning.invalid && otherIncomeEarning.dirty )|| model.otherIncomeEarning=='0.00')" class="text-danger">
+                                 {{configMsg?.amount}}
+                                </small>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-sm-5 has-min-height-106">
+							<label class="form-label">Income frequency</label>
+							<select class="form-control txtbox" required id="otherIncomeFrequency" name="otherIncomeFrequency" [(ngModel)]="model.otherIncomeFrequency"
+							 #otherIncomeFrequency="ngModel">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let details of incomeFrequencies" [ngValue]= "details.property_val">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+						</div>
+						<div class="col-md-3 col-sm-5 has-min-height-106">
+							<div class="sourceIncome-button-wrapper">
+								<input type="submit" class="btn btn-form-primary ladda-button" [disabled]="assetsLength==MaxLimit || model.otherIncomeEarning=='' ||model.otherIncomeEarning==null ||model.otherIncomeFrequency=='' || model.otherIncomeSource==''"
+								 value="ADD">
+							</div>
+						</div>
+					</form>
+					<!--<div class="row">
+						<div class="has-min-height-106">-->
+					<div class="col-md-8 col-sm-8 has-min-height-106" [hidden]="!(otherIncomeDetails.length>0)">
+						<label for="fname" class="form-label">Other Income Source Details</label>
+						<div class="table-responsive">
+							<table class="table-expenses table-bordered">
+								<thead>
+
+									<tr>
+										<th>Source of other income</th>
+										<th>Income</th>
+										<th>Income frequency</th>
+										<th>Actions</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let item of otherIncomeDetails; let i=index">
+										<td>{{item.otherIncomeSource}}</td>
+										<td>{{item.otherIncomeEarning}}</td>
+										<td>{{item.otherIncomeFrequency}}</td>
+										<td>
+											<span (click)="deleteOtherIncome(i)" class="glyphicon glyphicon-trash"></span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<!--</div>
+					</div>-->
+				</div>
+				
+
+				<div class="form-btn-wrapper">
+					 <!--<a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>-->
+					<!--<button type="button" class="btn btn-form-primary" data-toggle="tab" href="#calculator_details" (click)="addClass()" [disabled]="!(employer.valid || companyName.valid )|| !(service.valid || yearsEstablished.valid) || !earnPerMonth.valid"><span class="ladda-label">CONTINUE</span></button> -->
+					<div [hidden]="model.employed =='Retired'">
+						<a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>
+						<button type="button" class="btn btn-form-primary" (click)="addClass()" [disabled]="!(((employer.valid &&service.valid)||(companyName.valid &&yearsEstablished.valid))&&(earnPerMonth.valid &&model.incomeFrequency!=''&&model.earnPerMonth!='0.00'))||
+						((model.secondJob)&&!(model.secondJobIncomeFrequency!=''&&(model.secondJobEarning!='0.00'&&model.secondJobEarning!=null)))
+						||(model.otherIncome)&&!(otherIncomeDetails.length>0)"><span class="ladda-label">CONTINUE</span></button>
+					</div>
+					<div [hidden]="model.employed !='Retired'">
+						<a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>
+						<button type="button" class="btn btn-form-primary" (click)="addClass()" [disabled]="model.retirementYears==''||model.retirementMonths=='' ||((model.secondJob)&&!(model.secondJobIncomeFrequency!=''&&(model.secondJobEarning!='0.00'&&model.secondJobEarning!=null)))
+						||(model.otherIncome)&&!(otherIncomeDetails.length>0)"><span class="ladda-label">CONTINUE</span></button>
+					</div>
+				</div>
+			</div>
+			<div role="tabpanel" class="tab-pane fade remove-style-tab" [ngClass]="{'active':default_tab}" id="calculator_details" aria-labelledby="calculator_details-tab">
+				<div class="row">
+					<div class="col-md-4 col-sm-6 has-min-height-106">
+						<label class="form-label">What is your marital status ?</label>
+						<select class="form-control txtbox" required id="relationshipStatus" name="relationshipStatus" [(ngModel)]="model.relationshipStatus"
+						 #relationshipStatus="ngModel">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let details of relationshipStatuslist" [ngValue]= "details.property_desc">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+					</div>
+					<div class="col-md-4 col-sm-6 has-min-height-106">
+						<label class="form-label">How many dependents do you have ?</label>
+						<select class="form-control txtbox" required id="supportFinancially" name="supportFinancially" [(ngModel)]="model.supportFinancially"
+						 #supportFinancially="ngModel">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let details of numberOfPeople" [ngValue]= "details.property_desc">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+					</div>
+					<div class="col-md-4 col-sm-6 has-min-height-106">
+						<label class="form-label">Do you currently</label>
+						<select class="form-control txtbox" required id="livingType" name="livingType" [(ngModel)]="model.livingType" #livingType="ngModel">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let details of livingTypelist" [ngValue]= "details.property_desc">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 col-sm-6 has-min-height-106">
+						<div class="form-group">
+							<div [ngClass]="{'form-group has-success has-feedback':(rentShare.valid && rentShare.dirty) && !(model.rentShare=='0.00')}">
+								<div [ngClass]="{'form-group has-error has-feedback':(rentShare.invalid && rentShare.dirty )||(model.rentShare=='0.00')}">
+									<label for="rentShare" class="form-label">If you pay, what's your share ?</label>
+									<div class="input-group">
+										<span class="input-group-addon">A$</span>
+										<input type="text" required class="form-control txtbox" id="rentShare" [(ngModel)]="model.rentShare" name="rentShare" #rentShare="ngModel"
+										 maxlength="18" (focus)="revert(rentShare.value,'rentShare')"  (blur)="AmountFormatter(rentShare.value,'rentShare')"
+										 onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+										<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(rentShare.valid  && rentShare.dirty)&& !(model.rentShare=='0.00')}"></span>
+										<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(rentShare.invalid && rentShare.dirty)||(model.rentShare=='0.00')}"></span>
+									</div>
+									<small [hidden]="!((rentShare.invalid && rentShare.dirty )||(model.rentShare=='0.00'))" class="text-danger">
+                                 {{configMsg?.amount}}
+                                </small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-6 has-min-height-106">
+						<label class="form-label">Frequency of rent or board</label>
+						<select class="form-control txtbox" required id="frequencyOfRent" name="frequencyOfRent" [(ngModel)]="model.frequencyOfRent"
+						 #frequencyOfRent="ngModel">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let details of frequencyOfRentlist" [ngValue]= "details.property_val">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+					</div>
+				</div>
+				<div class="row" id="emp-status">
+					<div class="col-md-4 col-sm-6 has-min-height-106">
+						<div class="form-group">
+							<div [ngClass]="{'form-group has-success has-feedback':(monthlyLivingExpenses.valid && monthlyLivingExpenses.dirty)&& !(model.monthlyLivingExpenses=='0.00')  }">
+								<div [ngClass]="{'form-group has-error has-feedback':(monthlyLivingExpenses.invalid && monthlyLivingExpenses.dirty )||(model.monthlyLivingExpenses=='0.00') }">
+									<label for="monthlyLivingExpenses" class="form-label">Enter your known expenses</label>
+									<div class="input-group">
+										<span class="input-group-addon">A$</span>
+										<input type="text" required class="form-control txtbox" id="monthlyLivingExpenses" [disabled]="showCalculator==true" [(ngModel)]="model.monthlyLivingExpenses"
+										 name="monthlyLivingExpenses" #monthlyLivingExpenses="ngModel" maxlength="18" (focus)="revert(monthlyLivingExpenses.value,'monthlyLivingExpenses')"
+										  (blur)="AmountFormatter(monthlyLivingExpenses.value,'monthlyLivingExpenses')"  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+										<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(monthlyLivingExpenses.valid  && monthlyLivingExpenses.dirty)&& !(model.monthlyLivingExpenses=='0.00') }"></span>
+										<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(monthlyLivingExpenses.invalid && monthlyLivingExpenses.dirty)||(model.monthlyLivingExpenses=='0.00') }"></span>
+									</div>
+									<small [hidden]="!((monthlyLivingExpenses.invalid && monthlyLivingExpenses.dirty )||(model.monthlyLivingExpenses=='0.00') ) || showCalculator==true" class="text-danger">
+                                 {{configMsg?.amount}}
+                                </small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-6 has-min-height-106">
+						<label class="form-label">Expense frequency</label>
+						<select class="form-control txtbox" [disabled]='showCalculator==true' required id="expenseFrequency" name="expenseFrequency"
+						 [(ngModel)]="model.expenseFrequency" #expenseFrequency="ngModel">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let details of incomeFrequencies" [ngValue]= "details.property_val">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+						<small [hidden]="expenseFrequency.valid || (expenseFrequency.pristine ) || showCalculator==true" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-5 col-sm-6 ">
+						<span>OR</span>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-md-5 col-sm-6 ">
+						<div *ngIf="showCalculator==false" class="calculator"><img src="/assets/images/calculator.png" alt="calculator" (click)="clearCalculator();showCalculator=true;">&nbsp;&nbsp;&nbsp;&nbsp;
+							<a *ngIf="showCalculator==false" (click)="showCalculator=true;">Let us help you calculate</a>
+						</div>
+						<div *ngIf="showCalculator==true" class="calculator">
+							<img src="/assets/images/calculator.png" alt="calculator" (click)="showCalculator=false;">&nbsp;&nbsp;&nbsp;&nbsp;
+							<a (click)="showCalculator=false;">Hide calculator</a>
+						</div>
+					</div>
+				</div>
+				<br>
+				<div class="row" [hidden]='showCalculator==false'>
+					<calculator></calculator>
+				</div>
+
+
+				<div class="form-btn-wrapper">
+					<a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="moveToDefault()"> </a>
+
+					<!--<a tabindex="0" [routerLink]="['/PersonalBasicInfo']" class="btn btn-icon-back">  <img src="/assets/images/back-icon.svg" alt="back-icon"> </a>-->
+					<!--<a tabindex="0" class="btn btn-form-primary ladda-button" data-style="expand-right" id="contactInfoSubmit"><span class="ladda-label">CONTINUE</span></a>-->
+					<button type="submit" tabindex="0" class="btn btn-form-primary ladda-button" data-dismiss="modal" [ladda]="isLoading" data-style="expand-right"
+					 data-spinner-color="white" [disabled]="model.relationshipStatus==''||model.livingType==''|| model.supportFinancially == ''||model.monthlyLivingExpenses=='' ||model.monthlyLivingExpenses=='0.00' || model.expenseFrequency==''||((model.rentShare==''&&model.rentShare=='0.00')&&!(model.frequencyOfRent!='')) "><span class="ladda-label">CONTINUE</span></button>
+				</div>
+
+			</div>
+		</div>
+	</form>
+</div>

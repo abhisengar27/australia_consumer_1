@@ -1,0 +1,245 @@
+<div data-aos="fade-up">
+  <div class="product-body">
+    <div class="container-fluid" *ngIf="lessIncome">
+      <div class="row">
+        <div class="col-md-12 align_text">
+          <h3>Based on what you have told us we have estimated your monthly expenditure</h3>
+
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8 top_margin5">
+          <div class="info-alert  center-msg ">
+            <div class="alert-msg">
+              <h5> Your maximum borrowing power is <b>{{maximumBorrower}}</b>. Choose either of the below options to proceed</h5>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-12 align_text top_margin20">
+          <div>
+            <div class="col-md-1">
+              <a class="btn btn-icon-back" tabindex="0"> <img alt="back-icon" src="/assets/images/back-icon.svg" (click)="goBack()"> </a>
+            </div>
+
+
+            <div class="col-md-5">
+              <div>
+                <h4>Do you want to change your loan?</h4>
+
+                <input type="submit" class="btn btn-default" (click)="gotoLoan()" data-dismiss="modal" value="CHANGE LOAN" />
+              </div>
+            </div>
+            <div *ngIf="model.jointEmailOrComp==false">
+              <div class="col-md-1 expense_or">
+                <hr class="visible-xs">
+                <div class="or_circle" id="or">
+
+                  <p>or</p>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div>
+                  <h4>Do you want to apply with someone else?</h4>
+
+                  <input type="submit" class="btn btn-default" data-dismiss="modal" value="ADD DETAILS" class="btn btn-default">
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+            <!--<button type="button" tabindex="0" class="btn btn-form-primary ladda-button" data-dismiss="modal" [ladda]="isLoading" data-style="expand-right"
+        data-spinner-color="white" (click)="gotoLoan()"><span class="ladda-label">CONTINUE</span></button>
+              <!--<a class="skip-btn" data-toggle="modal" data-dismiss="modal" (click)="gotoLoan()">CHANGE YOUR LOAN</a>-->
+
+
+            <!--<button type="button" tabindex="0" class="btn btn-form-primary ladda-button" data-dismiss="modal" [ladda]="isLoading" data-style="expand-right"
+        data-spinner-color="white" (click)="onSubmitMain()"><span class="ladda-label">CONTINUE</span></button>-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid" *ngIf="!lessIncome">
+    <div class="row">
+      <div class="col-md-12 align_text">
+        <h3>Based on what you have told us we have estimated your monthly expenditure</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2" *ngIf="chart_Flag">
+
+      </div>
+      <div class="col-md-4" *ngIf="chart_Flag">
+        <div class="graph_text">
+          <p class="graph_text2">your monthly leftover after making these loan repayments is </p>
+          <p>{{total_remaining_show}}</p>
+        </div>
+        <canvas baseChart [data]="barChartData" [labels]="barChartLabels" [colors]="chartColors" [chartType]="barChartType" [options]="options"></canvas>
+
+      </div>
+      <div class="col-md-6 " *ngIf="chart_Flag">
+        <div class="row align_text">
+          <span class="span_loan_link">Would you like to change the loan amount ? <br> <a class="loan_link" (click)="gotoLoan()">Click here to change the loan option</a></span>
+          <p class="maxBorrower totalAmount">Your maximum borrowing power is {{this.maximumBorrower}}</p>
+        </div>
+        <div class="row top_margin15">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-1">
+            <span class="rect_box orange"></span>
+          </div>
+          <div class="col-md-9  top_margin5">
+            <span>Your new monthly loan repayment is <span class="bold_font totalAmount">{{total_emi_show}}</span></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-1">
+            <span class="rect_box green"></span>
+          </div>
+          <div class="col-md-9 top_margin5">
+            <span> Your monthly expense is  <span class="bold_font totalAmount">{{total_expense_show}}</span></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-1">
+            <span class="rect_box violet"></span>
+          </div>
+          <div class="col-md-9 top_margin5">
+            <span>Your monthly left over is <span class="bold_font totalAmount">{{total_remaining_show}}</span></span>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-btn-wrapper">
+          <a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="goBack()"> </a>
+          <button type="button" tabindex="0" class="btn btn-form-primary ladda-button" data-dismiss="modal" [ladda]="isLoading" data-style="expand-right"
+            data-spinner-color="white" (click)="onSubmitMain()"><span class="ladda-label">CONTINUE</span></button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- //Page Content -->
+<!-- //wrapper -->
+<div id="success" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-pop matching-customer-details">
+    <!-- Modal content-->
+    <div class="modal-content ">
+      <div class="modal-body">
+        <div class="success-modal">
+          <button type="button" class="close" data-dismiss="modal" [routerLink]="['/home']" (click)="clear()"><img src="/assets/images/close.svg" alt=""></button>
+          <div class="center-content">
+            <span class="info-icon successicon"><img src="/assets/images/success.svg" alt=""></span>
+            <h2>Success!</h2>
+            <h4>Your {{model.product_type}} request has been submitted successfully.</h4>
+            <!--<div class="existing-member-login">
+              <div class="info-alert  center-msg">
+              	<div class="alert-msg"> {{inf_loan}}
+              	</div>
+              	<div class="clearfix"></div>
+              </div>
+              </div>-->
+          </div>
+          <div>
+            <!--<div class="existing-member-login">
+              <div [hidden]="userExistingFlag" class="info-alert  center-msg">
+                  <div  class="alert-msg"> {{inf_003}}
+                  </div>
+                  <div class="clearfix"></div>
+              </div>
+              </div>-->
+            <ul>
+              <li>You will receive all the details on your registered email address.</li>
+              <li>You can check the status of your application through our chat bot feature.</li>
+              <li>For any other issues You can call our customer care number 14000012222 .</li>
+            </ul>
+            <!--<div class="customer-details">
+              <div class="details-label">
+              	<p class="cust-id">Application Reference</p>
+              </div>
+              <div class="sybmol">
+              	<p class="cust-id"> :</p>
+              </div>
+              <div class="cus-details-value">
+              	<p class="cust-id"><strong>{{model.application_id}}</strong></p>
+              </div>
+              <div class="clearfix"></div>
+              </div>-->
+            <a [routerLink]="['/home']" class="regbtn align_anchor_2" data-dismiss="modal" (click)="clear()">HOME</a>
+            <a [hidden]="true" id="mlogin" [routerLink]="['/login']" class="regbtn align_anchor_2" (click)="clear()" data-dismiss="modal">LOGIN</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="onlineid-check" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-pop matching-customer-details">
+    <!-- Modal content-->
+    <div class="modal-content ">
+      <div class="modal-body">
+        <div class="matching-customer-des ">
+          <div>
+            <h3>ID Check</h3>
+
+            <p>Consent for this Electronic Verification of Identity</p>
+            <p>The Anti-Money Laundering and Counter-Terrorism Financing Act 2006 requires Bank Australia to verify your identity
+              before providing you with any of its financial services for the first time.
+            </p>
+            <p>
+              By selecting "YES" you consent to Bank Australia verify your identity by having a credit reporting agency check your personal
+              information(name,address and date of birth)aginst personal information files held by the credit reporting agency.This
+              will not be recorded as enquiry on your personal credit information file.
+            </p>
+            <div class="row" style="margin-bottom:10px">
+              <div class="col-md-12">
+                <input type="radio" class="styled" name="consent" (click)="setNextFlag('yes')" id="consentyes" [(ngModel)]="nextflag" value="yes">&nbsp;<b>Yes</b>                , I would like to use Electronic Verifcation</div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <input type="radio" class="styled" name="consent" (click)="setNextFlag('no')" id="consentno" [(ngModel)]="nextflag" value="no">&nbsp;<b>No</b>,
+                I would like to skip this check and I am aware the account would be opened with debit freeze mode and would
+                be enabled post ID check validation by submitting documents to bank manually
+              </div>
+            </div>
+            <div *ngIf="flagStatus=='yes'" class="online-check-links">
+              <a [routerLink]="['../onlineIdCheck']" class="btn btn-form-primary" data-dismiss="modal">NEXT</a>
+            </div>
+            <div *ngIf="flagStatus=='no'" class="online-check-links">
+              <a class="btn btn-form-primary" data-toggle="modal" data-dismiss="modal" (click)="successAccount()">NEXT</a>
+            </div>
+            <!--<div class="center-content">
+              <span class="info-icon"><img src="/assets/images/onlineid-user.svg" alt=""></span>
+              <h2>Please perform an <br> online ID check
+              </h2>
+              <div class="online-check-links"> <a [hidden]="isAdmin" class="skip-btn" data-toggle="modal" data-dismiss="modal" (click)="successAccount()">skip</a>
+              	<a [routerLink]="['../onlineIdCheck']" class="btn btn-form-primary" data-dismiss="modal">CHECK NOW</a>
+              </div>
+              <br>
+              <br>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+doctype html
+html
+  head
+    title
+    style(type='text/css').
+      table{
+      border-collapse: collapse !important;
+      border:none;
+      }
+      td {
+      border-collapse: collapse;
+      border-spacing: 0;
+      margin: 0;
+      padding: 0;
+      border:none;
+      }
+      img{
+      display: block;
+      }
+      .divImg{
+      height:371px;
+      width:128px;
+      background-color:#054a8b;
+      }
+      .header-width > img {
+      height:372px;
+      }
+      .ptag{
+      height:371px;
+      font-size:20px;
+      width:862px;
+      padding-left:10px;
+      background-color: #eeeeee !important;
+      }
+  body
+    table
+      tr
+        td
+          table
+            tr
+              
+              td.header-width.img-responsive
+                img(src='https://empoweronboardaus.herokuapp.com/assets/images/header.jpg')
+      tr
+        td
+          table
+            tr
+              
+              td.ptag
+                p
+                  | Dear  #{data.fname} #{data.lname},
+                  br
+                  br
+                  | Admin has taken over the ownership of your #{data.product_name} application.
+                  br
+                  br
+                  br
+                  |                 Warm Regards,
+                  br
+                  |                 Latitude Bank
+      tr
+      tr
+        table
+          tr
+            
+            td.header-width.img-responsive
+              img(src='https://empoweronboardaus.herokuapp.com/assets/images/stamp.jpg')
+      tr

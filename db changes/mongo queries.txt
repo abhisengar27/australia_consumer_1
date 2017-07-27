@@ -1,0 +1,154 @@
+date:7/May/2017
+//query to change ONBOARD in existing records to ONB.
+var bulk = db.oaoapplicants.initializeUnorderedBulkOp();
+bulk.find( { application_status:"ONBOARD" } ).update( { $set: { application_status:"ONB" } } );
+bulk.execute();
+
+
+
+date: 10/May/2017
+Removed application id from modal,hence to change message in db
+//This is your application reference number. Don't worry, we have sent this to your email & phone. 
+db.getCollection("oaopropertydetails").update({property_type:"INFO_MESSAGE",property:"INF_001"}, {
+    $set: {
+        "property_value": "We have sent you details on your registered email and phone.",
+        "property_desc": "We have sent you details on your registered email and phone."
+    }
+})
+
+26/06/2017
+
+TXN Values changed
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Aged Pension", 
+   property_value:"AGE"
+
+}])
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Carer’s Pension", 
+   property_value:"CAR"
+
+}])
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Invalid Pension", 
+   property_value:"INV"
+
+}])
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Other/Unknown", 
+   property_value:"OTH"
+
+}])
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Special Benefit", 
+   property_value:"SPB"
+
+}])
+
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Service/Veteran’s Pension", 
+   property_value:"SER"
+
+}])
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Rehabilitation Allowance", 
+   property_value:"REH"
+
+}])
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Provision Consumer/Business Finance", 
+   property_value:"FIN"
+
+}])
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Sole Parent’s Pension", 
+   property_value:"SOL"
+
+}])
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Widow’s Pension", 
+   property_value:"WID"
+
+}])
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Not Required to Lodge", 
+   property_value:"NRL"
+
+}])
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Non Profit Organisation", 
+   property_value:"NPO"
+
+}])
+Wife’s Pension
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Government Bodies", 
+   property_value:"GOV"
+
+}])
+db.oaopropertydetails.insert([{
+   property_type:'commonCodes',
+   property:"EXRSN" ,
+   property_desc:"Wife’s Pension", 
+   property_value:"WIF"
+
+}])
+
+
+27 june 2017
+frequency type update
+{
+    "_id": {
+        "$oid": "593e7cf78431a61f4cf1c7c5"
+    },
+    "property": "frequency_type",
+    "property_desc": "Monthly",
+    "property_type": "commonCodes",
+    "propertyValue": "month"
+}
+
+{
+    "_id": {
+        "$oid": "593e7d5e8431a61f4cf1c7c7"
+    },
+    "property": "frequency_type",
+    "property_desc": "Fortnightly",
+    "property_type": "commonCodes",
+    "propertyValue": "fortnight"
+}
+
+{
+    "_id": {
+        "$oid": "593e7d6f8431a61f4cf1c7c8"
+    },
+    "property": "frequency_type",
+    "property_desc": "Weekly",
+    "property_type": "commonCodes",
+    "propertyValue": "week"
+}

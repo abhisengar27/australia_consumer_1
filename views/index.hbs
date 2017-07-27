@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Empower Onboarding</title>
+	<!-- Global stylesheets -->
+	<link href="/assets/css/normalize.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="/assets/fonts/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	{{!--<link href="/assets/css/styles.css" rel="stylesheet" type="text/css">--}}
+	<link href="/assets/css/{{style}}.css" rel="stylesheet" type="text/css">
+
+	<link rel="icon" href="/assets/images/Latitude_Bird.png" type="image/x-icon">
+	<link href="/assets/css/bootstrapValidator.min.css" rel="stylesheet" type="text/css">
+	<link href="/assets/css/jquery-ui.css" rel="stylesheet" type="text/css">
+	
+	<link id="custStyle"  rel="stylesheet" type="text/css">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.0/ladda-themeless.min.css" />
+	<!-- /global stylesheets -->
+	<link href="https://kleber.datatoolscloud.net.au/jquery19/themes/base/jquery.ui.all.css" rel="stylesheet">
+    <script src="https://kleber.datatoolscloud.net.au/jquery19/jquery-1.9.1.js"></script>
+    <script src="https://kleber.datatoolscloud.net.au/jquery19/ui/jquery.ui.core.js"></script>
+    <script src="https://kleber.datatoolscloud.net.au/jquery19/ui/jquery.ui.widget.js"></script>
+    <script src="https://kleber.datatoolscloud.net.au/jquery19/ui/jquery.ui.position.js"></script>
+    <script src="https://kleber.datatoolscloud.net.au/jquery19/ui/jquery.ui.autocomplete.js"></script>
+    <script src="https://kleber.datatoolscloud.net.au/jquery19/ui/jquery.ui.menu.js"></script>
+	
+	<!-- Core JS files -->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCTronau8fMVZhCPslboe6j8-uTkyYQxrw"></script>
+	<script type="text/javascript" src="/assets/js/vendor/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="/assets/js/vendor/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+	<script type="text/javascript" src="/assets/js/vendor/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/js/main.js"></script>
+
+	<script src="node_modules/chart.js/dist/Chart.bundle.min.js"></script>
+	<script src="/assets/js/vendor/bootstrapValidator.min.js"></script>
+
+	<script src="/assets/js/vendor/jquery-ui.js"></script>
+	<script src="/assets/js/vendor/jquery.toaster.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.0/spin.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Ladda/1.0.0/ladda.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="/node_modules/angular2-busy/build/style/busy.css">
+	<link type="text/css" href="node_modules/@angular/material/core/theming/prebuilt/indigo-pink.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script type="text/javascript" src="//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.8"></script>
+</head>
+<base href="/">
+
+<body>
+	<script type="text/javascript">
+		if (window.self !== window.top) {
+			window.top.location.href = window.location.href;
+		}
+	</script>
+	<my-app>
+		<div class="loading">
+			<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+			<span class="sr-only">Loading...</span>
+		</div>
+	</my-app>
+	{{!--<script src="/javascripts/app/bundle.js"></script>--}}
+	<script src="/javascripts/app/{{bundle}}.js"></script>
+	<link href="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.css" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+	<script>
+		AOS.init({
+			duration: 700
+		});
+	</script>
+	<script src="/assets/js/vendor/ga-analytics.js"></script>
+	<script>
+				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-100633572-1', 'auto');
+	</script>
+
+	<div class="skype-button bubble" data-bot-id="1ada6f12-9957-4809-bcff-121bf4076b87"></div>
+	<script src="https://swc.cdn.skype.com/sdk/v1/sdk.min.js"></script>
+</body>
+
+</html>

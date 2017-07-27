@@ -1,0 +1,12 @@
+node_modules/
+.svn/
+*.log
+.vscode/
+public/javascripts/app/bundle.js
+npm-debug.log*
+public/javascripts/app/bundleDefault.js
+public/javascripts/app/bundleTheme1.js
+public/uploads/
+
+
+

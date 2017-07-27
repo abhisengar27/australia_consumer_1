@@ -1,0 +1,128 @@
+{
+    "Production_Mode":"N",
+    "name":"Only letters & apostrophe are allowed & not empty.",
+    "dob":"Select a date",
+    "mobile":"Mobile number should be 04XXXXXXXX",
+    "email":"Enter in abc@xyz.com format & not empty ",
+    "address":"This is a required field",
+    "passportNum":"This is a required field and the Format A1234567",
+    "dlNum":"This is a required field and the Format 0123456789",
+    "required_v":"This is a required field",
+    "title":"Title is required",
+    "tfn":"Enter in 123456789 format",
+    "number1_99":"The number must be between 1-99 and not empty",
+    "number1_9999":"Year must be between 1000-9999 and not empty",
+    "amount":"Amount should lie between range of $1000 & $100000 & not empty",
+    "mname":"Only letters and apostrophe are allowed.",
+    "refnumber":"Refrence number should be single digit",
+    "wrongDetails":"Please enter the valid combination of Mobile number and Date of birth.",
+    "savedApplication":"Your application is already submitted",
+    "addrNotFound":"Please enter valid home address",
+    "propAddressNotFound":"Please enter valid property address",
+    "PaddrNotFound":"Please enter valid postal address",
+    "OTPContent":"Your one time password (OTP) is ",
+    "sameAddress":"Entered address same as current address",
+	"office365LoginEnabled":"N",
+    "dupmobile":"Both the applicants can't have same mobile number",
+    "dupemail":"Both the applicants can't have same email-id",
+    "frequency":"Select a expense frequency",
+    "postcode":"Please enter postcode in XXXX format",
+    "otp":"Oops, this is incorrect OTP",
+    "url":{
+           "mongoDB":"mongodb://sysdba:sysdba@ds131139.mlab.com:31139/mlabdb",
+            "gmailID":"latitudefintechaustralia@gmail.com",
+            "gmailPassword":"latitude@06",
+            "host":"smtp.gmail.com",
+            "port":"465",
+            "cmis_alfresco_url":"http://106.51.72.98:8180/alfresco/cmisbrowser",
+            "alfresco_username":"empOnbrdAus",
+            "alfresco_password":"admin",
+            "alfresco_folder_id":"87e592fc-c134-4b05-bf8e-ee1cc5f47ad9",
+            "clientUrl":"http://localhost:3000",
+            "adminUrl":"http://localhost:3001",
+            "msgMediaUsername":"g8KQ9YoUolQQA732Ij5P",
+            "msgMediaPassword":"VFVKtJCYtLg278D1xo73LqgcSW8SSW"			
+    },
+    "THEMES": {
+        "EmpowerDefault": {"bundle":"bundleDefault", "style":"stylesDefault"},
+        "EmpowerTheme1": {"bundle":"bundleTheme1", "style":"stylesTheme1"}
+    },
+    "SAV": {
+        "section_1": {
+            "name": "Personal Information",
+            "route_v": "personalContactInfo",
+            "value": 1
+        },
+        "section_2": {
+            "name": "Tax Information",
+            "route_v": "taxInformation",
+            "value": 2
+        },
+        "section_3": {
+            "name": "Identity Information",
+            "route_v": "onlineIdCheck",
+            "value": 3
+        },
+        "section_4": {
+            "name": "Register for Internet Banking",
+            "route_v": "passwordSetup",
+            "value": 4
+        }
+
+    },
+
+    "HML": {
+        "section_1": {
+            "name": "Personal Information",
+            "route_v": "personalContactInfo",
+            "value": 1
+        },
+        "section_2": {
+            "name": "Loan Details",
+            "route_v": "propertyDetails",
+            "value": 2
+        },
+        "section_3": {
+            "name": "Financial Wellbeing",
+            "route_v": "incomeExpense",
+            "value": 3
+        },
+
+        "section_4": {
+            "name": "Identity Information",
+            "route_v": "onlineIdCheck",
+            "value": 4
+        }
+
+    },
+    "PRL": {
+        "section_1": {
+            "name": "Personal Information",
+            "route_v": "personalContactInfo",
+            "value": 1
+        },
+        "section_2": {
+            "name": "Loan Details",
+            "route_v": "personalLoanDetails",
+            "value": 2
+        },
+        "section_3": {
+            "name": "Financial Wellbeing",
+            "route_v": "incomeExpense",
+            "value": 3
+        },
+        "section_4": {
+            "name": "Identity Information",
+            "route_v": "onlineIdCheck",
+            "value": 4
+        }
+
+    },
+    "number_of_sections": {
+        "SAV": "3",
+        "HML": "4",
+        "PRL": "4"
+    },
+    "dataToolsRequestKey": "RK-93046-290D5-8CC6B-0D9DC-17F3C-BF4B3-427EC-58A53",
+	"siteKeyReCaptcha":"6LeYfhsUAAAAAAh3JolAhqh-d07JQgtlEhUtiTgT"
+}

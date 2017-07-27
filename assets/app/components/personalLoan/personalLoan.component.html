@@ -1,0 +1,173 @@
+<div data-aos="fade-up">
+<h3 class="card-title page-heading-mobile"  data-step="2">
+	Loan Details</h3>
+<!--<div class="contact-info">-->
+<!--<h6 class="form-heading">Property Details </h6>-->
+<form class="form" (ngSubmit)="onSubmit(basicDetails.value)" #basicDetails="ngForm">
+
+		<div class="row">
+			<div class="col-md-4 col-sm-6  has-min-height-106">
+				<div [ngClass]="{'form-group has-success has-feedback':(amtborrow.valid && amtborrow.dirty && showAmountErrorMessage==true) }">
+					<div [ngClass]="{'form-group has-error has-feedback':((amtborrow.invalid && amtborrow.dirty) || showAmountErrorMessage==false)}">
+						<label for="amtborrow" class="form-label">How much do you need to borrow?</label>
+						<div class="input-group">
+							<span class="input-group-addon">A$</span>
+							<input type="text" required class="form-control txtbox saveInfo" id="amtborrow" [(ngModel)]="model.amtborrow" name="amtborrow"
+								#amtborrow="ngModel" maxlength="18" (focus)="revert(amtborrow.value,'amtborrow')"  (blur)="AmountFormatter(amtborrow.value,'amtborrow')"
+								(keyup)='checkAmount($event.target.value)' onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+							<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(amtborrow.valid && amtborrow.dirty && showAmountErrorMessage==true)}"></span>
+							<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':((amtborrow.invalid && amtborrow.dirty) || showAmountErrorMessage==false)}"></span>
+						</div>
+						
+						<small [hidden]="showAmountErrorMessage && (amtborrow.valid || amtborrow.pristine)" class="text-danger">
+                                 {{configMsg?.amount}}
+                                </small>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 col-sm-6">
+			<div class="form-group">
+				<label for="loanterm" class="form-label">Choose a loan term</label>
+				<select class="form-control txtbox" required id="loanterm" name="loanterm" [(ngModel)]="model.loanterm" #loanterm="ngModel">
+                                        <option value="0">Select</option>
+                                        <option *ngFor="let details of loanTerm" [ngValue]= "details.prop_val"  >
+                                                  {{details.prop_desc}} 
+                                        </option>
+                              </select>
+				<small [hidden]="loanterm.valid || (loanterm.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+			</div>
+		</div>
+	</div>
+
+		<div class="row">
+			<div class="col-md-4 col-sm-6">
+				<label class="form-label">How frequently do you want to make repayments?</label>
+				<select class="form-control txtbox" required id="frequencyType" name="frequencyType" [(ngModel)]="model.frequencyType" #frequencyType="ngModel">
+                                        <option value="">Select</option>
+                                        <option *ngFor="let details of frequencyTypes" [ngValue]= "details.property_desc">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+				<small [hidden]="frequencyType.valid || (frequencyType.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+			</div>
+		</div>
+		<!--<h6 class="form-label">How frequently do you want to make repayments?</h6>
+
+				<label class="form-label spaces radio-toolbar" for="frequencyType1" [ngClass]="{'highlightradio':model.frequencyType=='Monthly'}">
+                                   <div class="form-group ">
+                                    <input type="radio" class="styled"  name="frequencyType" [checked] id="frequencyType1" [(ngModel)]="model.frequencyType" value="Monthly">
+                                   Monthly  
+                                   </div>
+                                </label>
+				<label class="form-label spaces radio-toolbar" for="frequencyType2" [ngClass]="{'highlightradio':model.frequencyType=='Fortnightly'}">
+                                        <div class="form-group ">
+                                    <input type="radio" class="styled" name="frequencyType" id="frequencyType2" [(ngModel)]="model.frequencyType" value="Fortnightly">
+                                   Fortnightly
+                                        </div>
+                                </label>
+				<label class="form-label  radio-toolbar" for="frequencyType3" [ngClass]="{'highlightradio':model.frequencyType=='Weekly'}">
+                                    <div class="form-group  ">
+                                 <input type="radio"  class="styled" name="frequencyType" id="frequencyType3" [(ngModel)]="model.frequencyType" value="Weekly">
+                                    Weekly
+                                    </div>
+                                </label>-->
+
+
+		
+		<!--<p>for calculation of loan amount</p>-->
+		<!--<div class="col-lg-6 esitmated-repay">
+									<p id="month" [hidden]="!model.frequencyType=='Monthly' || model.frequencyType=='Weekly' || model.frequencyType=='Fortnightly'" class="repay-text">Repayments $1,282 @ Fixed rate of4.65% p.a. </p>
+									<p id="fort" [hidden]="!model.frequencyType=='Fortnightly' || model.frequencyType=='Monthly' || model.frequencyType=='Weekly' " class="repay-text"> Repayments $591 @ Fixed rate of4.65% p.a</p>
+									<p id="week" [hidden]="!model.frequencyType=='Weekly' || model.frequencyType=='Fortnightly' || model.frequencyType=='Monthly'" class="repay-text">Repayments $295 @ Fixed rate of4.65% p.a.</p>
+						</div>-->
+
+		<!-- loan reason -->
+		<br>
+		<div class="row">
+			<div class="col-md-4 col-sm-6">
+				<label class="form-label">Purpose of loan</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-sm-6">
+				<div class="checkbox">
+					<input id="car" class="styled" type="checkbox" name="car" value="car" [(ngModel)]="loan_reason_v.car" #car="ngModel">
+					<label for="car">Car</label>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="checkbox">
+					<input id="bike" class="styled" type="checkbox" value="Motor_bike_Boat_Caravan" name="bike" [(ngModel)]="loan_reason_v.bike"
+						#bike="ngModel">
+					<label for="bike">Motor bike/ Boat/ Caravan</label>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="checkbox">
+					<input id="debt" class="styled" type="checkbox" value="Consolidating_debt" name="debt" [(ngModel)]="loan_reason_v.debt" #debt="ngModel">
+					<label for="debt">Consolidating debt</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-sm-6">
+				<div class="checkbox">
+					<input id="Holiday" class="styled" type="checkbox" value="Holiday" name="Holiday" [(ngModel)]="loan_reason_v.Holiday" #Holiday="ngModel">
+					<label for="Holiday">Holiday</label>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="checkbox">
+					<input id="Home_renovations" class="styled" type="checkbox" value="Home_renovations" name="Home_renovations" [(ngModel)]="loan_reason_v.Home_renovations"
+						#Home_renovations="ngModel">
+					<label for="Home_renovations">Home renovations</label>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="checkbox">
+					<input id="Household_personal_items" class="styled" type="checkbox" value="Household_personal_items" name="Household_personal_items"
+						[(ngModel)]="loan_reason_v.Household_personal_items" #Household_personal_items="ngModel">
+					<label for="Household_personal_items">Household or personal items</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-sm-6">
+				<div class="checkbox">
+					<input id="Education" class="styled" type="checkbox" value="Education" name="Education" [(ngModel)]="loan_reason_v.Education"
+						#Education="ngModel">
+					<label for="Education">Education</label>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="checkbox">
+					<input id="Wedding_Funerals" class="styled" type="checkbox" value="Wedding_Funerals" name="Wedding_Funerals" [(ngModel)]="loan_reason_v.Wedding_Funerals"
+						#Wedding_Funerals="ngModel">
+					<label for="Wedding_Funerals">Wedding/Funerals</label>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="checkbox">
+					<input id="Others" class="styled" type="checkbox" value="Others" name="Others" [(ngModel)]="loan_reason_v.Others" #Others="ngModel">
+					<label for="Others">Others</label>
+				</div>
+			</div>
+		</div>
+		<!--// loan reason -->
+
+	<div class="form-btn-wrapper">
+		<a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>
+		<!--<a tabindex="0" [routerLink]="['/PersonalBasicInfo']" class="btn btn-icon-back">  <img src="/assets/images/back-icon.svg" alt="back-icon"> </a>-->
+		<!--<a tabindex="0" class="btn btn-form-primary ladda-button" data-style="expand-right" id="contactInfoSubmit"><span class="ladda-label">CONTINUE</span></a>-->
+		<button type="submit" tabindex="0" class="btn btn-form-primary ladda-button" data-dismiss="modal" [ladda]="isLoading" data-style="expand-right"
+			data-spinner-color="white" [disabled]="!amtborrow.valid || model.loanterm=='0'"><span class="ladda-label">CONTINUE</span></button>
+	</div>
+</form>
+</div>
+<!--</div>-->
+
+<!-- //wrapper -->

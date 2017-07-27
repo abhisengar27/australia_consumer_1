@@ -1,0 +1,91 @@
+doctype html
+html
+  head
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', integrity='sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ', crossorigin='anonymous')
+    script(src='https://code.jquery.com/jquery-3.1.1.slim.min.js', integrity='sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n', crossorigin='anonymous')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js', integrity='sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb', crossorigin='anonymous')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js', integrity='sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn', crossorigin='anonymous')
+    title
+    style(type='text/css').
+      table{
+      border-collapse: collapse !important;
+      border:none;
+      }
+      td {
+      border-collapse: collapse;
+      border-spacing: 0;
+      margin: 0;
+      padding: 0;
+      border:none;
+      }
+      img{
+      display: block;
+      }
+      .divImg{
+      height:371px;
+      width:128px;
+      background-color:#054a8b;
+      }
+      .header-width > img {
+      height:371px;
+      }
+      .ptag{
+      height:371px;
+      font-size:20px;
+      width:862px;
+      padding-left:10px;
+      background-color: #eeeeee !important;
+      }
+  body
+    table
+      tr
+        table
+          tr
+            
+            td.header-width
+              img(src='https://empoweronboardaus.herokuapp.com/assets/images/header.jpg')
+      tr
+        td
+          table
+            tr
+              
+              td.ptag
+                p
+                 if(data.product_type_code === 'HML' || data.product_type_code === 'PRL'||(data.product_type_code === 'SAV' && (data.application_status === 'VER' || data.application_status === 'CMP')) )
+                              | Dear #{data.fname} #{data.lname},
+                              br
+                              br
+                              | Your Online Account Opening for #{data.product_name} Application has been successfully submitted for Processing.
+                              br
+                              br
+                              br
+                              | Warm Regards,
+                              br
+                              | Latitude Bank
+                            else   
+                              | Dear #{data.fname} #{data.lname},
+                              br
+                              br
+                              | Your Online Account Opening for #{data.product_name} Application has been successfully submitted.
+                              br
+                              br
+                              br
+                              | BSB Number : #{data.bsb_number}
+                              br
+                              br
+                              | Account Number : #{data.core_account_number}
+                              br
+                              br
+                              | Customer ID : #{data.core_customer_id}
+                              br
+                              br
+                              br
+                              | Warm Regards,
+                              br
+                              | Latitude Bank
+      tr
+        table
+          tr
+            
+            td.header-width
+              img(src='https://empoweronboardaus.herokuapp.com/assets/images/footerempty.jpg')

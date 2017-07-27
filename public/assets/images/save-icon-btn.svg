@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="26px" viewBox="0 0 25 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>noun_325133_cc</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M19.3028571,0 L18.122449,0 L4.40816327,0 L0,0 L0,24 L3.42857143,24 L19.5918367,24 L23.5102041,24 L23.5102041,4.20734694 L19.3028571,0 Z M17.1428571,0.979591837 L17.1428571,7.83673469 L5.3877551,7.83673469 L5.3877551,0.979591837 L17.1428571,0.979591837 Z M4.40816327,23.0204082 L4.40816327,13.7142857 L18.6122449,13.7142857 L18.6122449,23.0204082 L4.40816327,23.0204082 Z M22.5306122,23.0204082 L19.5918367,23.0204082 L19.5918367,12.7346939 L3.42857143,12.7346939 L3.42857143,23.0204082 L0.979591837,23.0204082 L0.979591837,0.979591837 L4.40816327,0.979591837 L4.40816327,8.81632653 L18.122449,8.81632653 L18.122449,0.979591837 L18.9012245,0.979591837 L22.5306122,4.60897959 L22.5306122,23.0204082 Z" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-0.15" y="-0.15" width="23.8102041" height="24.3">
+            <rect x="-0.15" y="-0.15" width="23.8102041" height="24.3" fill="white"></rect>
+            <use xlink:href="#path-1" fill="black"></use>
+        </mask>
+        <path d="M6.36734694,16.1632653 L9.79591837,16.1632653 C10.0653061,16.1632653 10.2857143,15.9428571 10.2857143,15.6734694 C10.2857143,15.4040816 10.0653061,15.1836735 9.79591837,15.1836735 L6.36734694,15.1836735 C6.09795918,15.1836735 5.87755102,15.4040816 5.87755102,15.6734694 C5.87755102,15.9428571 6.09795918,16.1632653 6.36734694,16.1632653 Z" id="path-3"></path>
+        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-0.15" y="-0.15" width="4.70816327" height="1.27959184">
+            <rect x="5.72755102" y="15.0336735" width="4.70816327" height="1.27959184" fill="white"></rect>
+            <use xlink:href="#path-3" fill="black"></use>
+        </mask>
+        <path d="M11.2653061,17.1428571 L6.36734694,17.1428571 C6.09795918,17.1428571 5.87755102,17.3632653 5.87755102,17.6326531 C5.87755102,17.9020408 6.09795918,18.122449 6.36734694,18.122449 L11.2653061,18.122449 C11.5346939,18.122449 11.755102,17.9020408 11.755102,17.6326531 C11.755102,17.3632653 11.5346939,17.1428571 11.2653061,17.1428571 Z" id="path-5"></path>
+        <mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-0.15" y="-0.15" width="6.17755102" height="1.27959184">
+            <rect x="5.72755102" y="16.9928571" width="6.17755102" height="1.27959184" fill="white"></rect>
+            <use xlink:href="#path-5" fill="black"></use>
+        </mask>
+        <path d="M12.3869388,17.284898 C12.2987755,17.3779592 12.244898,17.5053061 12.244898,17.6326531 C12.244898,17.76 12.2987755,17.8873469 12.3869388,17.9804082 C12.48,18.0685714 12.602449,18.122449 12.7346939,18.122449 C12.8620408,18.122449 12.9893878,18.0685714 13.082449,17.9804082 C13.1706122,17.8873469 13.2244898,17.76 13.2244898,17.6326531 C13.2244898,17.5053061 13.1706122,17.3779592 13.082449,17.284898 C12.9012245,17.1036735 12.5681633,17.1036735 12.3869388,17.284898 Z" id="path-7"></path>
+        <mask id="mask-8" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-0.15" y="-0.15" width="1.27959184" height="1.27346939">
+            <rect x="12.094898" y="16.9989796" width="1.27959184" height="1.27346939" fill="white"></rect>
+            <use xlink:href="#path-7" fill="black"></use>
+        </mask>
+        <path d="M16.1632653,1.95918367 L13.2244898,1.95918367 L13.2244898,6.85714286 L16.1632653,6.85714286 L16.1632653,1.95918367 Z M15.1836735,5.87755102 L14.2040816,5.87755102 L14.2040816,2.93877551 L15.1836735,2.93877551 L15.1836735,5.87755102 Z" id="path-9"></path>
+        <mask id="mask-10" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="-0.15" y="-0.15" width="3.23877551" height="5.19795918">
+            <rect x="13.0744898" y="1.80918367" width="3.23877551" height="5.19795918" fill="white"></rect>
+            <use xlink:href="#path-9" fill="black"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="04_Button_with_icon_desgn_1-Copy" transform="translate(-654.000000, -517.000000)">
+            <g id="noun_325133_cc" transform="translate(655.000000, 518.000000)">
+                <g id="Group">
+                    <g id="Shape">
+                        <g>
+                            <use fill="#83919E" fill-rule="evenodd" xlink:href="#path-1"></use>
+                            <use stroke="#83919E" mask="url(#mask-2)" stroke-width="0.3" xlink:href="#path-1"></use>
+                        </g>
+                        <g>
+                            <use fill="#83919E" fill-rule="evenodd" xlink:href="#path-3"></use>
+                            <use stroke="#83919E" mask="url(#mask-4)" stroke-width="0.3" xlink:href="#path-3"></use>
+                        </g>
+                        <g>
+                            <use fill="#83919E" fill-rule="evenodd" xlink:href="#path-5"></use>
+                            <use stroke="#83919E" mask="url(#mask-6)" stroke-width="0.3" xlink:href="#path-5"></use>
+                        </g>
+                        <g>
+                            <use fill="#83919E" fill-rule="evenodd" xlink:href="#path-7"></use>
+                            <use stroke="#83919E" mask="url(#mask-8)" stroke-width="0.3" xlink:href="#path-7"></use>
+                        </g>
+                        <g>
+                            <use fill="#83919E" fill-rule="evenodd" xlink:href="#path-9"></use>
+                            <use stroke="#83919E" mask="url(#mask-10)" stroke-width="0.3" xlink:href="#path-9"></use>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

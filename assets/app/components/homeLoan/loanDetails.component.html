@@ -1,0 +1,743 @@
+<div data-aos="fade-up">
+	<h3 class="card-title visible-xs">Loan Details</h3>
+	<h3 class="card-title hidden-xs">Lets talk about your loan</h3>
+	<!--<div class="contact-info">-->
+	<!--<h6 class="form-heading">Property Details </h6>-->
+	<form class="form" (ngSubmit)="onSubmit()" #basicDetails="ngForm">
+
+		<div class="row">
+			<div class="col-md-4 col-sm-6  has-min-height-106">
+				<div class="form-group">
+					<div [ngClass]="{'form-group has-success has-feedback':(amtborrow.valid  && amtborrow.dirty)&&!(model.amtborrow=='0.00') }">
+						<div [ngClass]="{'form-group has-error has-feedback':(amtborrow.invalid && amtborrow.dirty )||(model.amtborrow=='0.00')}">
+							<label for="amtborrow" class="form-label">How much do you need to borrow?</label>
+							<div class="input-group">
+								<span class="input-group-addon">A$</span>
+								<input type="text" (keyup)="calculate()" required class="form-control txtbox saveInfo" id="amtborrow" [(ngModel)]="model.amtborrow"
+								 name="amtborrow" #amtborrow="ngModel" (focus)="revert(amtborrow.value,'amtborrow')"  (blur)="AmountFormatter(amtborrow.value,'amtborrow')"
+								  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+								<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(amtborrow.valid  && amtborrow.dirty)&&!(model.amtborrow=='0.00')}"></span>
+								<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(amtborrow.invalid && amtborrow.dirty )||(model.amtborrow=='0.00')}"></span>
+							</div>
+							<small [hidden]="!((amtborrow.invalid && amtborrow.dirty )||(model.amtborrow=='0.00'))" class="text-danger">
+                                 {{configMsg?.amount}}
+                                </small>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6">
+				<div class="form-group">
+					<label for="repaymenttype" class="form-label">Choose a repayment type for your loan</label>
+					<select class="form-control txtbox saveInfo" [required] id="repaymenttype" name="repaymenttype" [(ngModel)]="model.repaymenttype"
+					 #repaymenttype="ngModel">
+                                       <option value="0">Select</option>
+                                        <option *ngFor="let details of repaymentType" [ngValue]= "details.prop_desc"  >
+                                                  {{details.prop_desc}} 
+                                        </option>
+                              </select>
+				</div>
+				<small [hidden]="repaymenttype.valid || (repaymenttype.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+			</div>
+			<!--<div class="col-md-4 col-sm-2  has-min-height-106"></div>-->
+			<!-- <div class="col-md-4 col-sm-6  has-min-height-106">
+				<div class="form-group">
+
+					<label for="amtborrow" class="form-label">  </label>
+					<div class="existing-member-login">
+						<div class="info-alert  center-msg">
+							<div class="alert-msg">
+								Your Total Loan Amount is : <b> {{totalMortgage || 0}}</b>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+
+				</div>
+
+			</div> -->
+			<!--<div class="col-md-4 col-sm-6">
+                        <div class="form-group">
+                            <label for="loanterm" class="form-label">Choose a loan term</label>
+                            <select class="form-control txtbox" required id="loanterm" name="loanterm" [(ngModel)]="model.loanterm" #loanterm="ngModel">
+                                        <option value="0">Select</option>
+                                        <option *ngFor="let details of loanTerm" [ngValue]= "details.prop_desc"  >
+                                                  {{details.prop_desc}} 
+                                        </option>
+                              </select>
+                            <small [hidden]="loanterm.valid" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+                        </div>
+                    </div>-->
+		</div>
+
+		<!--<div class="row">-->
+		<!--<div class="col-md-8 col-sm-12 col-xs-12">
+                             
+                            <fieldset id="frequencyType">
+                                <h6 class="form-label">How frequently do you want to make repayments?</h6>
+                                <label class="form-label spaces radio-toolbar" [ngClass]="{'highlightradio':model.frequencyType=='Monthly'}">
+                                    <div class="form-group ">
+                                    <input type="radio" class="styled" name="frequencyType" [checked] id="frequencyType" [(ngModel)]="model.frequencyType" value="Monthly">
+                                   Monthly  
+                                    </div>
+                                </label>
+                                <label class="form-label spaces radio-toolbar" [ngClass]="{'highlightradio':model.frequencyType=='Fortnightly'}"> 
+                                    <div class="form-group ">
+                                    <input type="radio" class="styled" name="frequencyType" id="frequencyType" [(ngModel)]="model.frequencyType" value="Fortnightly">
+                                   Fortnightly
+                                    </div>
+                                </label>
+                                <label class="form-label radio-toolbar" [ngClass]="{'highlightradio':model.frequencyType=='Weekly'}">
+                                    <div class="form-group ">
+                                 <input type="radio" class="styled" name="frequencyType" id="frequencyType" [(ngModel)]="model.frequencyType" value="Weekly">
+                                    Weekly
+                                    </div>
+                                </label>
+                            </fieldset>
+                        
+                    </div>-->
+		<!--<p>for calculation of loan amount</p>-->
+		<!--<div class="col-lg-6 esitmated-repay">
+									<p id="month" [hidden]="!model.frequencyType=='Monthly' || model.frequencyType=='Weekly' || model.frequencyType=='Fortnightly'" class="repay-text">Repayments $1,282 @ Fixed rate of4.65% p.a. </p>
+									<p id="fort" [hidden]="!model.frequencyType=='Fortnightly' || model.frequencyType=='Monthly' || model.frequencyType=='Weekly' " class="repay-text"> Repayments $591 @ Fixed rate of4.65% p.a</p>
+									<p id="week" [hidden]="!model.frequencyType=='Weekly' || model.frequencyType=='Fortnightly' || model.frequencyType=='Monthly'" class="repay-text">Repayments $295 @ Fixed rate of4.65% p.a.</p>
+						</div>-->
+		<!--</div>-->
+		<div id="existing-mortage">
+			<div class="row">
+				<div class="col-md-8 has-min-height-50">
+					<div class="checkbox">
+						<input id="consolidateMortage" class="styled" type="checkbox" [(ngModel)]="model.consolidateMortage" name="consolidateMortage"
+						 #consolidateMortage="ngModel" [checked]="checked" value="consolidateMortage" (change)="clearCheckbox($event.target.getAttribute('value'),$event.target.checked)">
+						<label for="consolidateMortage">I would like to consolidate existing mortgage debt with this mortgage</label>
+					</div>
+				</div>
+			</div>
+			<!-- for consolidateMortage above checkbox-->
+			<div class="row" [hidden]="model.consolidateMortage==false || model.consolidateMortage==null" *ngIf="model.consolidateMortage">
+				<div class="col-md-4 col-sm-6  has-min-height-106">
+					<div class="form-group">
+						<div [ngClass]="{'form-group has-success has-feedback':(estvalue.valid  && estvalue.dirty) }">
+							<div [ngClass]="{'form-group has-error has-feedback':(estvalue.invalid && estvalue.dirty )}">
+
+								<label for="estvalue" class="form-label">Estimated value</label>
+								<div class="input-group">
+									<span class="input-group-addon">A$</span>
+									<input type="text" (keyup)="calculate()" [required]="model.consolidateMortage==true" class="form-control txtbox saveInfo"
+									 id="estvalue" [(ngModel)]="model.estvalue" name="estvalue" #estvalue="ngModel" (focus)="revert(estvalue.value,'estvalue')"
+									  (blur)="AmountFormatter(estvalue.value,'estvalue')"  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+									<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(estvalue.valid  && estvalue.dirty)}"></span>
+									<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(estvalue.invalid && estvalue.dirty )}"></span>
+								</div>
+								<small [hidden]="estvalue.valid || (estvalue.pristine )" class="text-danger">
+                                 {{configMsg?.amount}}
+                                </small>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--<div class="col-md-4 col-sm-6  has-min-height-106">
+                        <div class="form-group">
+                            <div [ngClass]="{'form-group has-success has-feedback':(propaddress_m.valid && propaddress_m.dirty) }">
+                                <div [ngClass]="{'form-group has-error has-feedback':(propaddress_m.invalid && propaddress_m.dirty )}">
+
+                                    <label for="propaddress_m" class="form-label">Specify the property Address</label>
+                                    <input type="text" [required]="model.consolidateMortage==true" class="form-control txtbox saveInfo" id="propaddress_m" [(ngModel)]="model.propaddress_m"
+                                        name="propaddress_m" #propaddress_m="ngModel">
+
+                                    <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(propaddress_m.valid  && propaddress_m.dirty)}"></span>
+                                    <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(propaddress_m.invalid && propaddress_m.dirty )}"></span>
+                                    <small [hidden]="propaddress_m.valid || (propaddress_m.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>-->
+				<div class="col-md-4 col-sm-6 has-min-height-106">
+					<div class="form-group">
+						<div [ngClass]="{'form-group has-success has-feedback':(finInstitution.valid && finInstitution.dirty) }">
+							<div [ngClass]="{'form-group has-error has-feedback':(finInstitution.invalid && finInstitution.dirty )}">
+
+								<label for="finInstitution" class="form-label">Financial Institution</label>
+								<input type="text" [required]="model.consolidateMortage==true" class="form-control txtbox saveInfo" id="finInstitution" [(ngModel)]="model.finInstitution"
+								 name="finInstitution" #finInstitution="ngModel" alphanumericValidate>
+								<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(finInstitution.valid && finInstitution.dirty)}"></span>
+								<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(finInstitution.invalid && finInstitution.dirty )}"></span>
+								<small [hidden]="finInstitution.valid || (finInstitution.pristine ) ||  model.finInstitution==null || model.finInstitution==''"
+								 class="text-danger">
+                                {{configMsg?.mname}}
+                                </small>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+			<div class="row" [hidden]="model.consolidateMortage==false || model.consolidateMortage==null">
+				<div class="col-md-12">
+					<h6 class="form-label">Specify the property Address </h6>
+
+					<small [hidden]="addrErr==false" class="text-danger">
+                                         {{configMsg?.propAddressNotFound}}
+                                </small>
+				</div>
+				<!--- <div class="col-md-4 col-sm-6  has-min-height-106">
+                        <div class="form-group">
+                            <div [ngClass]="{'form-group has-success has-feedback':(propaddress_m.valid && propaddress_m.dirty) }">
+                                <div [ngClass]="{'form-group has-error has-feedback':(propaddress_m.invalid && propaddress_m.dirty )}">
+
+                                    <label for="propaddress_m" class="form-label">Specify the property Address</label>
+                                    <input type="text" [required]="model.consolidateMortage==true" class="form-control txtbox saveInfo" id="propaddress_m" [(ngModel)]="model.propaddress_m"
+                                        name="propaddress_m" #propaddress_m="ngModel">
+
+                                    <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(propaddress_m.valid  && propaddress_m.dirty)}"></span>
+                                    <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(propaddress_m.invalid && propaddress_m.dirty )}"></span>
+                                    <small [hidden]="propaddress_m.valid || (propaddress_m.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                       <label for="prophousenum" class="form-label">Unit/House No. </label>
+                                       <input type="text" class="form-control txtbox" id="prophousenum_m"  [(ngModel)]="model.prophousenum_m"  name="prophousenum_m" #prophousenum_m="ngModel"
+									    
+                                                 [required]="no_address_found_flag=='N'">
+                                    </div>
+                                 </div>-->
+				<div class="col-md-8 col-sm-6  has-min-height-106">
+
+					<!--   <small [hidden]="paddrErr==false" class="text-danger">
+                                         {{configMsg?.PaddrNotFound}}
+                                </small>-->
+					<div [ngClass]="{'form-group has-success has-feedback':(propaddress_m.valid && propaddress_m.dirty) }">
+						<div [ngClass]="{'form-group has-error has-feedback':(propaddress_m.invalid && propaddress_m.dirty )}">
+							<!-- <label for="propaddress_m" class="form-label">Property Address lookup</label>
+
+                          <input (change)="emptyPostCode()" type="text" [(ngModel)] = "model.propaddress_m" 
+                                                [options]='options'
+                                                 (setAddress) = "model.propaddress_m=$event.formatted_address"
+                                                 (street_number) = 'model.propstreetnum_m=$event'
+                                                 (street)= 'model.propstreetname_m=$event'
+                                                 (state)='model.propstate_m=$event'
+                                                 (postal_code)='model.proppostcode_m=$event'
+                                                 id="autocomplete"
+                                                 name="propaddress_m"
+                                                 #propaddress_m="ngModel" class="form-control txtbox"
+                                                 [disabled]="no_address_found_flag=='Y' && !showCustomAddr"
+                                                 [required]="no_address_found_flag=='N'"
+                                                 ng2-google-place-autocomplete />-->
+							<input type="text" [disabled]="no_address_found_flag=='Y' && !showCustomAddr" [(ngModel)]='model.propaddress_m' id='addline1'
+							 name='addline1' #propaddress_m="ngModel" class="form-control txtbox">
+							<div *ngIf="!model.proppostcode_m">We are unable to find your address. Try again or if you prefer, tell us your address line by line here instead.
+								<a href="JavaScript:void(0);" (click)="showCustomAddressFields()">(Click here)</a>
+								<!--value="{{model.housenum}} {{model.streetnum}} {{model.streetname}} {{model.streettype}} {{model.suburb}} {{model.postcode}} {{model.state}}"-->
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+
+				<div *ngIf="!showCustomAddr">
+					<div class="col-md-12">
+						<div class="form-group has-back-lookup">
+							<!-- <div class="row">
+                                 <div class="col-md-12">
+                                    <label for="homeLookup" class="form-label">Home address lookup </label>
+                                 </div>
+                              </div>-->
+							<div class="row">
+								<div class="back-to-auto">
+									<a href="JavaScript:void(0);" (click)="hideaddress()"> <img src="/assets/images/back_icon.svg" alt="back_icon"> Back to quick search </a>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4 col-sm-4 has-min-height-106">
+									<div class="form-group">
+										<label for="prophousenum" class="form-label">Unit/House No. </label>
+										<input type="text" class="form-control txtbox" id="prophousenum_m" [(ngModel)]="model.prophousenum_m" name="prophousenum_m"
+										 #prophousenum_m="ngModel" [required]="no_address_found_flag=='Y'">
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-4 has-min-height-106">
+									<div class="form-group">
+										<label for="propstreetnum_m" class="form-label">Street number </label>
+										<input type="text" class="form-control txtbox" id="propstreetnum_m" [(ngModel)]="model.propstreetnum_m" name="propstreetnum_m"
+										 #propstreetnum_m="ngModel">
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-4 has-min-height-106">
+									<div class="form-group">
+										<label for="propstreetname_m" class="form-label">Street name </label>
+										<input type="text" class="form-control txtbox" id="propstreetname_m" [(ngModel)]="model.propstreetname_m" name="propstreetname_m"
+										 #propstreetname_m="ngModel">
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-4 has-min-height-106">
+									<div class="form-group">
+										<label for="propstreettype_m" class="form-label">Street type </label>
+										<select class="form-control txtbox" id="propstreettype_m" [(ngModel)]="model.propstreettype_m" name="propstreettype_m" #propstreettype_m="ngModel">
+                                          <option value="" >Select</option>
+                                          <option *ngFor="let details of street" [ngValue]="details">
+                                                  {{details}}
+                                       </option>
+                                       </select>
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-4 has-min-height-106">
+									<div class="form-group">
+										<label for="propsuburb_m" class="form-label">Suburb </label>
+										<input type="text" class="form-control txtbox" id="propsuburb_m" [(ngModel)]="model.propsuburb_m" name="propsuburb_m" #propsuburb_m="ngModel">
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-4 has-min-height-106">
+									<div class="form-group">
+										<label for="propstate_m" class="form-label">State</label>
+										<select class="form-control txtbox" id="propstate_m" [(ngModel)]="model.propstate_m" name="propstate_m" #propstate_m="ngModel">
+                                         <option value="" >Select</option>
+                                         <option *ngFor="let details of state_drop" [ngValue]="details">
+                                                  {{details}}
+                                       </option>
+                                       </select>
+									</div>
+								</div>
+								<div class="col-md-4 col-sm-4 has-min-height-106">
+									<div class="form-group">
+										<div [ngClass]="{'form-group has-success has-feedback':(proppostcode_m.valid && proppostcode_m.dirty && model.proppostcode_m.length==4) }">
+											<div [ngClass]="{'form-group has-error has-feedback':( proppostcode_m.dirty && model.proppostcode_m.length!=4 )}">
+												<label for="proppostcode_m" class="form-label">Postcode</label>
+												<input type="text" class="form-control txtbox" id="proppostcode_m" [(ngModel)]="model.proppostcode_m" name="proppostcode_m"
+												 #proppostcode_m="ngModel">
+												<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(proppostcode_m.valid && proppostcode_m.dirty && model.proppostcode_m.length==4)}"></span>
+												<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(proppostcode_m.dirty && model.proppostcode_m.length!=4)}"></span>
+
+												<div class="text-danger" [hidden]="!(proppostcode_m.valid && proppostcode_m.dirty && model.proppostcode_m.length!=4)">
+													<small>{{configMsg?.postcode}}</small>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--// for consolidateMortage above checkbox-->
+		<div id="mortgagelist">
+			<div class="row">
+				<div class="col-md-7 has-min-height-50">
+					<div class="checkbox">
+						<input id="consolidateotherMortage" class="styled" type="checkbox" [(ngModel)]="model.showMortage" (change)="clearMortgageList($event)"
+						 name="consolidateotherMortage" value="consolidateotherMortage">
+						<label for="consolidateotherMortage">I would like to consolidate other debt with this mortgage</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mortgage-spacing" *ngIf="model.showMortage==true">
+				<!-- options-->
+				<div class="col-md-4 col-sm-6  has-min-height-106">
+					<label for="fname" class="form-label">Select Mortgage</label>
+					<select class="form-control txtbox" id="mortagetype" [(ngModel)]="model.mortagetype" name="mortagetype" #mortagetype="ngModel">
+					<option value="0">Select</option>
+					<option *ngFor="let details of mortageType" [ngValue]= "details.prop_desc" >
+						{{details.prop_val}} 
+					</option>
+				</select>
+				</div>
+				<!--amount-->
+				<div class="col-md-4 col-sm-6  has-min-height-106">
+					<div class="form-group">
+						<label for="sl_estvalue" class="form-label">Amount</label>
+						<div class="input-group">
+							<span class="input-group-addon">A$</span>
+							<input (keyup)="calculate()" type="text" class="form-control txtbox saveInfo" id="sl_estvalue" [(ngModel)]="model.sl_estvalue"
+							 name="sl_estvalue" #sl_estvalue="ngModel" (focus)="revert(sl_estvalue.value,'sl_estvalue')"  (blur)="AmountFormatter(sl_estvalue.value,'sl_estvalue')"
+							  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+						</div>
+					</div>
+				</div>
+				<!--financial instution textbox-->
+				<div class="col-md-4 col-sm-6  has-min-height-106">
+					<div [ngClass]="{'form-group has-success has-feedback':(sl_finInstitution.valid && sl_finInstitution.dirty) }">
+						<div [ngClass]="{'form-group has-error has-feedback':(sl_finInstitution.invalid && sl_finInstitution.dirty )}">
+							<label for="sl_finInstitution" class="form-label">Financial Institution</label>
+							<input type="text" class="form-control txtbox saveInfo" id="sl_finInstitution" [(ngModel)]="model.sl_finInstitution" name="sl_finInstitution"
+							 #sl_finInstitution="ngModel" alphanumericValidate>
+							<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(sl_finInstitution.valid && sl_finInstitution.dirty)}"></span>
+							<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(sl_finInstitution.invalid && sl_finInstitution.dirty )}"></span>
+							<small [hidden]="sl_finInstitution.valid || (sl_finInstitution.pristine ) ||  model.sl_finInstitution==null || model.sl_finInstitution==''"
+							 class="text-danger">
+                                {{configMsg?.mname}}
+                                </small>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="row mortgage-add" *ngIf="model.showMortage==true">
+				<div class="col-md-4 col-sm-6">
+					<button type="button" (click)="addMortage()" class="btn btn-form-primary ladda-button" [disabled]="model.sl_estvaluet == '' || model.sl_estvalue == null || model.sl_finInstitution == '' || model.sl_finInstitution == null || isMortgageMaxLimit == false">ADD</button>
+				</div>
+				<div class="col-md-4 col-sm-6" [hidden]="isMortgageMaxLimit">
+					<div class="error-alert  center-msg">
+						<div class="alert-msg">
+							<b> Maximum limit reached</b>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Table-->
+			<div class="row mortgage-table" *ngIf="model.showMortage==true" [hidden]="mortageDetails.length==0">
+				<div class="col-md-6 col-sm-6">
+					<label for="mortageDetails">Mortgage Details</label>
+					<div class="table-responsive">
+						<table class="table-mortgage table-bordered">
+							<thead>
+								<tr>
+									<th>Mortgage Type</th>
+									<th>Amount</th>
+									<th>Financial Institution</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let item of mortageDetails; let i=index">
+									<td>{{item.mortageType}}</td>
+									<td>{{item.mortageAmount}}</td>
+									<td>{{item.mortageFinancialInstitution}}</td>
+									<td>
+										<span (click)="deleteMortageItem(i)" class="glyphicon glyphicon-trash"></span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-9 col-sm-6">
+				<div class="form-group">
+					<label for="amtborrow" class="form-label">  </label>
+					<div class="existing-member-login">
+						<div class="info-alert  center-msg">
+							<div class="alert-msg">
+								Your Total Loan Amount is : <b class="totalAmount"> {{totalMortgage || 0}}</b>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6 col-sm-6 has-min-height-106" id="repayment-time">
+				<div class="bs-custom-tab">
+					<label for="amtborrow" class="form-label" style=" padding-left: 8px;">Choose your Repayment type</label>
+					<ul id="myTab" class="nav nav-tabs nav-tabs-responsive  responsive" role="tablist">
+
+						<li role="presentation" class="active">
+							<a (click)="Toggle(false)" class="loantab" href="#Time" id="Time-tab" role="tab" data-toggle="tab" aria-controls="Time" aria-expanded="true">
+							<span class="text">Time</span>
+						</a>
+						</li>
+						<li role="presentation" class="next">
+							<a (click)="Toggle(true)" class="loantab" href="#Amount" role="tab" id="Amount-tab" data-toggle="tab" aria-controls="Amount">
+							<span class="text">Amount</span>
+						</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div id="myTabContent" style=" padding-top:inherit;" class="tab-content responsive">
+				<div role="tabpanel" class="tab-pane fade in active" id="Time" aria-labelledby="home-tab">
+					<div class="">
+						<div class="col-md-4 col-sm-6" id="loan-field">
+							<div class="form-group">
+								<label for="loanterm" class="form-label">Length of time you want the loan</label>
+								<select (change)="calculate()" class="form-control txtbox" required id="loanterm" name="loanterm" [(ngModel)]="model.loanterm"
+								 #loanterm="ngModel">
+                                        <option value="0">Select</option>
+                                        <option *ngFor="let details of loanTerm" [ngValue]= "details.prop_desc"  >
+                                                  {{details.prop_desc}} 
+                                        </option>
+                              </select>
+								<small [hidden]="loanterm.valid" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane fade" id="Amount" aria-labelledby="home-tab">
+					<div>
+						<div class="col-md-4 col-sm-6" id="loan-field">
+							<div class="form-group">
+								<div [ngClass]="{'form-group has-success has-feedback':(repaymentAmount.valid  && repaymentAmount.dirty && !(model.loanterm=='NA') && model.repaymentAmount!=0)}">
+									<div [ngClass]="{'form-group has-error has-feedback':(repaymentAmount.invalid && repaymentAmount.dirty ) ||(model.loanterm=='NA' && (repaymentAmount.pristine|| repaymentAmount.dirty))||(model.repaymentAmount==0 && (repaymentAmount.pristine || repaymentAmount.dirty) )}">
+										<label for="repaymentAmount" class="form-label">How much you can pay?</label>
+										<div class="input-group" id="amt-field">
+											<span class="input-group-addon">A$</span>
+											<input (keyup)="calculate()" type="text" required class="form-control txtbox saveInfo" id="repaymentAmount" [(ngModel)]="model.repaymentAmount"
+											 name="repaymentAmount" #repaymentAmount="ngModel" (focus)="revert(repaymentAmount.value,'repaymentAmount')"  (blur)="AmountFormatter(repaymentAmount.value,'repaymentAmount')"
+											 onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+											<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(repaymentAmount.valid  && repaymentAmount.dirty && !(model.loanterm=='NA') && model.repaymentAmount!=0)}"></span>
+											<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(repaymentAmount.invalid && repaymentAmount.dirty ) ||(model.loanterm=='NA' && (repaymentAmount.pristine|| repaymentAmount.dirty))||(model.repaymentAmount==0 && (repaymentAmount.pristine || repaymentAmount.dirty) )}"></span>
+										</div>
+										<small [hidden]="repaymentAmount.valid || (repaymentAmount.pristine )" class="text-danger">
+                                 {{configMsg?.amount}}
+                                </small>
+										<small [hidden]="!((model.repaymentAmount==0 ||model.loanterm=='NA') && (repaymentAmount.dirty) ) ||repaymentAmount.pristine && model.repaymentAmount==0  "
+										 class="text-danger">
+                                 Entered amount is too less
+                                </small>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-5 col-sm-6" id="loan-field">
+				<label class="form-label">Repayment Frequency</label>
+				<select (change)="calculate()" class="form-control txtbox" required id="frequencyType" name="frequencyType" [(ngModel)]="model.frequencyType"
+				 #frequencyType="ngModel">
+                                        <option value="0">Select</option>
+                                        <option *ngFor="let details of frequencyTypes" [ngValue]= "details.property_value">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+				<small [hidden]="frequencyType.valid || (frequencyType.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+			</div>
+		</div>
+		<!--<div class="row">
+            <div class="col-md-4 col-sm-6">
+                <label class="form-label">How frequently do you want to make repayments?</label>
+                <select (change)="calculate()" class="form-control txtbox" required id="frequencyType" name="frequencyType" [(ngModel)]="model.frequencyType" #frequencyType="ngModel">
+                                        <option value="0">Select</option>
+                                        <option *ngFor="let details of frequencyTypes" [ngValue]= "details.property_value">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+                <small [hidden]="frequencyType.valid || (frequencyType.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+            </div>
+        </div><br/>-->
+
+
+		<!--<div class="row">
+            <div class="col-md-8 col-sm-12 col-xs-12">
+
+                <fieldset id="interesttype">
+                    <h6 class="form-label">Choose interest type for your loan</h6>
+                    <label class="form-label spaces radio-toolbar" [ngClass]="{'highlightradio':model.interesttype=='FIXED'}">
+                                     <div class="form-group ">
+                                    <input type="radio"  class="styled" name="interesttype" [checked] id="interesttype" [(ngModel)]="model.interesttype" value="FIXED" (change)="clear($event.target.getAttribute('value'))">
+                                  Fixed
+                                     </div>
+                                </label>
+                    <label class="form-label spaces radio-toolbar" [ngClass]="{'highlightradio':model.interesttype=='VARIABLE'}"> 
+                                     <div class="form-group ">
+                                    <input type="radio"  class="styled" name="interesttype" id="interesttype" [(ngModel)]="model.interesttype" value="VARIABLE" (change)="clear($event.target.getAttribute('value'))">
+                                   Variable
+                                     </div>
+                                </label>-->
+		<!--<label class="form-label radio-toolbar" [ngClass]="{'highlightradio':model.interesttype=='SPLIT'}">
+                                     <div class="form-group ">
+                                 <input type="radio"  class="styled" name="interesttype" id="interesttype" [(ngModel)]="model.interesttype" value="SPLIT">
+                                    Split
+                                     </div>
+                                </label>-->
+		<!--</fieldset>
+            </div>
+
+        </div>-->
+		<!-- for split -->
+		<!--<div class="row" [hidden]="model.interesttype=='FIXED' || model.interesttype=='VARIABLE'">
+            <div class="col-md-4 col-sm-6  has-min-height-106">
+                <div class="form-group">
+                    <div [ngClass]="{'form-group has-success has-feedback':(fixedper.valid && fixedper.dirty) }">
+                        <div [ngClass]="{'form-group has-error has-feedback':(fixedper.invalid && fixedper.dirty )}">
+
+
+                            <label for="fixedper" class="form-label">Fixed in %</label>
+                            <input type="number" class="form-control txtbox saveInfo" min="1" max="99" size="1" maxlength="2" [required]="model.fixedper=='SPLIT'"
+                                id="fixedper" [(ngModel)]="model.fixedper" name="fixedper" #fixedper="ngModel" (blur)="checkPercentage()"
+                                splitValidator>
+
+                            <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(fixedper.valid  && fixedper.dirty)}"></span>
+                            <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(fixedper.invalid && fixedper.dirty )}"></span>
+                            <small [hidden]="fixedper.valid || (fixedper.pristine )" class="text-danger">
+                                 {{configMsg?.number1_99}}
+                                </small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4 col-sm-6">
+                <div class="form-group">
+
+                    <label for="variableper" class="form-label">Variable in %</label>
+                    <input type="number" class="form-control txtbox saveInfo" min="1" max="99" size="1" step="0.01" maxlength="2" [required]="model.variableper=='SPLIT'"
+                        id="variableper" [(ngModel)]="model.variableper" name="variableper" #variableper="ngModel" readonly>
+
+                </div>
+                <small [hidden]="variableper.valid || (variableper.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+            </div>
+        </div>-->
+		<!--// for split -->
+		<!-- for fixed and variable and split -->
+
+
+		<!--<div class="row">
+            <div class="col-md-4 col-sm-6">
+                <div class="form-group">
+                    <label for="repaymenttype" class="form-label">Choose a repayment type for your loan</label>
+                    <select class="form-control txtbox saveInfo" [required] id="repaymenttype" name="repaymenttype" [(ngModel)]="model.repaymenttype"
+                        #repaymenttype="ngModel">
+                                       <option value="0">Select</option>
+                                        <option *ngFor="let details of repaymentType" [ngValue]= "details.prop_desc"  >
+                                                  {{details.prop_desc}} 
+                                        </option>
+                              </select>
+                </div>
+                <small [hidden]="repaymenttype.valid || (repaymenttype.pristine )" class="text-danger">
+                                 {{configMsg?.required_v}}
+                                </small>
+            </div>
+
+        </div>-->
+		<!--// for fixed and variable split-->
+
+		<!--// for consolidate Other Mortage above checkbox-->
+		<!--<div class="row">
+            <div class="col-md-3 col-sm-12 loanamount">
+                <p class="loanvalue">Total Loan Amount : <b> A${{model.totalMortgage || 0}}</b></p>
+            </div>
+        </div>-->
+
+		<div class="row">
+			<br/>
+			<div [hidden]="!(((fixed_loanterm=='NA'||variable_loanterm=='NA') && repaymentAmount.dirty)  || (model.repaymentAmount==0 && TimeFlag && repaymentAmount.dirty )|| (DisableFlag && repaymentAmount.dirty))"
+			 class="col-md-9">
+				<div class="alert alert-danger center-msg">
+					<div class="alert-msg">
+						The Amount entered is too less for us to calculate the loan term, Please enter the valid amount.
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12" *ngIf="isDataAvailable">
+				<h6 class="form-label">Choose the Variant type </h6>
+				<div class="col-md-3 col-sm-4" id="product-list">
+
+					<!--<div [ngClass]="{'selectedproduct':(model.product_name==item.product_name),'fadeCard':(item.loanterm=='NA' || (model.repaymentAmount==0 && TimeFlag ))}"
+                        class="bordercard margings">-->
+					<div [ngClass]="{'fadeCard':((fixed_loanterm=='NA'||variable_loanterm=='NA') || (model.repaymentAmount==0 && TimeFlag ))}"
+					 class="bordercard margings productdescription">
+						<div (click)="Switchproduct('FIXED')" class="card">
+							<!--<h4 [ngClass]="{'selectedtitle':(model.product_name==item.product_name)}" class="card-title product-title">{{item.product_name}}<span [ngClass]="{'glyphicon glyphicon-ok pull-right titleselect':(model.product_name==item.product_name)}"></span></h4>-->
+							<h4 class="card-title product-title">Fixed</h4>
+							<div class="card-block">
+
+								<p class="card-text">
+									Interest rate:<b>{{item1[0].fixed_interest_rate}}%</b> Repayments from <b>{{fixedemi || 0}} per {{model.frequencyType | capitalize}}</b><br/>									Loan Length:{{fixed_loanterm}}
+								</p>
+								<!--<a href="#" class="btn btn-form-primary pull-right">Select</a>-->
+							</div>
+							<div class="overlay" (click)="Switchproduct('FIXED')">
+								<div *ngIf="content[model.product_name]!=undefined" class="producttext">{{content[model.product_name].text4}}</div>
+								<div *ngIf="content[model.product_name]==undefined" class="producttext">{{model.product_name}}</div>
+							</div>
+							<div class="panel-footer mera" *ngIf="model.interesttype=='FIXED'">
+								<span><img class="radio-image" src="/assets/images/check-white.png"></span>
+							</div>
+							<div class="panel-footer radio-select" *ngIf="model.interesttype!='FIXED'">
+								<span class="radio-image">Select</span>
+							</div>
+						</div>
+
+
+					</div>
+
+				</div>
+				<div class="col-md-3 col-sm-4" id="product-list">
+
+					<!--<div [ngClass]="{'selectedproduct':(model.product_name==item.product_name),'fadeCard':(item.loanterm=='NA' || (model.repaymentAmount==0 && TimeFlag ))}"
+                        class="bordercard margings">-->
+					<div [ngClass]="{'fadeCard':(variable_loanterm=='NA' || (model.repaymentAmount==0 && TimeFlag ))}" class="bordercard margings productdescription">
+						<div (click)="Switchproduct('VARIABLE')" class="card">
+							<!--<h4 [ngClass]="{'selectedtitle':(model.product_name==item.product_name)}" class="card-title product-title">{{item.product_name}}<span [ngClass]="{'glyphicon glyphicon-ok pull-right titleselect':(model.product_name==item.product_name)}"></span></h4>-->
+							<h4 class="card-title product-title">Variable</h4>
+							<div class="card-block">
+
+								<p class="card-text">
+									Interest rate:<b>{{item2[0].variable_interest_rate}}%</b> Repayments from <b>{{variableemi || 0}} per {{model.frequencyType | capitalize}}</b><br/>									Loan Length:{{variable_loanterm}}
+								</p>
+								<!--<a href="#" class="btn btn-form-primary pull-right">Select</a>-->
+							</div>
+							<div class="overlay" (click)="Switchproduct('VARIABLE')">
+								<div *ngIf="content[model.product_name]!=undefined" class="producttext">{{content[model.product_name].text4}}</div>
+								<div *ngIf="content[model.product_name]==undefined" class="producttext">{{model.product_name}}</div>
+							</div>
+							<div class="panel-footer mera" *ngIf="model.interesttype=='VARIABLE'">
+								<span><img class="radio-image" src="/assets/images/check-white.png"></span>
+							</div>
+							<div class="panel-footer radio-select" *ngIf="model.interesttype!='VARIABLE'">
+								<span class="radio-image">Select</span>
+							</div>
+						</div>
+
+
+					</div>
+
+				</div>
+			</div>
+
+		</div><br><br>
+		<div class="form-btn-wrapper">
+			<a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>
+			<!--<a tabindex="0" [routerLink]="['/PersonalBasicInfo']" class="btn btn-icon-back">  <img src="/assets/images/back-icon.svg" alt="back-icon"> </a>-->
+			<!--<a tabindex="0" class="btn btn-form-primary ladda-button" data-style="expand-right" id="contactInfoSubmit"><span class="ladda-label">CONTINUE</span></a>-->
+			<button type="submit" tabindex="0" class="btn btn-form-primary ladda-button" data-dismiss="modal" [ladda]="isLoading" data-style="expand-right"
+			 data-spinner-color="white" [disabled]="!amtborrow.valid || model.frequencyType=='0' || (model.loanterm=='0' && !repaymentAmount.valid) || disableButton() || this.model.loanterm=='NA'||model.amtborrow=='0.00'||((model.showMortage)&&!(mortageDetails.length>0))"><span class="ladda-label">CONTINUE</span></button>
+		</div>
+
+	</form>
+
+
+
+</div>
+<!--</div>-->
+
+<!-- //wrapper -->

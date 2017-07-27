@@ -1,0 +1,32 @@
+{
+    "application_status_msg":{
+        "SAV":" incomplete. Please complete your application",
+        "INC":" incomplete. Please complete your application",
+        "CMP":"in processed successfully and you will get details shortly",
+        "VER":"verified successfully and you will get details shortly",
+        "CAN":"cancled",
+        "REJ":"rejected. Kindly contact bank for more details.",
+        "ONB":"opened"
+    },
+    "action_msg":{
+        "verifyOtp":{
+            "NotOpted":"Hey, I have found that you have not opted for updates form us.",
+            "reciveConfirm":"Do you want to receive??",
+            "wrongOTP":"The OTP you entered was incorrect try once again."
+        },
+        "notInterested":{
+            "feedback":"Ok Thanks for your valuable feedback"
+        },
+        "confirmUpdates":{
+            "optinSuccess_1":"Thanks for opting for updates.",
+            "optinSuccess_2":"You will be receiving updates for your application.",
+            "optinNotInterested":"Ok, You will not be able to get updates from me. However you can ping us for any queries"
+        },
+        "default":"Sorry enter valid reuest",
+        "resumeCarosalTitle":"Do you want resume ",
+        "norecordsFound_1":"Hey you dont have applications associated with this ",
+        "norecordsFound_2":" number. You can open account by visiting ",
+        "applied_On":"Applied On: ",
+        "exceedTry":"You have exceeded the maximum number of tries. Please try again later."
+    }
+}

@@ -1,0 +1,74 @@
+<div class="wrapper">
+    <oao-header></oao-header>
+    <!-- Page Content -->
+    <div class="page-content-info">
+        <div class="info-bg">
+            <div class="container">
+                <h1 class="page-title">{{model.product_name}}</h1>
+
+                <div class="row hidden-xs name-progress-bar" style="margin-top:-15px">
+                    <div class="col-md-12">
+                        <div class="progress" id="progress1">
+                            <div class="progress-bar"  id="myBar" role="progressbar"  aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                        <div class="progress" id="progress2">
+                            <div class="progress-bar2"  id="myBar2" role="progressbar"  aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress-group col-md-12">
+                        <div class="custom-name-progress-bar" [style.width.%]="constWidth" *ngFor="let configData of progressBarConfig | objectToArray">
+                            <button class="progress-button">{{configData.name}}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page-card">
+            <div class="number-progress-bar" id="progressBar">
+                <div class="horizontal-step-nav">
+                    <ul>
+                        <li *ngFor="let configData of progressBarConfig | objectToArray; let i = index" [ngClass]="stepStatus[i]"><span class="stepvalue">{{configData.value}}</span><span class="stepvalue-hidden"></span></li>
+                    </ul>
+                </div>
+            </div>
+            <router-outlet></router-outlet>
+             <input type="hidden" id="DLNumber"/>
+            <!-- //basic-info -->
+        </div>
+    <div id="validation" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-pop matching-customer-details">
+		<!-- Modal content-->
+		<div class="modal-content ">
+			<div class="modal-body">
+				<div class="success-modal">
+					<div class="center-content">
+						<span class="validation-failed"><img class="validation-failed_img" src="/assets/images/wrong.png" alt=""></span>
+						<h2>Validation Failed</h2>
+						<!--<p class="cust-id">Application reference : <strong>{{model.application_id}}</strong></p>-->
+						<div class="existing-member-login">
+                            <ul>
+                                <li *ngFor="let errors of validationerror"> {{errors}} </li>
+                                </ul>
+							<!--<div class="info-alert  center-msg">
+								<div class="alert-msg"> {{inf_001}}
+								</div>
+								<div class="clearfix"></div>
+							</div>-->
+						</div>
+						<div class="form-btn-wrapper">
+
+							<button class="btn btn-form-primary address-info" (click)="closeValidation()" data-dismiss="modal" autofocus> OK </button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+    </div>
+    <!-- //Page Content -->
+
+</div>
+<oao-footer></oao-footer>

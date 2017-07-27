@@ -1,0 +1,375 @@
+<div *ngIf="isDataAvailable">
+	<oao-header [productsData]="products" (childFunction)="CalledByParent($event)"></oao-header>
+	<section class="banner">
+		<div class="banner-text">
+			<h1>The easy way to bank with us Test</h1>
+			<h2>save your money & time</h2>
+			<h6>Every penny or cent spent through wise automatically earns you rewards, special offers and discounts, meaning you’ll always
+				get more for your money.</h6>
+		</div>
+	</section>
+	<!-- Page Content -->
+
+	<div class="page-content">
+		<div class="container">
+			<!--oao-panel  -->
+			<div class="oao-panel" *ngFor="let details of products">
+				<div class="panel ">
+					<!--panel-heading  -->
+					<div class="panel-heading">
+						<div class="panel-tilte-wraper">
+							<span class="panel-icon-circle">
+                           <img src="/assets/images/{{details.child_of}}.svg" alt="{{details.product_name}}">
+                           </span>
+							<span class="panel-title">{{details.product_name}}</span>
+						</div>
+						<div class="panel-heading-btn">
+							<a (click)="setModalType(details.product_code)" class="btn btn-apply" data-toggle="modal">APPLY NOW</a>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<!--//panel-heading  -->
+					<!--panel-body  -->
+					<div class="panel-body">
+
+						<div *ngIf="!(content[details.product_name]?.length >= 0) ">
+							<h6 *ngIf="content[details.product_name].text1!=''">{{content[details.product_name].text1}}</h6>
+							<h5 *ngIf="content[details.product_name].text2!=''" class="interest">{{content[details.product_name].text2}}</h5>
+							<h5 *ngIf="content[details.product_name].text3!=''">{{content[details.product_name].text3}}</h5>
+							<div class="category-description">
+								<p *ngIf="content[details.product_name].text4!=''">{{content[details.product_name].text4}}</p>
+							</div>
+						</div>
+					</div>
+					<!--//panel-body  -->
+				</div>
+			</div>
+			<!--//oao-panel  -->
+
+		</div>
+		<!-- /.container -->
+	</div>
+	<!-- //Page Content -->
+	<!-- data toggle-->
+	<div id="savingsaccount-modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-pop ">
+			<!-- Modal content-->
+			<div class="modal-content ">
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal" (click)="setFalse()"><img src="/assets/images/close.svg" alt=""></button>
+					<div class="center-content">
+						<span class="savings-act-icon"><img src="/assets/images/{{img}}.svg" alt=""></span>
+						<h2>Select account type</h2>
+						<div class="modal-pop-footer">
+							<p>Terms & conditions</p>
+							<form #f="ngForm">
+								<div class="term-sondition">
+									<div class="checkbox">
+										<input id="aus_citizen" class="styled term" type="checkbox" [(ngModel)]="modal.aus_citizen" name="aus_citizen" #aus_citizen="ngModel"
+										 [checked]="checked"> <label class="fonts" for="aus_citizen">Australian citizen or permanent resident.</label>										<br/>
+									</div>
+									<div class="checkbox">
+										<input id="age_test" class="styled term" type="checkbox" [(ngModel)]="modal.age_test" name="age_test" #age_test="ngModel"
+										 [checked]="checked"><label class="fonts" for="age_test"> {{model.minimumAge}} years of age from the date of the application.</label>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="row" id="userTypeRow">
+
+						<div class="existing">
+							<h4>Already a customer banking online with us?</h4>
+							<p>Save time by using your NetBank details.</p>
+							<input [disabled]="!(modal.age_test && modal.aus_citizen)" type="submit" class="btn btn-default" (click)="loginFlag()" href=""
+							 [routerLink]="['/login']" data-dismiss="modal" value="Open in NetBank" />
+						</div>
+						<hr class="terms-hr visible-xs">
+						<div clss="" id="or">
+							<p>or</p>
+						</div>
+						<div class="new">
+							<h4>New customer or don't bank online with us?</h4>
+							<p>Open account now.</p>
+							<input [disabled]="!(modal.age_test && modal.aus_citizen)" type="submit" class="btn btn-default" data-dismiss="modal" [routerLink]="['/completeInformation']"
+							 value="Open Now" class="btn btn-default">
+						</div>
+
+					</div>
+				</div>
+				<!--content body -->
+			</div>
+		</div>
+	</div>
+	<!--// data toggle-->
+	<!-- data toggle-->
+	<div id="savingsaccount-modal1" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+		<div class="modal-dialog modal-pop savings-modal-width">
+			<!-- Modal content-->
+			<div class="modal-content ">
+				<div class="modal-body">
+					<button type="button" class="close" data-dismiss="modal" (click)="setFalse()"><img src="/assets/images/close.svg" alt=""></button>
+					<div class="text-center">
+						<span class="savings-act-icon text-center"><img src="/assets/images/{{img}}.svg" alt=""></span>
+					</div>
+					<h2 class="text-center">{{model.product_name}}</h2>
+					<!--<div class="modal-pop-footer">
+						<p>Terms & conditions</p>
+						<form #f="ngForm">
+							<div class="term-sondition">
+								<div class="checkbox">
+									<input id="aus_citizen" class="styled term" type="checkbox" [(ngModel)]="modal.aus_citizen" name="aus_citizen" #aus_citizen="ngModel"
+										[checked]="checked"> <label class="fonts" for="aus_citizen">Australian citizen or permanent resident.</label>									<br/>
+								</div>
+								<div class="checkbox">
+									<input id="age_test" class="styled term" type="checkbox" [(ngModel)]="modal.age_test" name="age_test" #age_test="ngModel"
+										[checked]="checked"><label class="fonts" for="age_test"> 18 years of age from the date of the application.</label>
+								</div>
+							</div>
+						</form>
+					</div>-->
+					<div class="termsAndconditions">
+						<h4>Things you should know</h4>
+						<p class="fonts">To get a personal loan you must:</p>
+						<ul class="fonts">
+							<li>Be over {{model.minimumAge}}</li>
+							<li>Be an Australian/New Zealand citizen or an Australian permanent resident living in Australia</li>
+							<li>Be eligible to work in Australia</li>
+							<li>Be employed or receive regular income</li>
+							<li>Have a good credit rating</li>
+							<li>Not be going through the process of bankruptcy</li>
+						</ul>
+						<p class="fonts">We may use information you provide to get to know you better and assess applications you send us. If you apply, we'll
+							check your credit history. Our <a href="https://www.greater.com.au/legal/privacy-policy" target="_blank">Privacy Policy </a>							tells you how we use your information, what credit reporting bodies we use and how to access your credit information.
+							Use the link to read the policy or ask us to send you a copy.
+						</p>
+					</div>
+
+					<div class="row" id="userTypeRow1">
+
+						<div class="existing">
+							<h4>Already a customer banking online with us?</h4>
+							<p>Save time by using your NetBank details.</p>
+							<input type="submit" class="btn btn-default" (click)="loginFlag()" href="" [routerLink]="['/login']" data-dismiss="modal"
+							 value="Open in NetBank" />
+						</div>
+						<hr class="terms-hr visible-xs">
+						<div clss="" id="or1">
+							<p>or</p>
+						</div>
+						<div class="new">
+							<h4>New customer or don't bank online with us?</h4>
+							<div class="terms-white-space"> </div>
+							<p>Open account now.</p>
+
+							<input type="submit" class="btn btn-default" data-dismiss="modal" [routerLink]="['/completeInformation']" value="Explore & apply"
+							 class="btn btn-default">
+						</div>
+
+					</div>
+				</div>
+				<!--content body -->
+			</div>
+		</div>
+	</div>
+	<!--// data toggle-->
+
+
+
+
+
+	<!--chandan-->
+	<div id="not_eligible-modal" class="modal fade " role="dialog">
+		<div class="modal-dialog modal-pop matching-customer-details">
+			<!-- Modal content-->
+			<div class="modal-content ">
+				<div class="modal-body">
+					<div class="matching-customer-des">
+						<button type="button" class="close address-info" (click)="setFalse()" data-dismiss="modal"><img src="/assets/images/close.svg" alt=""></button>
+						<div class="center-content">
+							<span class="info-icon"><img src="/assets/images/info.svg" alt=""></span>
+							<h2 class="welcome-user"> Hi..{{fName}} </h2>
+							<!--chandan-->
+							<div class="existing-member-login">
+								<div class="error-alert">
+									<div class="alert alert-danger ">
+										<strong>Sorry..!</strong> Your age is below {{model.minimumAge}} years .You are not eligible to open this account.
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							<a [routerLink]="['/home']" (click)="setFalse()" class="btn btn-secondary" data-dismiss="modal">Back</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--chandan-->
+
+
+	<oao-footer></oao-footer>
+</div>
+<!--Resume appn-->
+<div id="resume-modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-pop ">
+		<!-- Modal content-->
+		<div class="modal-content ">
+			<div class="modal-body">
+				<div class="matching-customer-des">
+					<button type="button" class="close" data-dismiss="modal" (click)="clear()"><img src="/assets/images/close.svg" alt=""></button>
+					<div class="center-content">
+
+						<div *ngIf="ticks==60 && resend==false">
+
+							<h2 *ngIf="jointAppn==false">Resume Application</h2><br/>
+							<h2 *ngIf="jointAppn==true">Complete Joint Application</h2><br/>
+							<form>
+								<div [hidden]="savedApp_v==true || wrongDetails_v==true">
+									<div class="row">
+										<div class="form-group col-md-6 col-sm-6 ">
+											<div [ngClass]="{'form-group has-success has-feedback':(mobile.valid && mobile.dirty) }">
+												<div [ngClass]="{'form-group has-error has-feedback':(mobile.invalid && mobile.dirty)}">
+
+													<label for="mobile" class="form-label">Mobile Number </label>
+
+													<input type="text" class="form-control txtbox" id="mobile" #mobile="ngModel" [(ngModel)]="model.mobile" name="mobile" placeholder="04XXXXXXX" required mobValidator>
+													   <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(mobile.valid && mobile.dirty)}"></span>
+                                    <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(mobile.invalid && mobile.dirty)}"></span>
+                                <small [hidden]="mobile.valid || mobile.pristine " class="text-danger">
+                                          {{configMsg?.mobile}}   <!--This is a required field  -->
+                              </small>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-md-6 col-sm-6 ">
+											<label for="dob" class="form-label">Date of birth </label>
+											<!--<md2-datepicker  [(ngModel)]="date_v" name="dob" #dob [required]="isRequired" [disabled]="isDisabled" [openOnFocus]="isOpenOnFocus"
+										 [isOpen]="isOpen" [type]="date" [min]="minDate" [max]="maxDate" [mode]="mode" [container]="container" #dateControl="ngModel">
+										</md2-datepicker>-->
+											<div class="input-group">
+
+												<input type="date" #dob #dateControl="ngModel" class="form-control txtbox" [max]="maxDate" placeholder="MM/DD/YYYY" name="dob"
+												 id="dob" [(ngModel)]="date_v">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-6 col-sm-6 ">
+											<div *ngIf="isDataAvailable">
+												<re-captcha required name="myForm" (resolved)="resolved($event)" ngDefaultControl siteKey={{configMsg.siteKeyReCaptcha}}>
+												</re-captcha>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-4 col-sm-6">
+											<button [disabled]="!myForm" type="submit" (click)="onSearch(mobile.value)" class="btn btn-default btn-login ladda-button"
+											 data-style="expand-right" id="searchSubmit"><span class="ladda-label" name="serchSubmit"  >Send OTP</span></button>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<h4 [hidden]="wrongDetails_v==false" class="text-danger">
+										{{configMsg?.wrongDetails}}
+										<!--This is a required field and Can contain letters and apostrophe-->
+									</h4>
+									<h4 [hidden]="savedApp_v==false" class="text-danger">
+										{{configMsg?.savedApplication}}
+										<!--This is a required field and Can contain letters and apostrophe-->
+									</h4>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-4 col-sm-6" [hidden]="savedApp_v==false && wrongDetails_v==false">
+										<button type="button" (click)="clearError()" class="btn btn-default btn-login " id="clearError"><span class="ladda-label" name="clearError"  >Back</span></button>
+									</div>
+								</div>
+							</form>
+
+						</div>
+						<div *ngIf="ticks<60 || resend==true">
+							<h5>Enter OTP</h5>
+							<form class="form-inline">
+								<div class="form-group">
+									<input type="text" class="form-control txtbox" id="verifyOtp" #verifyOtp name="verifyOtp" placeholder="Enter OTP" required>
+								</div>
+								<div class="form-group">
+
+									<button data-dismiss="modal" type="submit" (click)="onVerify(verifyOtp.value)" class="btn btn-default btn-login ladda-button"
+									 data-style="expand-right" id="verifySubmit"><span class="ladda-label" name="verifySubmit">Verify OTP</span></button>
+
+								</div>
+
+							</form>
+
+							<input type="hidden" class="form-control txtbox" id="app_id" #app_id value=appRef.value name="app_id">
+							<p *ngIf="resend==false">You can resend OTP in {{ticks}}</p>
+							<p *ngIf="resend==true">You can<a (click)="onSearch(model.application_id)"> resend </a>OTP in {{ticks}}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Resume appn-->
+
+<div id="resume-modal2" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-pop matching-customer-details">
+		<!-- Modal content-->
+		<div class="modal-content ">
+			<div class="modal-body">
+				<div class="matching-customer-des">
+					<button type="button" class="close address-info" (click)="clear()" data-dismiss="modal"><img src="/assets/images/close.svg" alt=""></button>
+					<div class="center-content">
+						<br/>
+
+						<!--chandan-->
+						<div>
+							<div class="row">
+								<div class="row col-md-offset-3">
+									<div class="col-lg-8 col-md-8 col-sm-6 has-min-height-106">
+										<!--<label for="fname" class="form-label">Applications</label>-->
+										<div class=" table-responsive ">
+
+											<div *ngFor="let item of modelArray; let i=index">
+												<table class="table table-bordered card-resume">
+													<thead>
+													</thead>
+													<tbody>
+														<tr>
+															<td align="left"><span>
+
+                           								   <h3>	<a class="btn bg-yellow btn-rounded btn-icon ">
+                        									      <i class="material-icons">person</i></a>
+																  {{item.fname}}</h3> <span class="fonts_size">{{item.product_name}}
+															<br/> {{item.application_id}} <br/>
+															<p>Applied on {{item.cre_time | date}}<input [disabled]="!(item.application_status=='SAV' || item.application_status=='INC' )" (click)="proceed(i)" type="button" class="btn btn-default" value="Resume"
+															 class="btn btn-default pull-right" data-dismiss="modal" autofocus></p></span>
+																</span>
+
+
+
+																<!--<div class="panel-heading-btn">
+																<a [disabled]="!(item.application_status=='SAV')" (click)="proceed(i)" class="btn btn-apply">Resume</a>
+															</div>-->
+
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

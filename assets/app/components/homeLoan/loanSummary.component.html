@@ -1,0 +1,64 @@
+<div data-aos="fade-up" class="totalAmount">
+        <h3 class="card-title">Loan Summary</h3>
+        <div class="row">
+                <div class="col-md-4 col-sm-6">
+                        <label class="form-label">Total Loan Amount</label><br/>
+                        <p>{{totalMortgage}}</p>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                        <label class="form-label">Term</label><br/>
+                        <p>{{model.loanterm}}</p>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                        <label class="form-label">Interest Rate</label><br/>
+                        <p>{{model.interest_rate}}%</p>
+                </div>
+
+          
+                        <div class="col-md-4 col-sm-6">
+                                <label class="form-label">Repayment amount</label><br/>
+                                <p>{{emi_v}}</p>
+                        </div>
+                   
+                        <div class="col-md-4 col-sm-6">
+                                <label class="form-label">Repayment Frequency</label><br/>
+                                <p>{{model.frequencyType | capitalize}}</p>
+                        </div>
+
+
+
+                <div class="col-md-4 col-sm-6">
+                        <label class="form-label">Establishment Fee</label><br/>
+                        <p>{{establishment_fees}}</p>
+                </div>
+
+                <div class="col-md-4 col-sm-6">
+                        <label class="form-label">Service Fee</label><br/>
+                        <p>{{loan_service_fees}}</p>
+                </div>
+
+ </div>
+                
+        <!-- <div class="col-md-8 col-md-offset-4 col-sm-offset-3" id="smry-btn">
+                 <a tabindex="0"  class="btn btn-icon-back">  <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>
+                    <button type="button" tabindex="0" class="btn btn-form-primary ladda-button"  data-dismiss="modal"  [ladda]="isLoading"  data-style="expand-right"
+							data-spinner-color="white" (click)="onSubmit()" ><span class="ladda-label">CONTINUE</span></button>
+        </div> -->
+        <div class="row heading-Allign " >
+                <span class="enble-joint url_fees">
+                  <a href="{{fees_url}}" target="_blank">Click here for information on our Fees and Charges</a>
+                  </span>
+            </div>
+
+        <!-- <div class="col-md-8 col-md-offset-4 col-sm-offset-3" id="smry-btn"> -->
+        <div class="form-btn-wrapper">
+                <a tabindex="0" class="btn btn-icon-back">  <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>
+                <button type="button" tabindex="0" class="btn btn-form-primary ladda-button" data-dismiss="modal" [ladda]="isLoading" data-style="expand-right"
+                        data-spinner-color="white" (click)="onSubmit()"><span class="ladda-label">CONTINUE</span></button>
+        </div>
+
+</div>
+               
+            <!-- //wrapper -->

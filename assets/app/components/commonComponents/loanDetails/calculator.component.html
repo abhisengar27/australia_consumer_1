@@ -1,0 +1,276 @@
+<div class="col-md-12 col-sm-12 xol-xs-12 panel panel-default txtbox">
+	<div class="panel-body">
+		<div>
+			<span>Ok, let's calculate your share of living expenses</span>
+			<div>&nbsp;</div>
+			<span>Don't include payments for any credit cards, loans and any other debts you've got. We'll ask you about those next.</span>
+			<div>&nbsp;</div>
+		</div>
+
+		<div class="col-md-3 col-sm-6 col-xs-8 has-min-height-106">
+			<div [ngClass]="{'form-group has-success has-feedback':(foodExpense.valid && foodExpense.dirty  ) }">
+				<div [ngClass]="{'form-group has-error has-feedback':(foodExpense.invalid && foodExpense.dirty )}">
+					<label for="foodExpense" class="form-label">Food expense</label>
+					<div class="input-group">
+
+						<span class="input-group-addon">A$</span>
+						<input type="text" required class="form-control textbox-with-select" [(ngModel)]="model.foodExpense" id="foodExpense" name="foodExpense"
+							#foodExpense="ngModel" #foodExpense="ngModel" maxlength="18" (focus)="revert(foodExpense.value,'foodExpense')"  (blur)="AmountFormatter(foodExpense.value,'foodExpense')"
+    							(keyup)="calculateTotal()" onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+						<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback right':(foodExpense.valid && foodExpense.dirty )}"></span>
+						<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback right':(foodExpense.invalid && foodExpense.dirty )}"></span>
+						<div class="input-group-btn">
+							<select (change)="calculateTotal()" class="form-control textbox-with-select"
+								id="foodExpenseFrequency" name="foodExpenseFrequency" [(ngModel)]="model.foodExpenseFrequency" #foodExpenseFrequency="ngModel">
+										<option value="">Select</option>
+                                        <option *ngFor="let details of incomeFrequencies" [ngValue]= "details.property_desc">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+						</div>
+					</div>
+					<small *ngIf="(model.foodExpenseFrequency=='' && model.foodExpense!='0.0' && foodExpense.valid && foodExpense.dirty)" class="text-danger">
+                                {{configMsg?.frequency}}
+                                </small>
+				</div>
+
+			</div>
+		</div>
+		<div class="col-md-2 col-sm-6  cal-space">&nbsp;</div>
+		<div class="col-md-3 col-sm-6 col-xs-8 has-min-height-106">
+			<div [ngClass]="{'form-group has-success has-feedback':(transportExpense.valid && transportExpense.dirty  ) }">
+				<div [ngClass]="{'form-group has-error has-feedback':(transportExpense.invalid && transportExpense.dirty )}">
+					<label for="transportExpense" class="form-label">Transport expense</label>
+					<div class="input-group">
+
+						<span class="input-group-addon">A$</span>
+						<input type="text" required class="form-control textbox-with-select" [(ngModel)]="model.transportExpense" id="transportExpense"
+							name="transportExpense" #transportExpense="ngModel" #transportExpense="ngModel" maxlength="18" (focus)="revert(transportExpense.value,'transportExpense')"
+							(keyup)="calculateTotal()" (blur)="AmountFormatter(transportExpense.value,'transportExpense')"  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+						<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback right':(transportExpense.valid && transportExpense.dirty )}"></span>
+						<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback right':(transportExpense.invalid && transportExpense.dirty )}"></span>
+						<div class="input-group-btn">
+							<select  (change)="calculateTotal()"class="form-control textbox-with-select" id="transportExpenseFrequency" name="transportExpenseFrequency" [(ngModel)]="model.transportExpenseFrequency"
+								#transportExpenseFrequency="ngModel">
+										<option value="">Select</option>
+                                        <option *ngFor="let details of incomeFrequencies" [ngValue]= "details.property_desc">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+						</div>
+					</div>
+					<small *ngIf="(model.transportExpenseFrequency=='' && model.transportExpense!='0.0' && transportExpense.valid && transportExpense.dirty)"
+						class="text-danger">
+                                {{configMsg?.frequency}}
+                                </small>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-md-2 col-sm-6  cal-space">&nbsp;</div>
+		<div class="col-md-3 col-sm-6 col-xs-8 has-min-height-106">
+			<div [ngClass]="{'form-group has-success has-feedback':(healthCareExpense.valid && healthCareExpense.dirty  ) }">
+				<div [ngClass]="{'form-group has-error has-feedback':(healthCareExpense.invalid && healthCareExpense.dirty )}">
+					<label for="healthCareExpense" class="form-label">Healthcare expense</label>
+					<div class="input-group">
+
+						<span class="input-group-addon">A$</span>
+						<input type="text" required class="form-control textbox-with-select" [(ngModel)]="model.healthCareExpense" id="healthCareExpense"
+							name="healthCareExpense" #healthCareExpense="ngModel" #healthCareExpense="ngModel" maxlength="18" (focus)="revert(healthCareExpense.value,'healthCareExpense')"
+							(keyup)="calculateTotal()" (blur)="AmountFormatter(healthCareExpense.value,'healthCareExpense')"  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+						<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback right':(healthCareExpense.valid && healthCareExpense.dirty )}"></span>
+						<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback right':(healthCareExpense.invalid && healthCareExpense.dirty )}"></span>
+						<div class="input-group-btn">
+							<select (change)="calculateTotal()" class="form-control textbox-with-select" id="healthCareExpenseFrequency" name="healthCareExpenseFrequency" [(ngModel)]="model.healthCareExpenseFrequency"
+								#healthCareExpenseFrequency="ngModel">
+										<option value="">Select</option>
+                                        <option *ngFor="let details of incomeFrequencies" [ngValue]= "details.property_desc">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+						</div>
+					</div>
+					<small *ngIf="(model.healthCareExpenseFrequency=='' && model.healthCareExpense!='0.0' && healthCareExpense.valid && healthCareExpense.dirty)"
+						class="text-danger">
+                                {{configMsg?.frequency}}
+                                </small>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-md-2 col-sm-6 cal-space">&nbsp;</div>
+		<div class="col-md-3 col-sm-6 col-xs-8 has-min-height-106">
+			<div [ngClass]="{'form-group has-success has-feedback':(childcareExpense.valid && childcareExpense.dirty  ) }">
+				<div [ngClass]="{'form-group has-error has-feedback':(childcareExpense.invalid && childcareExpense.dirty )}">
+					<label for="childcareExpense" class="form-label">Childcare/Education expense</label>
+					<div class="input-group">
+
+						<span class="input-group-addon">A$</span>
+						<input type="text" required class="form-control textbox-with-select" [(ngModel)]="model.childcareExpense" id="childcareExpense"
+							name="childcareExpense" #childcareExpense="ngModel" #childcareExpense="ngModel" maxlength="18" (focus)="revert(childcareExpense.value,'childcareExpense')"
+							(keyup)="calculateTotal()" (blur)="AmountFormatter(childcareExpense.value,'childcareExpense')"  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+						<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback right':(childcareExpense.valid && childcareExpense.dirty )}"></span>
+						<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback right':(childcareExpense.invalid && childcareExpense.dirty )}"></span>
+						<div class="input-group-btn">
+							<select (change)="calculateTotal()" class="form-control textbox-with-select" id="childcareExpenseFrequency" name="childcareExpenseFrequency" [(ngModel)]="model.childcareExpenseFrequency"
+								#childcareExpenseFrequency="ngModel">
+										<option value="">Select</option>
+                                        <option *ngFor="let details of incomeFrequencies" [ngValue]= "details.property_desc">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+						</div>
+					</div>
+					<small *ngIf="(model.childcareExpenseFrequency=='' && model.childcareExpense!='0.0' && childcareExpense.valid && childcareExpense.dirty)"
+						class="text-danger">
+                                {{configMsg?.frequency}}
+                                </small>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-md-2 col-sm-6 cal-space">&nbsp;</div>
+		<div class="col-md-3 col-sm-6 col-xs-8 has-min-height-106">
+			<div [ngClass]="{'form-group has-success has-feedback':(billsExpense.valid && billsExpense.dirty  ) }">
+				<div [ngClass]="{'form-group has-error has-feedback':(billsExpense.invalid && billsExpense.dirty )}">
+					<label for="billsExpense" class="form-label">Bills/Utilities expense</label>
+					<div class="input-group">
+
+						<span class="input-group-addon">A$</span>
+						<input type="text" required class="form-control textbox-with-select" [(ngModel)]="model.billsExpense" id="billsExpense" name="billsExpense"
+							#billsExpense="ngModel" #billsExpense="ngModel" maxlength="18" (focus)="revert(billsExpense.value,'billsExpense')"
+							(keyup)="calculateTotal()" (blur)="AmountFormatter(billsExpense.value,'billsExpense')"  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+						<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback right':(billsExpense.valid && billsExpense.dirty )}"></span>
+						<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback right':(billsExpense.invalid && billsExpense.dirty )}"></span>
+						<div class="input-group-btn">
+							<select (change)="calculateTotal()" class="form-control textbox-with-select" id="billsExpenseFrequency" name="billsExpenseFrequency" [(ngModel)]="model.billsExpenseFrequency"
+								#billsExpenseFrequency="ngModel">
+										<option value="">Select</option>
+                                        <option *ngFor="let details of incomeFrequencies" [ngValue]= "details.property_desc">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+						</div>
+					</div>
+					<small *ngIf="(model.billsExpenseFrequency=='' && model.billsExpense!='0.0' && billsExpense.valid && billsExpense.dirty)"
+						class="text-danger">
+                                {{configMsg?.frequency}}
+                                </small>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-md-2 col-sm-6 cal-space">&nbsp;</div>
+		<div class="col-md-3 col-sm-6 col-xs-8 has-min-height-106">
+			<div [ngClass]="{'form-group has-success has-feedback':(clothingExpense.valid && clothingExpense.dirty  ) }">
+				<div [ngClass]="{'form-group has-error has-feedback':(clothingExpense.invalid && clothingExpense.dirty )}">
+					<label for="clothingExpense" class="form-label">Clothing expense</label>
+					<div class="input-group">
+
+						<span class="input-group-addon">A$</span>
+						<input type="text" required class="form-control textbox-with-select" [(ngModel)]="model.clothingExpense" id="clothingExpense"
+							name="clothingExpense" #clothingExpense="ngModel" #clothingExpense="ngModel" maxlength="18" (focus)="revert(clothingExpense.value,'clothingExpense')"
+							(keyup)="calculateTotal()" (blur)="AmountFormatter(clothingExpense.value,'clothingExpense')"  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+						<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback right':(clothingExpense.valid && clothingExpense.dirty )}"></span>
+						<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback right':(clothingExpense.invalid && clothingExpense.dirty )}"></span>
+						<div class="input-group-btn">
+							<select (change)="calculateTotal()" class="form-control textbox-with-select" id="clothingExpenseFrequency" name="clothingExpenseFrequency" [(ngModel)]="model.clothingExpenseFrequency"
+								#clothingExpenseFrequency="ngModel">
+										<option value="">Select</option>
+                                        <option *ngFor="let details of incomeFrequencies" [ngValue]= "details.property_desc">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+						</div>
+					</div>
+					<small *ngIf="(model.clothingExpenseFrequency=='' && model.clothingExpense!='0.0' && clothingExpense.valid && clothingExpense.dirty)"
+						class="text-danger">
+                                {{configMsg?.frequency}}
+                                </small>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-md-2 col-sm-6 cal-space">&nbsp;</div>
+		<div class="col-md-3 col-sm-6 col-xs-8 has-min-height-106">
+			<div [ngClass]="{'form-group has-success has-feedback':(travelExpense.valid && travelExpense.dirty  ) }">
+				<div [ngClass]="{'form-group has-error has-feedback':(travelExpense.invalid && travelExpense.dirty )}">
+					<label for="travelExpense" class="form-label">Travel/entertainment expense</label>
+					<div class="input-group">
+						<span class="input-group-addon">A$</span>
+						<input type="text" required class="form-control textbox-with-select" [(ngModel)]="model.travelExpense" id="travelExpense"
+							name="travelExpense" #travelExpense="ngModel" #travelExpense="ngModel" maxlength="18" (focus)="revert(travelExpense.value,'travelExpense')"
+							(keyup)="calculateTotal()" (blur)="AmountFormatter(travelExpense.value,'travelExpense')"  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+						<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback right':(travelExpense.valid && travelExpense.dirty )}"></span>
+						<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback right':(travelExpense.invalid && travelExpense.dirty )}"></span>
+						<div class="input-group-btn">
+							<select (change)="calculateTotal()" class="form-control textbox-with-select" id="travelExpenseFrequency" name="travelExpenseFrequency" [(ngModel)]="model.travelExpenseFrequency"
+								#travelExpenseFrequency="ngModel">
+										<option value="">Select</option>
+                                        <option *ngFor="let details of incomeFrequencies" [ngValue]= "details.property_desc">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+						</div>
+					</div>
+					<small *ngIf="(model.travelExpenseFrequency=='' && model.travelExpense!='0.0' && travelExpense.valid && travelExpense.dirty)"
+						class="text-danger">
+                                {{configMsg?.frequency}}
+                                </small>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="col-md-2 col-sm-6 cal-space">&nbsp;</div>
+		<div class="col-md-3 col-sm-6 col-xs-8 has-min-height-106">
+			<div [ngClass]="{'form-group has-success has-feedback':(otherExpense.valid && otherExpense.dirty  ) }">
+				<div [ngClass]="{'form-group has-error has-feedback':(otherExpense.invalid && otherExpense.dirty )}">
+					<label for="otherExpense" class="form-label">Other expense</label>
+					<div class="input-group">
+
+						<span class="input-group-addon">A$</span>
+						<input type="text" required class="form-control textbox-with-select" [(ngModel)]="model.otherExpense" id="otherExpense" name="otherExpense"
+							#otherExpense="ngModel" #otherExpense="ngModel" maxlength="18" (focus)="revert(otherExpense.value,'otherExpense')"
+							(keyup)="calculateTotal()" (blur)="AmountFormatter(otherExpense.value,'otherExpense')"  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+						<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback right':(otherExpense.valid && otherExpense.dirty )}"></span>
+						<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback right':(otherExpense.invalid && otherExpense.dirty )}"></span>
+						<div class="input-group-btn">
+							<select (change)="calculateTotal()" class="form-control textbox-with-select" id="otherExpenseFrequency" name="otherExpenseFrequency" [(ngModel)]="model.otherExpenseFrequency"
+								#otherExpenseFrequency="ngModel">
+										<option value="">Select</option>
+                                        <option *ngFor="let details of incomeFrequencies" [ngValue]= "details.property_desc">
+                                                  {{details.property_desc}}
+                                        </option>
+                              </select>
+						</div>
+					</div>
+					<small *ngIf="(model.otherExpenseFrequency=='' && model.otherExpense!='0.0' && otherExpense.valid && otherExpense.dirty)"
+						class="text-danger">
+                                {{configMsg?.frequency}}
+                                </small>
+				</div>
+
+			</div>
+		</div>
+		<div class="col-md-2 col-sm-6 cal-space">&nbsp;</div>
+		<div class="col-md-3 col-sm-6 col-xs-8 has-min-height-106">
+			<label for="otherExpense" class="form-label">Your total</label>
+			<div class="input-group">
+				<span class="input-group-addon">A$</span>
+				<input type="text" [disabled]='true' class="form-control textbox-with-select" [(ngModel)]="model.monthlyLivingExpenses" id="monthlyLivingExpenses"
+					name="monthlyLivingExpenses" #monthlyLivingExpenses="ngModel" maxlength="18">
+				<div class="input-group-btn">
+					<select [disabled]="true" class="form-control textbox-with-select">
+                                        <option value="">Monthly</option>
+                              </select>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

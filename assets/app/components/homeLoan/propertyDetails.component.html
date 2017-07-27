@@ -1,0 +1,398 @@
+<div data-aos="fade-up">
+	<h3 class="card-title page-heading-mobile" data-step="2">Property Details</h3>
+	<h3 class="card-title  hidden-xs" data-step="2">Lets talk about your loan</h3>
+	<form class="form" (ngSubmit)="onSubmit()" #basicDetails="ngForm">
+		
+		<div class="row">
+			<div class="col-md-8 col-sm-12 col-xs-12">
+				<label for="proptype" class="form-label">Select the loan type</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-2 col-sm-3 col-xs-6" id="radio1">
+				<div class="panel panel-default text-center">
+					<img src="/assets/images/refinance.png" alt="Card image cap">
+					<div class="panel-body panel-body-radio">
+						<h5 class="panel-title">Refinance</h5>
+					</div>
+					<div class="panel-footer radio-select" *ngIf='!radioflag'>
+						<span class="radio-image">Select</span>
+					</div>
+					<div class="panel-footer mera" *ngIf="radioflag">
+						<span><img class="radio-image" src="/assets/images/check-white.png"></span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2 col-sm-3 col-xs-6" id="radio2">
+				<div class="panel panel-default text-center">
+					<img src="/assets/images/newPurchase.png" alt="Card image cap">
+					<div class="panel-body panel-body-radio">
+						<h5 class="panel-title">New purchase</h5>
+					</div>
+					<div class="panel-footer mera" *ngIf='!radioflag'>
+						<span><img class="radio-image" src="/assets/images/check-white.png"></span>
+					</div>
+					<div class="panel-footer radio-select" *ngIf='radioflag'>
+						<span>Select</span>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<!--<div class="row">
+			<div class="col-md-8 col-sm-12 col-xs-12">
+				<label for="proptype" class="form-label">Choose one of the Loan types</label>
+
+				<fieldset id="loantype">
+					<label for="loantype1" class="form-label spaces radio-toolbar" [ngClass]="{'highlightradio':model.loantype=='REFINANCE'}">
+								<div class="form-group " >
+								<input type="radio" name='loantype' class="styled" id="loantype1" [checked] [(ngModel)]="model.loantype" #loantype="ngModel" value="REFINANCE" (change)="clear($event.target.getAttribute('value'))">
+								Refinance</div>
+							</label>
+					<label for="loantype2" class="form-label  radio-toolbar" [ngClass]="{'highlightradio':model.loantype=='NEW PURCHASE'}">
+								<div class="form-group" >
+								<input type="radio" class="styled" name='loantype' id="loantype2" [(ngModel)]="model.loantype" #loantype="ngModel" value="NEW PURCHASE"
+									(change)="clear($event.target.getAttribute('value'))">
+								New Purchase</div>
+								</label>
+
+				</fieldset>
+			
+
+			</div>
+
+
+		</div>-->
+		<div class="row" [hidden]="model.loantype=='REFINANCE'">
+			<!--<div class="col-md-8 col-sm-12 col-xs-12">
+				<label for="property" class="form-label">Have you found property to purchase yet?</label>
+				<fieldset id="property">
+					<label for="property1" class="form-label spaces radio-toolbar" [ngClass]="{'highlightradio':model.property=='No'}">
+						<div class="form-group ">
+							<input type="checkbox" name='property' class="styled" id="property1" [(ngModel)]="model.property" #property="ngModel" value="No">
+							No still looking
+						</div>
+					</label>
+					<label for="property2" class="form-label radio-toolbar" [ngClass]="{'highlightradio':model.property=='Yes'}">
+						<div class="form-group ">
+							<input type="checkbox" name='property' class="styled" id="property2" [(ngModel)]="model.property" #property="ngModel" value="Yes">
+								Yes
+							</div>
+					</label>
+				</fieldset>
+			</div>-->
+		</div>
+		<!--<div class="row" [hidden]="model.loantype=='REFINANCE'">
+			<div class="col-md-2 col-sm-3 col-xs-6" id="radio3">
+				<div class="panel panel-default text-center">
+					<img src="/assets/images/no.png" alt="Card image cap">
+					<div class="panel-body panel-body-radio">
+						<h5 class="panel-title">No still looking</h5>
+					</div>
+					<div class="panel-footer radio-select" *ngIf='!yesNoflag'>
+						<span class="radio-image">Select</span>
+					</div>
+					<div class="panel-footer mera" *ngIf="yesNoflag">
+						<span><img class="radio-image" src="/assets/images/check-white.png"></span>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2 col-xs-6 col-sm-3" id="radio4">
+				<div class="panel panel-default text-center">
+					<img src="/assets/images/yes.png" alt="Card image cap">
+					<div class="panel-body panel-body-radio">
+						<h5 class="panel-title">Yes</h5>
+					</div>
+					<div class="panel-footer mera" *ngIf='!yesNoflag'>
+						<span><img class="radio-image" src="/assets/images/check-white.png"></span>
+					</div>
+					<div class="panel-footer radio-select" *ngIf='yesNoflag'>
+						<span>Select</span>
+					</div>
+
+				</div>
+			</div>
+
+		</div>-->
+
+		<!--//end only for new purchase-->
+		<div class="row">
+			<div class="col-md-4 col-sm-6">
+				<div class="form-group">
+					<label for="proptype" class="form-label">Select the property type</label>
+					<select class="form-control txtbox" id="proptype" name="proptype" [(ngModel)]="model.proptype" #proptype="ngModel">
+                                     <option value="">Select</option>
+                                     <option *ngFor="let details of propType" [ngValue]= "details.prop_val"  >
+                                                  {{details.prop_desc}} 
+                                       </option>
+                              </select>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-6 has-min-height-106">
+				<div [ngClass]="{'form-group has-success has-feedback':(purchaseprice.valid && purchaseprice.dirty)&&!(model.purchaseprice=='0.00') }">
+					<div [ngClass]="{'form-group has-error has-feedback':(purchaseprice.invalid && purchaseprice.dirty )||(model.purchaseprice=='0.00')}">
+						<label for="purchaseprice" class="form-label">What is the purchase price ?</label>
+						<div class="input-group">
+							<span class="input-group-addon">A$</span>
+							<input type="text" required class="form-control txtbox saveInfo" id="purchaseprice" [(ngModel)]="model.purchaseprice" name="purchaseprice"
+								#purchaseprice="ngModel" maxlength="18" (focus)="revert(purchaseprice.value,'purchaseprice')"  (blur)="AmountFormatter(purchaseprice.value,'purchaseprice')"
+								 onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+							<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(purchaseprice.valid && purchaseprice.dirty)&& !(model.purchaseprice=='0.00')}"></span>
+							<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(purchaseprice.invalid && purchaseprice.dirty )||(model.purchaseprice=='0.00')}"></span>
+						</div>
+						<small [hidden]="!((purchaseprice.invalid && purchaseprice.dirty )||(model.purchaseprice=='0.00'))" class="text-danger">
+                                        {{configMsg?.required_v}}
+                                        </small>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--// only for refinance-->
+		<div class="row">
+			<div [hidden]="model.loantype=='NEW PURCHASE'" class="col-md-4 col-sm-6  has-min-height-106">
+				<div [ngClass]="{'form-group has-success has-feedback':(payoutbal.valid && payoutbal.dirty) }">
+					<div [ngClass]="{'form-group has-error has-feedback':(payoutbal.invalid && payoutbal.dirty )}">
+						<label for="payoutbal" class="form-label">Existing Loan Payout Balance </label>
+						<div class="input-group">
+							<span class="input-group-addon">A$</span>
+							<input type="text" maxlength="18" [required]="model.loantype=='REFINANCE'" class="form-control txtbox saveInfo" id="payoutbal"
+								[(ngModel)]="model.payoutbal" name="payoutbal" #payoutbal="ngModel" (focus)="revert(payoutbal.value,'payoutbal')"
+								 (blur)="AmountFormatter(payoutbal.value,'payoutbal')"  onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+							<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(payoutbal.valid  && payoutbal.dirty)}"></span>
+							<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(payoutbal.invalid && payoutbal.dirty )}"></span>
+						</div>
+						<small [hidden]="payoutbal.valid  || (payoutbal.pristine)" class="text-danger">
+                                 {{configMsg?.amount}}
+                                </small>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="property-refinance" [hidden]="model.loantype=='REFINANCE'">
+		<div class="row">
+			<div class="col-md-8 col-sm-12 col-xs-12" >
+				<!--<label for="property" class="form-label">Yes,I have found property?</label>-->
+					<label for="property1" class="form-label spaces" >
+						<div class="form-group ">
+							<input type="checkbox" name='property' (change)="setProperty($event)" [checked]=checked class="styled" id="property1" [(ngModel)]="model.property">
+							 &nbsp; Yes, I have found property?
+						</div>
+					</label>
+					<!--<label for="property2" class="form-label" [ngClass]="{'highlightradio':model.property=='Yes'}">
+						<div class="form-group ">
+							<input type="checkbox" name='property' class="styled" id="property2" [(ngModel)]="model.property" #property="ngModel" value="Yes">
+								Yes
+							</div>
+					</label>-->
+			
+			</div>
+		</div>
+		<h6 [hidden]="!model.property && model.loantype=='NEW PURCHASE'" class="form-label">Specify the property Address </h6>
+		<div [hidden]="!model.property && model.loantype=='NEW PURCHASE'">
+			<small [hidden]="addrErr==false" class="text-danger">
+                {{configMsg?.propAddressNotFound}}
+            </small>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-sm-6  has-min-height-106" [hidden]="!model.property && model.loantype=='NEW PURCHASE'">
+				<div [ngClass]="{'form-group has-success has-feedback':(propaddr.valid && propaddr.dirty) }">
+					<div [ngClass]="{'form-group has-error has-feedback':(propaddr.invalid && propaddr.dirty )}">
+						<input type="text" [disabled]="no_address_found_flag=='Y' && !showCustomAddr" [(ngModel)]='model.propaddr' id='addline1'
+							name='addline1' #propaddr="ngModel" class="form-control txtbox">
+						<div  style="margin-top:10px" *ngIf="!model.proppostcode">We are unable to find your address. Try again or if you prefer, tell us your address line by line here instead.
+							<a href="JavaScript:void(0);" (click)="showCustomAddressFields()">(Click here)</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+
+		<!--//end only for refinance-->
+		<!--//only for new finance-->
+
+		<!--//end only for new finance-->
+		<div *ngIf="!showCustomAddr" [hidden]="!model.property && model.loantype=='NEW PURCHASE'">
+			<div class="form-group has-back-lookup">
+				<!-- <div class="row">
+                                 <div class="col-md-12">
+                                    <label for="homeLookup" class="form-label">Home address lookup </label>
+                                 </div>
+                              </div>-->
+				<div class="row">
+					<div class="back-to-auto">
+						<a href="JavaScript:void(0);" (click)="hideaddress()"> <img src="/assets/images/back_icon.svg" alt="back_icon"> Back to quick search </a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 col-sm-4 has-min-height-106">
+						<div class="form-group">
+							<label for="prophousenum" class="form-label">Unit/House No. </label>
+							<input type="text" class="form-control txtbox" id="prophousenum" [(ngModel)]="model.prophousenum" name="prophousenum" #prophousenum="ngModel"
+								[required]="no_address_found_flag=='Y'">
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4 has-min-height-106">
+						<div class="form-group">
+							<label for="propstreetnum" class="form-label">Street number </label>
+							<input type="text" class="form-control txtbox" id="propstreetnum" [(ngModel)]="model.propstreetnum" name="propstreetnum"
+								#propstreetnum="ngModel">
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4 has-min-height-106">
+						<div class="form-group">
+							<label for="propstreetname" class="form-label">Street name </label>
+							<input type="text" class="form-control txtbox" id="propstreetname" [(ngModel)]="model.propstreetname" name="propstreetname"
+								#propstreetname="ngModel">
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4 has-min-height-106">
+						<div class="form-group">
+							<label for="propstreettype" class="form-label">Street type </label>
+							<select class="form-control txtbox" id="propstreettype" [(ngModel)]="model.propstreettype" name="propstreettype" #propstreettype="ngModel">
+                                          <option value="" >Select</option>
+                                          <option *ngFor="let details of street" [ngValue]='details'>
+                                                  {{details}}
+                                       </option>
+                                       </select>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4 has-min-height-106">
+						<div class="form-group">
+							<label for="propsuburb" class="form-label">Suburb </label>
+							<input type="text" class="form-control txtbox" id="propsuburb" [(ngModel)]="model.propsuburb" name="propsuburb" #propsuburb="ngModel">
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4 has-min-height-106">
+						<div class="form-group">
+							<label for="propstate" class="form-label">State</label>
+							<select class="form-control txtbox" id="propstate" [(ngModel)]="model.propstate" name="propstate" #propstate="ngModel">
+                                         <option value="" >Select</option>
+                                         <option *ngFor="let details of state_drop" [ngValue]='details'>
+                                                  {{details}}
+                                       </option>
+                                       </select>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4 has-min-height-106">
+						<div class="form-group">
+							<div [ngClass]="{'form-group has-success has-feedback':(proppostcode.valid && proppostcode.dirty && model.proppostcode.length==4) }">
+								<div [ngClass]="{'form-group has-error has-feedback':( proppostcode.dirty && model.proppostcode.length!=4 )}">
+
+									<label for="proppostcode" class="form-label">Postcode</label>
+									<input type="text" class="form-control txtbox" id="proppostcode" [(ngModel)]="model.proppostcode" name="proppostcode" #proppostcode="ngModel">
+									<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(proppostcode.valid && proppostcode.dirty && model.proppostcode.length==4)}"></span>
+									<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(proppostcode.dirty && model.proppostcode.length!=4)}"></span>
+
+									<div class="text-danger" [hidden]="!(proppostcode.valid && proppostcode.dirty && model.proppostcode.length!=4)">
+										<small>{{configMsg?.postcode}}</small>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+	     </div>
+				</div>
+				<div class="row">
+					<div class="col-md-8 col-sm-12 col-xs-12">
+
+						<h6 class="form-label">Select the ownership type</h6>
+
+						<!--<fieldset id="ownership">
+					<label for="ownership1" class="form-label spaces radio-toolbar" [ngClass]="{'highlightradio':model.ownership=='OWNER OCCUPIER'}">
+								<div class="form-group">
+								<input type="radio" name="ownership" class="styled" id="ownership1" [(ngModel)]="model.ownership" value="OWNER OCCUPIER" (change)="clear($event.target.getAttribute('value'))">
+								 Owner Occupier
+								</div>
+								</label>
+					<label for="ownership2" class="form-label radio-toolbar" [ngClass]="{'highlightradio':model.ownership=='INVESTMENT'}">
+								<div class="form-group">
+							<input type="radio" name="ownership"  class="styled" id="ownership2" [(ngModel)]="model.ownership" value="INVESTMENT">
+							 Investment
+								</div>
+								</label>
+
+				</fieldset>-->
+
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-2 col-sm-3 col-xs-6" id="radio5">
+						<div class="panel panel-default text-center">
+							<img src="/assets/images/ownerOccupier.png" alt="Card image cap">
+							<div class="panel-body panel-body-radio">
+								<h5 class="panel-title">Owner occupier</h5>
+							</div>
+							<div class="panel-footer radio-select" *ngIf='!ownershipTypeFlag'>
+								<span class="radio-image">Select</span>
+							</div>
+							<div class="panel-footer mera" *ngIf="ownershipTypeFlag">
+								<span><img class="radio-image" src="/assets/images/check-white.png"></span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-2 col-sm-3 col-xs-6" id="radio6">
+						<div class="panel panel-default text-center">
+							<img src="/assets/images/investment.png" alt="Card image cap">
+							<div class="panel-body panel-body-radio">
+								<h5 class="panel-title">Investment</h5>
+							</div>
+							<div class="panel-footer mera" *ngIf='!ownershipTypeFlag'>
+								<span><img class="radio-image" src="/assets/images/check-white.png"></span>
+							</div>
+							<div class="panel-footer radio-select" *ngIf='ownershipTypeFlag'>
+								<span>Select</span>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<!-- for investment -->
+				<div class="row" [hidden]="model.ownership=='OWNER OCCUPIER'">
+					<div class="col-md-4 col-sm-6  has-min-height-106">
+						<div [ngClass]="{'form-group has-success has-feedback':(rentalincome.valid && rentalincome.dirty) &&!(model.rentalincome=='0.00')}">
+							<div [ngClass]="{'form-group has-error has-feedback':(rentalincome.invalid && rentalincome.dirty )||(model.rentalincome=='0.00')}">
+								<label for="rentalincome" class="form-label">Monthly rental income you expect to receive</label>
+								<div class="input-group">
+									<span class="input-group-addon">A$</span>
+									<input type="text" class="form-control txtbox saveInfo" id="rentalincome" [(ngModel)]="model.rentalincome" name="rentalincome"
+										#rentalincome="ngModel" maxlength="18" (focus)="revert(rentalincome.value,'rentalincome')"  (blur)="AmountFormatter(rentalincome.value,'rentalincome')"
+										 onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode)) || (event.charCode === 46 && (this.value.indexOf('.') === -1));">
+									<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(rentalincome.valid  && rentalincome.dirty)&&!(model.rentalincome=='0.00')}"></span>
+									<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(rentalincome.invalid && rentalincome.dirty)||(model.rentalincome=='0.00')}"></span>
+									<small [hidden]="rentalincome.valid  || (rentalincome.pristine)||!(model.rentalincome=='0.00')" class="text-danger">
+                                 {{configMsg?.amount}}
+                                </small>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- for investment -->
+
+				<div class="form-btn-wrapper">
+					<a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>
+					<!--<a tabindex="0" [routerLink]="['/PersonalBasicInfo']" class="btn btn-icon-back">  <img src="/assets/images/back-icon.svg" alt="back-icon"> </a>-->
+					<!--<a tabindex="0" class="btn btn-form-primary ladda-button" data-style="expand-right" id="contactInfoSubmit"><span class="ladda-label">CONTINUE</span></a>-->
+					<button id="property-save" type="submit" tabindex="0" class="btn btn-form-primary ladda-button" data-dismiss="modal" [ladda]="isLoading" data-style="expand-right"
+						data-spinner-color="white" [disabled]="disableButton()"><span class="ladda-label">CONTINUE</span></button>
+				</div>
+	</form>
+	</div>
+	<!--</div>-->
+
+
+
+	<!-- //Page Content -->
+
+
+
+	<!-- //wrapper -->

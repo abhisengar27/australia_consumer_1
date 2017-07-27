@@ -1,0 +1,565 @@
+<div data-aos="fade-up">
+
+    
+	<!-- <h3 class="card-title page-heading-mobile" data-step="1">Personal Information -->
+           <!-- <a class="btn btn-block btn-social btn-facebook" (click)="fillwithFB()">
+				
+                <span class="fa fa-facebook"></span> Fill with Facebook
+			</a>-->
+		<!-- <span class="pull-right">&nbsp;&nbsp;</span>
+			<span class="enble-joint" *ngIf="model.singleORjoint=='single' && model.applicant=='primary' && model.secondaryApplicantRefID==undefined">
+                  <a class="btn btn-block" (click)="enableJointDiv('joint')">
+                  Enable joint applicant
+                  </a>
+                  </span>
+			<span class="enble-joint" *ngIf="model.singleORjoint=='joint' && model.applicant=='primary' && model.secondaryApplicantRefID==undefined">
+                  <a class="btn btn-block" (click)="enableJointDiv('single')">
+                  Disable joint applicant
+                  </a>
+                  </span> -->
+    <!-- </h3> -->
+<!-- <span class="pull-right page-heading-mobile" (click)="fillwithFB()">
+				<img class="facebook-image" src="/assets/images/fb1.jpg"> </span> -->
+	<!-- basic-info -->
+	<div class="basic-info">
+        <h3 class="card-title page-heading-mobile">Personal Information
+               <span class="enble-joint" *ngIf="model.singleORjoint=='single' && model.applicant=='primary' && model.secondaryApplicantRefID==undefined">
+                  <a class=" " (click)="enableJointDiv('joint')">
+                  Enable joint applicant
+                  </a>
+                  </span>
+
+                  <span class="enble-joint" *ngIf="model.singleORjoint=='joint' && model.applicant=='primary' && model.secondaryApplicantRefID==undefined">
+                  <a class=" " (click)="enableJointDiv('single')">
+                  Disable joint applicant
+                  </a>
+            </span>	
+                 </h3>
+            <!--<span class="pull-right page-heading-mobile" (click)="fillwithFB()">
+				<img class="facebook-image" src="/assets/images/fb1.jpg" >
+			 </span>
+       -->
+		  <h3 class="card-title page-heading-desktop">Give us some basic Info about you
+			<!--<span class="pull-right" (click)="fillwithFB()">
+				<img class="facebook-image" src="/assets/images/fb1.jpg" >
+           <a class="btn btn-block btn-social btn-facebook" (click)="fillwithFB()">
+
+                <span class="fa fa-facebook"></span> Fill with Facebook
+			</a>
+			 </span>--> <span class="pull-right">&nbsp;&nbsp;</span>
+			<span class="enble-joint" *ngIf="model.singleORjoint=='single' && model.applicant=='primary' && model.secondaryApplicantRefID==undefined">
+                  <a class="btn btn-block" (click)="enableJointDiv('joint')">
+                  Enable joint applicant
+                  </a>
+                  </span>
+			<span class="enble-joint" *ngIf="model.singleORjoint=='joint' && model.applicant=='primary' && model.secondaryApplicantRefID==undefined">
+                  <a class="btn btn-block" (click)="enableJointDiv('single')">
+                  Disable joint applicant
+                  </a>
+                  </span>
+		</h3>  
+		<form (ngSubmit)="onSubmit()">
+			<div class="row" id="personal-details-form">
+				<div class="col-md-4 col-sm-6 has-min-height-106">
+
+					<div [ngClass]="{'form-group has-success has-feedback':(fname.valid && fname.dirty  ) }">
+						<div [ngClass]="{'form-group has-error has-feedback':(fname.invalid && fname.dirty )}">
+							<label for="fname" class="form-label">First name </label>
+							<div class="input-group">
+								<div class="input-group-btn">
+									<select class="form-control txtbox" id="title" [(ngModel)]="model.title" name="title" #title="ngModel">
+                                          <option value="0" >Title</option>
+                                          <option *ngFor="let details of items" [ngValue]= "details"  >
+                                                  {{details}} 
+                                       </option>
+                                    </select>
+                                </div>
+                                <!-- /btn-group -->
+                                <input type="text" class="form-control txtbox" [(ngModel)]="model.fname" id="fname" name="fname" #fname="ngModel" nameValidate>
+                                <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(fname.valid && fname.dirty )}"></span>
+                                <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(fname.invalid && fname.dirty )}"></span>
+                            </div>
+                            <small [hidden]="!((fname.valid && fname.dirty ) && model.title=='0')" class="text-danger">
+                            {{configMsg?.title}} 
+                                </small>
+                            <small [hidden]="fname.valid || fname.pristine || model.fname==null || model.fname==''" class="text-danger">
+                                {{configMsg?.name}} <!--This is a required field and Can contain letters and apostrophe-->
+                                </small>
+                        </div>
+                        <!-- /input-group -->
+                    </div>
+
+                </div>
+                <div class="col-md-4 col-sm-6 has-min-height-106">
+
+                    <div [ngClass]="{'form-group has-success has-feedback':(mname.valid && mname.dirty ) }">
+                        <div [ngClass]="{'form-group has-error has-feedback':(mname.invalid && mname.dirty && (!model.mname==''))}">
+                            <label for="mname" class="form-label">Middle name (Optional) </label>
+                            <input type="text" class="form-control txtbox" [(ngModel)]="model.mname" id="mname" name="mname" #mname="ngModel" nameValidate>
+                            <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(mname.valid && mname.dirty )}"></span>
+                            <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(mname.invalid && mname.dirty && (!model.mname==''))}"></span>
+                            <small [hidden]="mname.valid || mname.pristine || model.mname==null || model.mname==''" class="text-danger">
+                                {{configMsg?.mname}} <!--This is a required field and Can contain letters and apostrophe-->
+                                </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 has-min-height-106">
+                    <div [ngClass]="{'form-group has-success has-feedback':(lname.valid && lname.dirty ) }">
+                        <div [ngClass]="{'form-group has-error has-feedback':(lname.invalid && lname.dirty )}">
+                            <label for="lname" class="form-label">Last name </label>
+                            <input type="text" class="form-control txtbox" [(ngModel)]="model.lname" id="lname" name="lname" #lname="ngModel" nameValidate>
+                            <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(lname.valid && lname.dirty )}"></span>
+                            <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(lname.invalid && lname.dirty )}"></span>
+                            <small [hidden]="lname.valid || lname.pristine || model.lname==null || model.lname==''" class="text-danger">
+                                {{configMsg?.name}} <!--This is a required field and Can contain letters and apostrophe-->
+                                </small>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4 col-sm-6 has-min-height-106">
+                    <!--<input type="hidden" required="required" value=""  [(ngModel)]="model.app_id" name="app_id" #app_id="ngModel" />-->
+                    <div class="form-group">
+                        <div [ngClass]="{'form-group has-success has-feedback':(email.valid && email.dirty && !emailDup) }">
+                            <div [ngClass]="{'form-group has-error has-feedback':(email.invalid && email.dirty || emailDup)}">
+                                <label for="email" class="form-label">Email ID </label>
+                                <input type="email" (keyup)="changeCallMatchingCustomerFlag(); checkEmailDup()" class="form-control txtbox saveInfo" id="email" [(ngModel)]="model.email" placeholder="name@email.com" name="email" #email="ngModel" emailValidator>
+                                <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(email.valid && email.dirty && !emailDup)}"></span>
+                                <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(email.invalid && email.dirty || emailDup)}"></span>
+                                <small [hidden]="email.valid || (email.pristine )" class="text-danger">
+                               {{configMsg?.email}}  <!--This is a required field or Enter in abc@xyz.com format -->
+                                </small>
+                                <small [hidden]="!emailDup" class="text-danger">
+                               {{configMsg?.dupemail}}  <!--This is a required field or Enter in abc@xyz.com format -->
+                                </small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-4 col-sm-6 has-min-height-106">
+                    <div class="form-group">
+                        <div [ngClass]="{'form-group has-success has-feedback':(mobile.valid && mobile.dirty && !mobileDup) }">
+                            <div [ngClass]="{'form-group has-error has-feedback':(mobile.invalid && mobile.dirty || mobileDup )}">
+
+                                <label for="mobile" class="form-label">Mobile number</label>
+                               
+                                    <input type="text" (keyup)="changeCallMatchingCustomerFlag(); checkMobileDup()" class="form-control txtbox saveInfo" id="mobile" [(ngModel)]="model.mobile" placeholder="04XXXXXXX" name="mobile" #mobile="ngModel" mobValidator>
+
+                                    <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(mobile.valid && mobile.dirty && !mobileDup)}"></span>
+                                    <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(mobile.invalid && mobile.dirty || mobileDup)}"></span>
+                                <small [hidden]="mobile.valid || (mobile.pristine )" class="text-danger">
+                                          {{configMsg?.mobile}}   <!--This is a required field  -->
+                              </small>
+                                <small [hidden]="!mobileDup" class="text-danger">
+                                          {{configMsg?.dupmobile}}   <!--This is a required field  -->
+                              </small>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-4 col-sm-6 has-min-height-106">
+                    <div id="dob">
+                        <!--<md2-datepicker placeholder="Date of birth" [(ngModel)]="model.dob" name="dob" #dob (click)="dispDate(dob.value)" [required]="isRequired" [disabled]="isDisabled" [openOnFocus]="isOpenOnFocus" [isOpen]="isOpen" [type]="date" [min]="minDate" [max]="maxDate"
+                        [mode]="mode" [container]="container" #dateControl="ngModel">
+                    </md2-datepicker>-->
+                        <label for="dob" class="form-label">Date of birth</label>
+                        <div class="input-group">
+
+                            <input type="date" value="model.dob" class="form-control txtbox" [max]="maxDate" placeholder="MM/DD/YYYY" name="dob" id="dob" [(ngModel)]="model.dob">
+                            <small [hidden]="showDateError==false" class="text-danger">
+                                        Age should be greater than {{model.minimumAge}} and less than {{model.maximumAge}} <!--This is a required field  -->
+                              </small>
+                              <small [hidden]='showDateError || model.dob==""'>
+                                 <label class="form-label"> You have chosen {{model.dob | date:'longDate'}}</label>
+                              </small>
+                                
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="visible-xs">
+                    <br>
+
+                </div> -->
+                <div class="col-md-4 col-sm-6 has-min-height-106">
+
+					<div [ngClass]="{'form-group has-success has-feedback':(brokerid.valid && brokerid.dirty ) }">
+						<div [ngClass]="{'form-group has-error has-feedback':(brokerid.invalid && brokerid.dirty && (!model.brokerid==''))}">
+							<label for="brokerid" class="form-label">Broker id (Optional) </label>
+							<input type="text" class="form-control txtbox" [(ngModel)]="model.brokerid" id="brokerid" name="brokerid" #brokerid="ngModel"
+							 alphanumericValidate>
+							<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(brokerid.valid && brokerid.dirty )}"></span>
+							<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(brokerid.invalid && brokerid.dirty && (!model.brokerid==''))}"></span>
+							<small [hidden]="brokerid.valid || brokerid.pristine || model.brokerid==null || model.brokerid==''" class="text-danger">
+                                {{configMsg?.mname}} <!--This is a required field and Can contain letters and apostrophe-->
+                                </small>
+						</div>
+					</div>
+				</div>
+				<div [hidden]="freetext1status==false" class="col-md-4 col-sm-6 has-min-height-106">
+					<div [ngClass]="{'form-group has-success has-feedback':(basicfreetext1.valid && basicfreetext1.dirty ) }">
+						<div [ngClass]="{'form-group has-error has-feedback':(basicfreetext1.invalid && basicfreetext1.dirty && (!model.basicfreetext1==''))}">
+							<label for="basicfreetext1" class="form-label">{{freetext1label}} </label>
+							<input type="text" class="form-control txtbox" placeholder="{{freetext1placeholder}}" [(ngModel)]="model.basicfreetext1"
+							 id="basicfreetext1" name="basicfreetext1" #basicfreetext1="ngModel" alphanumericValidate>
+							<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(basicfreetext1.valid && basicfreetext1.dirty )}"></span>
+							<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(basicfreetext1.invalid && basicfreetext1.dirty && (!model.basicfreetext1==''))}"></span>
+							<small [hidden]="basicfreetext1.valid || basicfreetext1.pristine || model.basicfreetext1==null || model.basicfreetext1==''"
+							 class="text-danger">
+                                {{configMsg?.mname}} <!--This is a required field and Can contain letters and apostrophe-->
+                                </small>
+						</div>
+					</div>
+				</div>
+				<div [hidden]="freetext2status==false" class="col-md-4 col-sm-6 has-min-height-106">
+					<div [ngClass]="{'form-group has-success has-feedback':(basicfreetext2.valid && basicfreetext2.dirty ) }">
+						<div [ngClass]="{'form-group has-error has-feedback':(basicfreetext2.invalid && basicfreetext2.dirty && (!model.basicfreetext2==''))}">
+							<label for="basicfreetext2" class="form-label">{{freetext2label}} </label>
+							<input type="text" class="form-control txtbox" placeholder="{{freetext2placeholder}}" [(ngModel)]="model.basicfreetext2"
+							 id="basicfreetext2" name="basicfreetext2" #basicfreetext2="ngModel" alphanumericValidate>
+							<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(basicfreetext2.valid && basicfreetext2.dirty )}"></span>
+							<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(basicfreetext2.invalid && basicfreetext2.dirty && (!model.basicfreetext2==''))}"></span>
+							<small [hidden]="basicfreetext2.valid || basicfreetext2.pristine || model.basicfreetext2==null || model.basicfreetext2==''"
+							 class="text-danger">
+                                {{configMsg?.mname}} <!--This is a required field and Can contain letters and apostrophe-->
+                                </small>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="model.singleORjoint=='joint' && model.applicant=='primary' && model.jointEmailOrComp==false">
+				<div class="row">
+					<h4 class="card-title page-heading" style="padding-left:15px; ">Contact Details of Joint Applicant</h4>
+					<div class="col-md-4 col-sm-6 has-min-height-106">
+						<!--<input type="hidden" required="required" value=""  [(ngModel)]="model.app_id" name="app_id" #app_id="ngModel" />-->
+						<div class="form-group">
+							<div [ngClass]="{'form-group has-success has-feedback':(jemail.valid && jemail.dirty && !emailDup) }">
+								<div [ngClass]="{'form-group has-error has-feedback':(jemail.invalid && jemail.dirty || emailDup)}">
+									<label for="jemail" class="form-label">Email ID </label>
+									<input type="email" (keyup)="changeCallMatchingCustomerFlag(); checkEmailDup()" class="form-control txtbox saveInfo" id="jemail"
+									 [(ngModel)]="jointModel.email" placeholder="name@email.com" name="jemail" #jemail="ngModel" emailValidator>
+									<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(jemail.valid && jemail.dirty && !emailDup)}"></span>
+									<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(jemail.invalid && jemail.dirty || emailDup)}"></span>
+									<small [hidden]="jemail.valid || (jemail.pristine )" class="text-danger">
+                               {{configMsg?.email}}  <!--This is a required field or Enter in abc@xyz.com format -->
+                                </small>
+                                    <small [hidden]="!emailDup" class="text-danger">
+                               {{configMsg?.dupemail}}  <!--This is a required field or Enter in abc@xyz.com format -->
+                                </small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 has-min-height-106">
+                        <div class="form-group">
+                            <div [ngClass]="{'form-group has-success has-feedback':(jmobile.valid && jmobile.dirty && !mobileDup) }">
+                                <div [ngClass]="{'form-group has-error has-feedback':(jmobile.invalid && jmobile.dirty || mobileDup)}">
+
+                                    <label for="jmobile" class="form-label">Mobile number </label>
+                                   
+                                        <input type="text" (keyup)="changeCallMatchingCustomerFlag(); checkMobileDup()" class="form-control txtbox saveInfo" id="jmobile" [(ngModel)]="jointModel.mobile" placeholder="04XXXXXXX" name="jmobile" #jmobile="ngModel" mobValidator>
+                                        <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(jmobile.valid && jmobile.dirty && !mobileDup)}"></span>
+                                        <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(jmobile.invalid && jmobile.dirty || mobileDup)}"></span>
+                                    <small [hidden]="jmobile.valid || (jmobile.pristine )" class="text-danger">
+                                          {{configMsg?.mobile}}   <!--This is a required field  -->
+                              </small>
+                                    <small [hidden]="!mobileDup" class="text-danger">
+                                          {{configMsg?.dupmobile}}   <!--This is a required field  -->
+                              </small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 col-sm-6 has-min-height-106">
+                        <div id="jdob">
+                            <!--<md2-datepicker placeholder="Date of birth" [(ngModel)]="model.dob" name="dob" #dob (click)="dispDate(dob.value)" [required]="isRequired" [disabled]="isDisabled" [openOnFocus]="isOpenOnFocus" [isOpen]="isOpen" [type]="date" [min]="minDate" [max]="maxDate"
+                        [mode]="mode" [container]="container" #dateControl="ngModel">
+                    </md2-datepicker>-->
+                            <label for="jdob" class="form-label">Date of birth</label>
+                            <div class="input-group">
+
+                                <input type="date" value="jointModel.dob" class="form-control txtbox" [max]="maxDate" placeholder="MM/DD/YYYY" name="jdob" id="jdob" [(ngModel)]="jointModel.dob">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-sm-8 has-min-height-56">
+                        <div class="existing-member-login">
+                            <div class="info-alert  center-msg tabs">
+                                <div class="alert-msg"> {{inf_008}}</div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  <div [ngClass]="{'form-group has-success has-feedback':(brokerid.valid && brokerid.dirty ) }">
+                        <div [ngClass]="{'form-group has-error has-feedback':(brokerid.invalid && brokerid.dirty && (!model.brokerid==''))}">
+                            <label for="brokerid" class="form-label">Broker id (Optional) </label>
+                            <input type="text" class="form-control txtbox" [(ngModel)]="model.brokerid" id="brokerid" name="brokerid" #brokerid="ngModel" >
+                            <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(brokerid.valid && brokerid.dirty )}"></span>
+                            <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(brokerid.invalid && brokerid.dirty && (!model.brokerid==''))}"></span>
+                            <small [hidden]="brokerId.valid || brokerId.pristine || model.brokerId==null || model.brokerId==''" class="text-danger">
+                                {{configMsg?.mname}} 
+                                </small>
+                        </div>
+                    </div> -->
+
+            <div class="form-btn-wrapper test-top">
+                <span *ngIf="applicantTypeNormalFunc=='personalBasicInfo' || applicantType=='applicantOneComponent'">
+                <a tabindex="-1" [hidden]="model.applicant=='secondary'" (click)="back()" class="btn btn-icon-back">
+                    <img src="/assets/images/back-icon.svg" alt="back-icon" tabindex="0"> </a>
+                </span>
+                <!-- for single -->
+                <!--<button type="submit" *ngIf="model.singleORjoint=='single' || model.applicant=='secondary'" tabindex="0" class="btn btn-form-primary" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" [disabled]="!fname.valid || model.dob=='' || !lname.valid || model.title=='0'||model.dob==null ||!email.valid||!mobile.valid "><span class="ladda-label">CONTINUE</span></button>
+                for joint -->
+                <!--<button type="submit" *ngIf="model.singleORjoint=='joint' && model.applicant=='primary'" tabindex="0" class="btn btn-form-primary" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" [disabled]="!fname.valid || model.dob=='' || !lname.valid || model.title=='0'||model.dob==null ||!email.valid||!mobile.valid || jointModel.mobile==undefined || jointModel.email==undefined || jointModel.dob==null || jointModel.dob=='' "><span class="ladda-label">CONTINUE</span></button>-->
+                <!--<span *ngIf="applicantType=='applicantOneComponent'">
+                    <a tabindex="-1" [routerLink]="['../documentCheck']" (click)="clear()" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" tabindex="0"> </a>
+                </span>-->
+                <span *ngIf="applicantType=='applicantTwoComponent'">
+                    <a tabindex="-1" [routerLink]="['../applicantOneComponent']" (click)="clear()" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" tabindex="0"> </a>
+                </span>
+                <button type="submit" *ngIf="model.singleORjoint=='single' || (model.applicant=='secondary' && applicantTypeNormalFunc=='personalBasicInfo')"
+                    tabindex="0" class="btn btn-form-primary" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white"
+                    [disabled]="!fname.valid || model.dob=='' || !lname.valid || model.title=='0'||model.dob==null ||!email.valid||!mobile.valid "><span class="ladda-label">CONTINUE</span></button>
+                <!-- for joint -->
+                <button type="submit" *ngIf="model.singleORjoint=='joint' && model.jointEmailOrComp==false && model.applicant=='primary'"
+                    tabindex="0" class="btn btn-form-primary" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white"
+                    [disabled]="!fname.valid || model.dob=='' || !lname.valid || model.title=='0'||model.dob==null ||!email.valid||!mobile.valid || jointModel.mobile==undefined || jointModel.email==undefined || jointModel.dob==null || jointModel.dob=='' "><span class="ladda-label">CONTINUE</span></button>
+
+                <span *ngIf="applicantType=='applicantOneComponent'">
+                    <button type="submit" tabindex="0" class="btn btn-form-primary" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" [disabled]="!fname.valid || model.dob=='' || !lname.valid || model.title=='0'||model.dob==null ||!email.valid||!mobile.valid"><span class="ladda-label">CONTINUE</span></button>
+                </span>
+
+                <span *ngIf="applicantType=='applicantTwoComponent'">
+                    <button type="submit" tabindex="0" class="btn btn-form-primary" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" [disabled]="!fname.valid || model.dob=='' || !lname.valid || model.title=='0'||model.dob==null ||!email.valid||!mobile.valid"><span class="ladda-label">CONTINUE</span></button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="matching-customer-modal" class="modal fade " role="dialog">
+    <div class="modal-dialog modal-pop matching-customer-details">
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="matching-customer-des">
+                    <button (click)="laddaclose()" type="button" class="close address-info" data-dismiss="modal"><img src="/assets/images/close.svg" alt=""></button>
+                    <div class="center-content">
+                        <span class="info-icon"><img src="/assets/images/info.svg" alt=""></span>
+                        <h2>Matching customer <br> details found!
+						</h2>
+                        <div class="existing-member-login">
+                            <div class="error-alert  user-match">
+                                <div class="alert-msg matchingmember"> {{wrn_001}}
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <a [routerLink]="['/login']" class="btn btn-secondary" data-dismiss="modal">CLICK TO LOGIN</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="success" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-pop matching-customer-details">
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="success-modal">
+
+                    <div class="center-content">
+                        <span class="info-icon successicon"><img src="/assets/images/success.svg" alt=""></span>
+                        <h2>Application <br/> successfully saved
+						</h2>
+                        <!--<p class="cust-id">Application reference : <strong>{{model.application_id}}</strong></p>-->
+                        <div class="existing-member-login">
+                            <div class="info-alert  center-msg">
+                                <div class="alert-msg"> {{inf_001}}
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="form-btn-wrapper">
+
+                            <button class="btn btn-form-primary address-info" [routerLink]="['../personalContactInfo']" data-dismiss="modal" autofocus> CONTINUE </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="verifyMobile" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-pop matching-customer-details">
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="center-content">
+                    <img src="/assets/images/ID_verification_Blue.png">
+                    <br>
+                    <label class="card-title">Let's get you verified</label>
+                    <div class="info-alert  center-msg">
+                        <div class="alert-msg"> We have sent you an OTP to the entered mobile number and email
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+					<br>
+                    <div>
+                        <div class="row" *ngIf="!verifyEmail">
+                            <div class="col-md-2 col-sm-2">
+                            &nbsp;&nbsp;
+                            </div>
+                            <div class="col-md-5 col-sm-5 col-xs-12" style="text-align:left">
+                                <label for="mobileOTP" class="form-label" style="text-align:left">Enter the OTP sent to mobile</label>
+                                <input type="text" class="form-control txtbox" [(ngModel)]="model.mobileOTP" id="mobileOTP" name="mobileOTP" #mobileOTP="ngModel">
+                                <div class="text-danger" [hidden]="showMobileOTPError==false">
+                                    {{configMsg?.otp}}
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-6" *ngIf="!verifyEmail">
+                                <br>
+                                <button class="btn btn-form-primary-otp address-info" autofocus (click)="checkOTP()"> Verify OTP </button>
+                            </div>                          
+                        </div>
+                        <div *ngIf="!verifyEmail" class="row">
+                            <div class="col-md-2 col-sm-2">
+                            &nbsp;&nbsp;
+                            </div>
+                            <div class="col-md-5 col-sm-5 col-xs-12" style="text-align:left"> 
+                        <p *ngIf="resend==false">You can resend OTP in {{ticks}}</p>
+						<p *ngIf="resend==true">You can<a (click)="sendOTPToVerifyMobile()"> resend </a>OTP in {{ticks}}</p>
+                            </div>
+                        </div>
+                         <div class="row" *ngIf="verifyEmail">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+							<label >Your mobile number is successfully verified.</label>
+                                </div>
+                            </div>
+                        <br>
+                        <div class="row" *ngIf="!isEmailVerified">
+                            <div class="col-md-2 col-sm-2">
+                            &nbsp;&nbsp;
+                            </div>
+                            <div class="col-md-5 col-sm-5 col-xs-12" style="text-align:left">
+                                <label for="emailOTP" class="form-label">Enter the OTP sent to email</label>
+                                <input [disabled]="!verifyEmail" type="text" class="form-control txtbox" [(ngModel)]="model.emailOTP" id="emailOTP" name="emailOTP" #emailOTP="ngModel">
+                                <div class="text-danger" [hidden]="showEmailOTPError==false">
+                                    {{configMsg?.otp}}
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-3 col-xs-6">
+                                <br>
+                                <button [disabled]="!verifyEmail" class="btn btn-form-primary-otp address-info" autofocus (click)="checkEmailOTP()"> Verify OTP </button>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="verifyEmail && isEmailVerified==false">
+                            <div class="col-md-2 col-sm-2">
+                            &nbsp;&nbsp;
+                            </div>
+                            <div class="col-md-5 col-sm-5 col-xs-12" style="text-align:left">
+                        <p *ngIf="resend==false">You can resend OTP in {{ticks}}</p>
+						<p *ngIf="resend==true">You can<a (click)="sendOTPToVerifyEmail()"> resend </a>OTP in {{ticks}}</p>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="isEmailVerified">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                            <label>Your email address is successfully verified.</label>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="form-btn-wrapper test-top">
+                                  <a tabindex="-1" (click)="hideVerificationModal()" class="btn btn-icon-back">
+                    <img src="/assets/images/back-icon.svg" alt="back-icon" tabindex="0"> </a>
+              
+                                <button class="btn btn-form-primary-otp address-info" [disabled]="!isEmailVerified || !verifyEmail" (click)="showSuccessModal()"> Proceed </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--<div class="form-btn-wrapper">
+				<button class="btn btn-form-primary address-info" autofocus (click)="checkOTP(mobileOTP.value)"> Verify OTP </button>
+
+				<p *ngIf="resend==false">You can resend OTP in {{ticks}}</p>
+				<p *ngIf="resend==true">You can<a (click)="sendOTPToVerifyMobile()"> resend </a>OTP in {{ticks}}</p>
+
+			</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="modal-content " *ngIf="verifyEmail==true">
+			<div class="modal-body">
+				<div class="center-content">
+					<label class="card-title">Let's get your email verified</label>
+					<div class="info-alert  center-msg">
+						<div class="alert-msg"> We have sent you an OTP to the entered email address
+						</div>
+
+						<div class="clearfix"></div>
+					</div>
+					<br>
+					<div class="pull-left">
+					<span>Mobile verification</span> &nbsp;&nbsp;&nbsp; <i class="glyphicon glyphicon-ok" *ngIf="verifyEmail"></i>
+					<i class="glyphicon glyphicon-remove" *ngIf="verifyEmail==false"></i>
+					<br>
+					<span>Email verification</span> &nbsp;&nbsp;&nbsp; <i class="glyphicon glyphicon-ok" *ngIf="isEmailVerified"></i>
+					<i class="glyphicon glyphicon-remove" *ngIf="isEmailVerified==false"></i>
+					</div>
+					<br>
+					<input type="number" placeholder="Enter the OTP received to your email address " class="form-control txtbox" [(ngModel)]="model.emailOTP"
+						id="emailOTP" name="emailOTP" #emailOTP="ngModel">
+						<div class="text-danger" [hidden]="showEmailOTPError==false">
+							{{configMsg?.otp}}
+						</div>
+						<br>
+					<div class="form-btn-wrapper">
+						<button class="btn btn-form-primary address-info" autofocus (click)="checkEmailOTP(emailOTP.value)"> Verify OTP </button>
+
+							<p *ngIf="resendEmailOTP==false">You can resend OTP in {{ticks}}</p>
+						<p *ngIf="resendEmailOTP==true">You can<a (click)="sendOTPToVerifyEmail()"> resend </a>OTP in {{ticks}}</p>
+
+					</div>
+				</div>
+			</div>
+		</div>-->
+
+<div id="jointSwitch" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-pop matching-customer-details">
+        <!-- Modal content-->
+        <div class="modal-content ">
+            <div class="modal-body">
+
+                <div class="center-content">
+                    <!--<span class="info-icon successicon"><img src="/assets/images/success.svg" alt=""></span>-->
+                    <h2 class="card-title page-heading">Would you wish to fill the joint applicant's details?
+					</h2>
+					<!-- <h2 class="card-title page-heading-mobile">Would you wish to fill the joint applicant's details?
+					</h2> -->
+				</div>
+				<div class="form-btn-wrapper">
+					<input type="button" class="btn btn-default button" (click)="setJointType('yes')" data-dismiss="modal" value="YES" autofocus/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" id="jointNo-btn" class="btn btn-default button" (click)="setJointType('no')" data-dismiss="modal" value="NO" />
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</div>

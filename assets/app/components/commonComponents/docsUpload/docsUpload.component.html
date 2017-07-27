@@ -1,0 +1,18 @@
+<div>
+    <div>
+        <div *ngFor="let info of uploadInfoID">
+            <dropzone 
+            (removedfile)="removeFile($event)"
+            (success)="successUpload1($event)" 
+            [config]="config" 
+            [message]=" 'Click or drag image here to upload ID proof' ">
+            </dropzone>
+        </div>
+    </div>
+    <!--<div id="addAnotherDoc1">
+        <a (click)="addRow1()" 
+        href="JavaScript:void(0);" 
+        class="pull-right custom-add-row">
+       <i class="fa fa-plus addIcon" aria-hidden="true"></i>Add more document</a>
+    </div>-->
+</div>

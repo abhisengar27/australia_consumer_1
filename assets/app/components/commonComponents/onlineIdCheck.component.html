@@ -1,0 +1,719 @@
+<div data-aos="fade-up">
+  <h3 class="card-title page-heading-mobile">Identity information
+  </h3>
+  <!-- basic-info -->
+  <div>
+    <h3 class="card-title page-heading-desktop">Lets get you verified </h3>
+    <div class="basic-info">
+      <div class="bs-custom-tab">
+        <ul id="myTab" class="nav nav-tabs nav-tabs-responsive  responsive" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#Passport" (click)="setFileType('Passport')" id="Passport-tab" role="tab" data-toggle="tab" aria-controls="Passport"
+              aria-expanded="true">
+                <span class="text">Passport</span>
+              </a>
+          </li>
+          <li role="presentation" class="next">
+            <a href="#Medicare" (click)="setFileType('Medicare')" role="tab" id="Medicare-tab" data-toggle="tab" aria-controls="Medicare">
+                <span class="text">Medicare details</span>
+              </a>
+          </li>
+          <li role="presentation" class="next">
+            <a href="#Driver" (click)="setFileType('DrivingLicense')" role="tab" id="Driver-tab" data-toggle="tab" aria-controls="Driver">
+                <span class="text">Driver's licence</span>
+              </a>
+          </li>
+        </ul>
+        <form class="form" (ngSubmit)="onidcheck()" #basicDetails="ngForm">
+          <div id="myTabContent" class="tab-content responsive">
+            <div role="tabpanel" class="tab-pane fade in active" id="Passport" aria-labelledby="home-tab">
+              <div class="form-group ">
+                <!--<label class="form-label">Upload document</label>-->
+                <!--<div class="row">
+                <div class="col-md-5 col-sm-6 docs-upload-outer">
+                <docs-upload></docs-upload>
+                </div>
+              </div>-->
+                <div class="row">
+                  <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                      <label for="fname" class="form-label">First name </label>
+                      <input type="text" class="form-control txtbox" id="fname" [(ngModel)]="model.fname" name="fname" #fname="ngModel" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                      <label for="mname" class="form-label">Middle name (Optional) </label>
+                      <input type="text" class="form-control txtbox" id="mname" [(ngModel)]="model.mname" name="mname" #mname="ngModel" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                      <label for="lname" class="form-label">Last name </label>
+                      <input type="text" class="form-control txtbox" id="lname" [(ngModel)]="model.lname" name="lname" #lname="ngModel" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                      <label for="idstate" class="form-label">Issuing country</label>
+                      <select class="form-control txtbox" id="idstate" [(ngModel)]="model.idstate" name="idstate" #idstate="ngModel">
+                                         <option value="0" >Select</option>
+                                         <option *ngFor="let details of items" [ngValue]= "details.prop_val" [selected]="details.prop_val == model.idstate" >
+                                                  {{details.prop_desc}} 
+                                       </option>
+                                       </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-4 has-min-height-106">
+                    <div class="form-group">
+                      <div [ngClass]="{'form-group has-success has-feedback':(idnum.valid && idnum.dirty) }">
+                        <div [ngClass]="{'form-group has-error has-feedback':(idnum.invalid && idnum.dirty && (!model.idnum=='') )}">
+
+                          <label for="idnum" class="form-label">Passport number </label>
+                          <input type="text" maxlength="8" minlength="8" class="form-control txtbox" id="idnum" [(ngModel)]="model.idnum" name="idnum"
+                            #idnum="ngModel" PassportValidator>
+                          <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(idnum.valid && idnum.dirty )}"></span>
+                          <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(idnum.invalid && idnum.dirty && (!model.idnum==''))}"></span>
+                        </div>
+                      </div>
+                    </div>
+                    <small [hidden]="idnum.valid || (idnum.pristine ) || model.idnum==null || model.idnum==''" class="text-danger">
+                              {{configMsg?.passportNum}}   <!--This is a required field  -->
+                                </small>
+                  </div>
+                </div>
+                <!-- Old Upload -->
+                <!--<div class="row">
+                <div class="col-md-4 col-sm-4">
+                  <a class="skip-btn skip-btn-upload " (click)="setFileType('Passport')">Click here to upload</a>
+                </div>
+              </div>-->
+
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="Medicare" aria-labelledby="Medicare-tab">
+              <div class="form-group ">
+                <!--<label class="form-label">Upload document</label>-->
+                <!--<div class="row">
+                    <div class="col-md-5 col-sm-6 docs-upload-outer">
+                        <docs-upload></docs-upload>
+                    </div>
+                  </div>-->
+                <div class="row">
+                  <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                      <label for="fname" class="form-label">First name </label>
+                      <input type="text" class="form-control txtbox" id="fname" [(ngModel)]="model.fname" name="fname" #fname="ngModel" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                      <label for="mname" class="form-label">Middle name (Optional) </label>
+                      <input type="text" class="form-control txtbox" id="mname" [(ngModel)]="model.mname" name="mname" #mname="ngModel" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                      <label for="lname" class="form-label">Last name </label>
+                      <input type="text" class="form-control txtbox" id="lname" [(ngModel)]="model.lname" name="lname" #lname="ngModel" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                      <label for="color" class="form-label">Colour of card</label>
+                      <select class="form-control txtbox" id="color" [(ngModel)]="model.color" name="color" #color="ngModel">
+                                        <option value="0" >Select</option>
+                                        <option *ngFor="let details of cardColor" [ngValue]= "details.prop_val" [selected]="details.prop_val == model.color" >
+                                                  {{details.prop_desc}} 
+                                       </option>
+                                       </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 col-sm-4 has-min-height-106">
+                    <div class="form-group">
+                      <div [ngClass]="{'form-group has-success has-feedback':(meidicarenum.valid && meidicarenum.dirty) }">
+                        <div [ngClass]="{'form-group has-error has-feedback':(meidicarenum.invalid && meidicarenum.dirty && (!model.meidicarenum==''))}">
+                          <label for="meidicarenum" class="form-label">Card number </label>
+                          <input type="text" maxlength="10" minlength="10" class="form-control txtbox" id="meidicarenum" [(ngModel)]="model.meidicarenum"
+                            name="meidicarenum" #meidicarenum="ngModel" onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));"
+                            MedicareValidator>
+                          <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(meidicarenum.valid && meidicarenum.dirty)}"></span>
+                          <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(meidicarenum.invalid && meidicarenum.dirty && (!model.meidicarenum==''))}"></span>
+                          <small [hidden]="meidicarenum.valid || (meidicarenum.pristine ) || model.meidicarenum==null || model.meidicarenum==''" class="text-danger">
+                              {{configMsg?.dlNum}}   <!--This is a required field  -->
+                                </small>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                  <div class="col-md-4 col-sm-4 has-min-height-106">
+                    <div class="form-group">
+                      <div [ngClass]="{'form-group has-success has-feedback':(refnum.valid && refnum.dirty) }">
+                        <div [ngClass]="{'form-group has-error has-feedback':(refnum.invalid && refnum.dirty && (!model.refnum==''))}">
+                          <label for="refnum" class="form-label">Reference number <span><img class="tooltip-oao" data-toggle="tooltip" data-placement="top" title="Please specify the reference number against your name in your Medicare Card" src="/assets/images/tooltip.svg" alt=""></span> </label>
+                          <input type="text" minlength="1" maxlength="1" pattern="[1-9]" class="form-control txtbox" id="refnum" [(ngModel)]="model.refnum"
+                            name="refnum" #refnum="ngModel" onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));">
+                          <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(refnum.valid && refnum.dirty)}"></span>
+                          <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(refnum.invalid && refnum.dirty && (!model.refnum==''))}"></span>
+                          <small [hidden]="refnum.valid || (refnum.pristine ) || model.refnum==null || model.refnum==''" class="text-danger">
+                              {{configMsg?.refnumber}}   <!--This is a required field  -->
+                                </small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--md2 datepicked-->
+                  <div class="col-md-4 col-sm-4 has-min-height-106 chkIdDatePicker">
+                    <!--<md2-datepicker 
+                          placeholder="Valid to" style="top:20px;"
+                          id="validTo"
+                          [(ngModel)]="model.validTo" 
+                          name="validTo" #validTo 
+                          (click)="dispDate(validTo.value)"
+                          [required]="isRequired"
+                          [disabled]="isDisabled"
+                          [openOnFocus]="isOpenOnFocus"
+                          [isOpen]="isOpen"
+                          [type]="date"
+                         
+                          [min]="minDate"
+                          [max]="maxDate"
+                          [mode]="mode"
+                          [container]="container"
+                          #dateControl="ngModel">
+                        </md2-datepicker>-->
+                    <label for="validTo" class="form-label">Valid To</label>
+                    <div class="input-group">
+
+                      <input type="date" value="model.validTo" class="form-control txtbox" [max]="maxDate" placeholder="MM/DD/YYYY" name="validTo"
+                        id="validTo" [(ngModel)]="model.validTo">
+                    </div>
+                  </div>
+                </div>
+                <!--Old Upload-->
+                <!--<div class="row">
+                <div class="col-md-4 col-sm-4">
+                  <a class="skip-btn skip-btn-upload " (click)="setFileType('Medicare')">Click here to upload</a>
+                </div>
+              </div>-->
+
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="Driver" aria-labelledby="home-tab">
+              <div class="form-group ">
+                <!--<label class="form-label">Upload document</label>-->
+                <!--<div class="row">
+                <div class="col-md-5 col-sm-6 docs-upload-outer">
+                  <div>
+                    <docs-upload></docs-upload>
+                  </div>
+                </div>
+              </div>-->
+                <div class="row">
+                  <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                      <label for="fname" class="form-label">First name </label>
+                      <input type="text" class="form-control txtbox" id="fname" [(ngModel)]="model.fname" name="fname" #fname="ngModel" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                      <label for="mname" class="form-label">Middle name (Optional) </label>
+                      <input type="text" class="form-control txtbox" id="mname" [(ngModel)]="model.mname" name="mname" #mname="ngModel" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-4">
+                    <div class="form-group">
+                      <label for="lname" class="form-label">Last name </label>
+                      <input type="text" class="form-control txtbox" id="lname" [(ngModel)]="model.lname" name="lname" #lname="ngModel" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-4 has-min-height-106">
+                    <div class="form-group">
+                      <label for="DLidState" class="form-label">State of driver's licence registration</label>
+                      <select class="form-control txtbox" id="DLidState" [(ngModel)]="model.DLidState" name="DLidState" #DLidState="ngModel">
+                                       <option value="0" >Select</option>
+                                       <option *ngFor="let details of state" [ngValue]= "details.prop_val" [selected]="details.prop_val == model.DLidState" >
+                                                  {{details.prop_desc}} 
+                                       </option>
+                                       </select>
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-4 has-min-height-106">
+
+                    <div [ngClass]="{'form-group has-success has-feedback':(LNum.valid && LNum.dirty ) }">
+                      <div [ngClass]="{'form-group has-error has-feedback':(LNum.invalid && LNum.dirty && (!model.LNum==''))}">
+                        <div class="form-group">
+                          <label for="LNum" class="form-label">Licence #</label>
+                          <input type="text" class="form-control txtbox" id="LNum" [(ngModel)]="model.LNum" name="LNum" #LNum="ngModel" DrivingLicenceValidator>
+                          <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(LNum.valid && LNum.dirty ) }"></span>
+                          <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(LNum.invalid && LNum.dirty && (!model.LNum=='') )}"></span>
+                          <small [hidden]="LNum.valid || (LNum.pristine ) || model.LNum==null || model.LNum==''" class="text-danger">
+                              {{configMsg?.dlNum}}   
+                                </small>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                <!--Old Upload-->
+                <!--<div class="row">
+                <div class="col-md-4 col-sm-4">
+                  <a class="skip-btn skip-btn-upload " (click)="setFileType('DrivingLicense')">Click here to upload</a>
+                </div>
+              </div>-->
+
+              </div>
+            </div>
+          </div>
+          <!--Cross Sell-->
+          <div class="row" name="product" *ngIf="products?.length > 0">
+            <div class="col-md-12 checkbox info-crosssell">
+              <input type="checkbox" class="styled term" name="product" [checked]=checked (change)="setCrossSell($event)" id="product">
+              <label class="fonts" for="product">{{products}}</label> <br/><a (click)="openTerms()" style="cursor:pointer;margin:18px">Terms and conditions</a>
+            </div>
+            <!--<div class="col-md-12"  name="product"> 
+                <input type="checkbox"   [checked]=checked (change)="setCrossSell($event)" *ngIf="products?.length > 0" id="product" > {{products}}
+              </div>-->
+          </div>
+
+          <div [hidden]="isAdmin" class="form-btn-wrapper">
+            <a class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>
+           <!-- <a class="skip-btn" data-toggle="modal" data-dismiss="modal" *ngIf="idCheck_v=='O' && product_type_code=='SAV'" (click)="getAccno()">skip</a>
+            <a class="skip-btn" data-toggle="modal" data-target="#success_loan" data-dismiss="modal" *ngIf="idCheck_v=='O' && product_type_code=='HML' || product_type_code=='PRL'"
+              (click)="onSubmit()">skip</a>-->
+              <span *ngIf="applicantTypeNormalFunc=='onlineIdCheck' || applicantType=='onlineIdCheckTwo'">
+                   <a [hidden]="model.is_admin" class="skip-btn" data-toggle="modal" data-dismiss="modal" *ngIf="product_type_code=='SAV'" (click)="getAccno()">skip</a>
+                <a [hidden]="model.is_admin" class="skip-btn" data-toggle="modal" data-target="#success_loan" data-dismiss="modal" *ngIf="product_type_code=='HML' || product_type_code=='PRL'"
+                  (click)="onSubmit()">skip</a>
+                  </span>
+                <span *ngIf="applicantType=='onlineIdCheck'">
+                       <a class="skip-btn"  [routerLink]="['../onlineIdCheckTwo']">skip</a>
+                </span>
+            <!--<a [hidden]="!isAdmin" class="btn btn-form-primary" (click)="onSubmit()"><span >SAVE</span></a>-->
+            <button type="submit" class="btn btn-form-primary ladda-button" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white"><span class="ladda-label">CONFIRM</span></button></div>
+
+        </form>
+
+        <div class="row" [hidden]="!isAdmin">
+          <div class="col-md-8 col-md-offset-4" style="margin-top:30px">
+            <a class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>
+            <button (click)="onSave()" class="btn btn-form-primary "><span class="ladda-label">SAVE</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="success" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-pop matching-customer-details">
+    <!-- Modal content-->
+    <div class="modal-content ">
+      <div class="modal-body">
+        <div class="success-modal">
+          <button type="button" class="close" data-dismiss="modal" [routerLink]="['/home']" (click)="clear()"><img src="/assets/images/close.svg" alt=""></button>
+          <div class="center-content">
+            <span class="info-icon successicon"><img src="/assets/images/success.svg" alt=""></span>
+            <h2>Success!</h2>
+            <h4>Your everyday account has been set up.</h4>
+            <div class="customer-details">
+              <div class="details-label">
+                <p class="cust-id">Customer ID </p>
+              </div>
+              <div class="sybmol">
+                <p class="cust-id"> :</p>
+              </div>
+              <div class="cus-details-value">
+                <p class="cust-id"><strong>{{model.core_customer_id}}</strong></p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="customer-details">
+              <div class="details-label">
+                <p class="bsb">BSB </p>
+              </div>
+              <div class="sybmol">
+                <p class="bsb"> :</p>
+              </div>
+              <div class="cus-details-value">
+                <p class="bsb"><strong>{{model.bank_bsb_number}}</strong></p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="customer-details">
+              <div class="details-label">
+                <p class="act-no">Account number </p>
+              </div>
+              <div class="sybmol">
+                <p class="act-no"> :</p>
+              </div>
+              <div class="cus-details-value">
+                <p class="act-no"><strong>{{model.core_account_number}}</strong></p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="existing-member-login">
+              <!-- <div class="info-alert  center-msg">
+              <div class="alert-msg"> {{inf_003}}
+                </div>
+                <div class="clearfix"></div>
+              </div>-->
+            </div>
+            <div class="align_left">
+              <ul>
+                <li>We have sent the details to your registered email address.</li>
+                <li>You can check the status of your application through our chatbot.</li>
+                <li>In case of any queries, you can call our customer care number on 14000012222.</li>
+              </ul>
+            </div>
+            <!--<p class="continue-qstn">Do you want to continue with Internet Banking registration
+            </p>-->
+            <a [routerLink]="['/home']" class="regbtn" data-dismiss="modal" (click)="clear()">HOME</a>
+            <a [routerLink]="['../passwordSetup']" (click)="moveForward()" class="regbtn" data-dismiss="modal">REGISTER FOR INTERNET BANKING</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="success-1" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-pop matching-customer-details">
+    <!-- Modal content-->
+    <div class="modal-content ">
+      <div class="modal-body">
+        <div class="success-modal">
+          <button type="button" class="close" data-dismiss="modal" [routerLink]="['/home']" (click)="clear()"><img src="/assets/images/close.svg" alt=""></button>
+          <div class="center-content">
+            <span class="info-icon successicon"><img src="/assets/images/success.svg" alt=""></span>
+            <h2>Success!</h2>
+            <h4>Your everyday account has been set up.</h4>
+            <div class="customer-details">
+              <div class="details-label">
+                <p class="cust-id">Customer ID </p>
+              </div>
+              <div class="sybmol">
+                <p class="cust-id"> :</p>
+              </div>
+              <div class="cus-details-value">
+                <p class="cust-id"><strong>{{model.core_customer_id}}</strong></p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="customer-details">
+              <div class="details-label">
+                <p class="bsb">BSB </p>
+              </div>
+              <div class="sybmol">
+                <p class="bsb"> :</p>
+              </div>
+              <div class="cus-details-value">
+                <p class="bsb"><strong>{{model.bank_bsb_number}}</strong></p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="customer-details">
+              <div class="details-label">
+                <p class="act-no">Account number </p>
+              </div>
+              <div class="sybmol">
+                <p class="act-no"> :</p>
+              </div>
+              <div class="cus-details-value">
+                <p class="act-no"><strong>{{model.core_account_number}}</strong></p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+
+            <div class="existing-member-login">
+              <!--  <div class="info-alert center-msg">
+              <div class="alert-msg"> {{inf_003}}</div>
+                <div class="clearfix"></div>
+              </div>-->
+            </div>
+            <div class="align_left">
+              <ul>
+                <li>We have sent the details to your registered email address.</li>
+                <li>You can check the status of your application through our chatbot.</li>
+                <li>In case of any queries, you can call our customer care number on 14000012222.</li>
+              </ul>
+            </div>
+            <!--<p class="continue-qstn">Do you want to continue with Internet Banking registration
+            </p>-->
+            <a [routerLink]="['/home']" class="regbtn" data-dismiss="modal" (click)="clear()">HOME</a>
+            <a [routerLink]="['../passwordSetup']" class="regbtn" data-dismiss="modal">REGISTER FOR INTERNET BANKING</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="error" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-pop matching-customer-details">
+    <!-- Modal content-->
+    <div class="modal-content ">
+      <div class="modal-body">
+        <div class="matching-customer-des">
+          <button type="button" class="close address-info" data-dismiss="modal"><img src="/assets/images/close.svg" alt=""></button>
+          <div class="center-content">
+            <span class="info-icon"><img src="/assets/images/info.svg" alt=""></span>
+            <h2>Online ID Check Verification Failed
+            </h2>
+            <div class="online-check-links">
+              <div class="row">
+                <div class="col-md-2 col-xs-1"></div>
+                <div class="col-md-5 col-xs-7 col-sm-6">
+                  <h3 style="text-align:right;">Passport ID :</h3>
+                </div>
+                <div class="col-md-1 col-xs-2">
+                  <img class="fail" src="/assets/images/wrong.png" alt="">
+                </div>
+                <div class="col-md-2 col-xs-1"></div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 col-xs-1"></div>
+                <div class="col-md-5 col-xs-7 col-sm-6">
+                  <h3 style="text-align:right;">Driver Licence ID :</h3>
+                </div>
+                <div class="col-md-1 col-xs-2">
+                  <img class="fail" src="/assets/images/wrong.png" alt="">
+                </div>
+                <div class="col-md-2 col-xs-1"></div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 col-xs-1"></div>
+                <div class="col-md-5 col-xs-7 col-sm-6">
+                  <h3 style="text-align:right;">Medicare ID :</h3>
+                </div>
+                <div class="col-md-1 col-xs-2">
+                  <img class="fail" src="/assets/images/wrong.png" alt="">
+                </div>
+                <div class="col-md-2 col-xs-1"></div>
+              </div>
+              <div class="online-check-links">
+
+
+                <span *ngIf="applicantTypeNormalFunc=='onlineIdCheck' || applicantType=='onlineIdCheckTwo'">
+                   <a [hidden]="model.is_admin" class="skip-btn" data-toggle="modal" data-dismiss="modal" *ngIf="product_type_code=='SAV'" (click)="getAccno()">skip</a>
+                <a [hidden]="model.is_admin" class="skip-btn" data-toggle="modal" data-target="#success_loan" data-dismiss="modal" *ngIf="product_type_code=='HML' || product_type_code=='PRL'"
+                  (click)="onSubmit()">skip</a>
+                  </span>
+                <span *ngIf="applicantType=='onlineIdCheck'">
+                       <a class="skip-btn" data-toggle="modal" data-dismiss="modal" [routerLink]="['../onlineIdCheckTwo']">skip</a>
+                </span>
+
+                <a class="btn btn-form-primary" data-dismiss="modal" (click)="back()">Back</a>
+              </div>
+              <div class="existing-member-login">
+                <div class="info-alert  center-msg">
+                  <div class="alert-msg"> {{inf_006}}</div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+              <br>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!---- for online id check---->
+<div id="onlineidcheck" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-pop matching-customer-details">
+    <!-- Modal content-->
+    <div class="modal-content ">
+      <div class="modal-body">
+        <div class="matching-customer-des">
+          <button type="button" class="close address-info" data-dismiss="modal"><img src="/assets/images/close.svg" alt=""></button>
+          <div class="center-content">
+            <span class="info-icon"><img src="/assets/images/info.svg" alt=""></span>
+            <h2>Online ID Check Verification
+            </h2>
+            <div class="online-check-links">
+              <div class="row">
+                <div class="col-md-2 col-xm-1"></div>
+                <div class="col-md-5 col-xs-7">
+                  <h3 style="text-align:right;">Passport ID :</h3>
+                </div>
+                <div class="col-md-1 col-xs-2">
+                  <span *ngIf="passport_check=='success'"><img class="fail" src="/assets/images/right1.png" alt=""></span>
+                  <span *ngIf="passport_check!='success'"><img class="fail" src="/assets/images/wrong.png" alt=""></span>
+                </div>
+                <div class="col-md-2 col-xm-1"></div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 col-xm-1"></div>
+                <div class="col-md-5 col-xs-7">
+                  <h3 style="text-align:right;">Driver Licence ID :</h3>
+                </div>
+                <div class="col-md-1 col-xs-2">
+                  <span *ngIf="DL_check=='success'"><img class="fail" src="/assets/images/right1.png" alt=""></span>
+                  <span *ngIf="DL_check!='success'"><img class="fail" src="/assets/images/wrong.png" alt=""></span>
+                </div>
+                <div class="col-md-2 col-xm-1"></div>
+              </div>
+              <div class="row">
+                <div class="col-md-2 col-sm-1"></div>
+                <div class="col-md-5 col-xs-7">
+                  <h3 style="text-align:right;">Medicare ID :</h3>
+                </div>
+                <div class="col-md-1 col-xs-2">
+                  <span *ngIf="Medicare_check=='success'"><img class="fail" src="/assets/images/right1.png" alt=""></span>
+                  <span *ngIf="Medicare_check!='success'"><img class="fail" src="/assets/images/wrong.png" alt=""></span>
+                </div>
+                <div class="col-md-2 col-xm-1"></div>
+              </div>
+              <br>
+              <div class="info-alert  center-msg">
+                <div class="alert-msg"> {{inf_007}}</div>
+                <div class="clearfix"></div>
+              </div>
+              <br>
+              <button type="button" class="btn btn-form-primary" data-dismiss="modal" (click)="onSubmit()">Continue</button>
+              <br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- for loan account success -->
+<div id="success_loan" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-pop matching-customer-details">
+    <!-- Modal content-->
+    <div class="modal-content ">
+      <div class="modal-body">
+        <div class="success-modal">
+          <button type="button" class="close" data-dismiss="modal" [routerLink]="['/Home']" (click)="clear()"><img src="/assets/images/close.svg" alt=""></button>
+          <div class="center-content">
+            <span class="info-icon successicon"><img src="/assets/images/success.svg" alt=""></span>
+            <h2>Success!</h2>
+            <h4>Your {{model.product_type}} request has been submitted successfully.</h4>
+            <div class="existing-member-login">
+              <!--<div class="info-alert  center-msg">
+                <div class="alert-msg"> {{inf_loan}}
+                </div>
+                <div class="clearfix"></div>
+              </div>-->
+            </div>
+            <div class="align_left">
+              <ul>
+                <li>We have sent the details to your registered email address.</li>
+                <li>You can check the status of your application through our chatbot.</li>
+                <li>In case of any queries, you can call our customer care number on 14000012222.</li>
+              </ul>
+            </div>
+            <!--<div class="customer-details">
+              <div class="details-label">
+                <p class="cust-id">Application Reference</p>
+              </div>
+              <div class="sybmol">
+                <p class="cust-id"> :</p>
+              </div>
+              <div class="cus-details-value">
+                <p class="cust-id"><strong>{{model.application_id}}</strong></p>
+              </div>
+              <div class="clearfix"></div>
+            </div>-->
+            <a [routerLink]="['/home']" class="regbtn" data-dismiss="modal" (click)="clear()">HOME</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="servererror" class="modal fade " role="dialog">
+  <div class="modal-dialog modal-pop matching-customer-details">
+    <!-- Modal content-->
+    <div class="modal-content ">
+      <div class="modal-body">
+        <div class="success-modal">
+          <button type="button" class="close" data-dismiss="modal"><img src="/assets/images/close.svg" alt=""></button>
+          <div class="center-content">
+            <span class="info-icon "><img src="/assets/images/broken.svg" alt=""></span>
+
+            <h4>Sorry we are not able to process the application right now. You can resume the application using the link shared
+              in your mail. </h4>
+            <div class="customer-details">
+              <div class="details-label">
+                <p class="cust-id"> Application number </p>
+              </div>
+              <div class="sybmol">
+                <p class="cust-id"> :</p>
+              </div>
+              <div class="cus-details-value">
+                <p class="cust-id"><strong>{{model.application_id}}</strong></p>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="form-btn-wrapper">
+              <a [routerLink]="['/home']" class="regbtn" data-dismiss="modal" (click)="clear()">HOME</a> </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div id="fileupload-modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-uploal-main">
+    <!-- Modal content-->
+    <div class="modal-content ">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal"><img src="/assets/images/close.svg" alt=""></button>
+        <h3 class="card-title">Upload Documents</h3>
+
+        <div class="center-content modal-upload scrollcls">
+          <label class="form-label">{{file_type}}</label>
+          <router-outlet (activate)="changeType()"></router-outlet>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div id="success-admin" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-pop matching-customer-details">
+    <!-- Modal content-->
+    <div class="modal-content ">
+      <div class="modal-body">
+        <div class="success-modal">
+          <button type="button" class="close" data-dismiss="modal" [routerLink]="['/home']" (click)="clear()"><img src="/assets/images/close.svg" alt=""></button>
+          <div class="center-content">
+            <span class="info-icon successicon"><img src="/assets/images/success.svg" alt=""></span>
+            <h2>Success!</h2>
+            <h4>Application is successfully saved.</h4>
+
+
+
+            <div class="existing-member-login">
+              <div class="info-alert center-msg">
+                <div class="alert-msg">Email has been sent to the user to complete the application</div>
+                <div class="clearfix"></div>
+              </div>
+            </div>
+            <!--<p class="continue-qstn">Do you want to continue with Internet Banking registration
+            </p>-->
+            <a [routerLink]="['/home']" class="regbtn" data-dismiss="modal" (click)="clear()">HOME</a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

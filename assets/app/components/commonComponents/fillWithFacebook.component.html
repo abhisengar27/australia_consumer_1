@@ -1,0 +1,36 @@
+ <div class="contact-info" data-aos="fade-up">
+    <div class="account-content">
+        <h2>Do you want to fill personal details with facebook ?</h2>
+        <button type="submit" 
+        (click)="fillwithFB()" 
+        class="btn btn-default button button1" 
+        id="btnYes">
+                Yes
+        </button>
+        <button type="submit"
+         (click)="GoToPersonalBasicInfo();model.fname='';model.lname='';model.dob='';model.email='';model.address=''" 
+         class="col-md-offset-1 col-sm-offset-1 btn btn-default button button1" 
+         id="btnNo">
+         No
+         </button>
+    </div>
+</div>
+ 
+ <!--<div data-aos="fade-up">
+             <div class="col-lg-8 col-lg-offset-3 col-md-7 col-md-offset-4 col-sm-7 col-sm-offset-4">
+    
+    <div class="text-center" id="singleAndJoint">
+        <div class="account-content" id="singlejointimage">
+            <img alt="savings_icon" src="/assets/images/license_Yes.png" class="SingleMobilePadd" (click)="fillwithFB()" style="height: 173px;">
+            <img alt="savings_icon" class="col-sm-offset-1" src="/assets/images/license_No.png" (click)="GoToPersonalBasicInfo();model.fname='';model.lname='';model.dob='';model.email='';model.address='';" style="height: 173px;">
+        </div>
+        <div class="col-md-5 col-md-offset-1 col-lg-6 col-lg-offset-2 col-sm-3 col-sm-offset0" style="padding-top:10%" id="singleJoint-backicon">
+         <a tabindex="-1" (click)="backToDocumentCheck()"  class="btn btn-icon-back col-xs-10 col-xs-offset-8  col-lg-10 col-lg-pull-1 col-xs-pull-2 col-sm-12"> <img src="/assets/images/back-icon.svg" alt="back-icon" tabindex="0"> </a>
+    
+    </div>
+    </div>
+    
+    <div class="">
+    </div>
+</div>
+</div>-->

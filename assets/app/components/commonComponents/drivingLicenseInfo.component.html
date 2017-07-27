@@ -1,0 +1,76 @@
+<div class="dl-info" data-aos="fade-up">
+        <div class="row">
+           
+            <div class="col-md-6 col-sm-6">
+                 <label class="form-label">Upload Document</label>
+                <div class="docs-upload-outer-dl">
+                     <div [hidden]="dlUploadStatus" id="sharedImage">
+                            <a  href="javascript:void(0);" (click)="hideScan()" style="z-index: 60;position:absolute;right: 3.6%;top: 10%;background-color:white;" title="Change uploaded file">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </a>
+                            <img src="{{imagePath}}" style="width:100%;margin-bottom:10px;height:190px;">
+                    </div>
+                    <div [hidden]="!dlUploadStatus">
+                        <dropzone 
+                        (removedfile)="removeFile($event)" 
+                        (addedfile)="addedFile()" 
+                        (success)="drivingLicenseDetails($event)" 
+                        [config]="config"
+                        [message]="'Click or drag image here to upload driver\'s licence proof'">
+                        </dropzone>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 dl-content">
+                <div class="row" style="margin-bottom:30px">
+                    <div class="col-md-12">
+                          <label id="dltext" class="form-label">Give us your driver's licence number</label>
+                    <input id="txtDLInput"
+                     type="text"
+                     [(ngModel)]="model.drivinglicense" 
+                     (keyup)="dl_msg()" 
+                    (change)="dlManualInput()"
+                     name="txtDLInput" 
+                     class="txtbox" 
+                     placeholder="Driver's Licence Number" />
+                    </div>
+                </div>
+                <div class="row dlErrorInfo">
+                    <div class="col-md-12">
+                        <div class="info-alert center-msg">
+                            <div class="alert-msg">
+                                Sorry, we are still improving. This time, we could not read your Driver's Licence Number. 
+                                Please enter it manually in the above text
+                                box to proceed.
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row onlineError">
+                     <div class="col-md-12">
+                        <div class="info-alert center-msg dl-error-msg">
+                            <div class="alert-msg">
+                                We are unable to do online verification at this moment. Please proceed.
+                            </div>
+                            <div class="clearfix"></div>
+                            <!--<div>
+                                <a href="javascript:void(0)" (click)="skipVerification()">Skip Online Verification</a>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top:70px;">
+            <!-- <div class="col-md-6 col-md-push-5 col-xs-11 col-xs-push-1"> -->
+                <div class="form-btn-wrapper">
+                <a *ngIf="model.application_id==undefined || applicantType == 'drivingLicenseInfoTwo'" tabindex="-1" (click)="moveBack()" [routerLink]="['../documentCheck']" class="btn btn-icon-back-in-pan"> <img src="/assets/images/back-icon.svg" alt="back-icon" tabindex="0"> </a>
+            
+            <!--<div class="col-md-6 pull-left">-->
+               <button tabindex="0" id="btnProceed" [disabled]="txtDLInput == '' "  class="btn btn-form-primary" (click)="skipVerification()"><span class="ladda-label">PROCEED</span></button>
+            <!--</div>-->
+            </div>
+        </div>
+</div>

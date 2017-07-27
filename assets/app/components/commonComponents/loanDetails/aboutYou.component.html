@@ -1,0 +1,631 @@
+<div data-aos="fade-up">
+    <form (ngSubmit)="onSubmit()">
+<h2 class="card-title page-heading-mobile" data-step="1">Is this the address that you live at ?</h2>
+<h2 class="card-title page-heading-desktop" data-step="1">Is this the address that you live at ?</h2>
+       <!-- <div *ngIf="addressDiv==true">
+            <h2>Is this the address that you live at ?</h2>
+            <br>
+            <div class="col-md-3 col-sm-6" style="margin-right: 56%;">
+                <p>{{Your_address}}</p>
+                <br>
+            </div>
+            <div class="col-sm-10 col-md-10">
+                <a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>
+                <button class="btn btn-form-primary" data-toggle="tab" id="button1" (click)="ButtonYes('yes')"><span class="ladda-label">Yes</span></button>
+                <button class="btn btn-form-primary" data-toggle="tab" id="button2" (click)="ButtonNo('no')"><span class="ladda-label">No</span></button>
+            </div>
+
+        </div>-->
+
+           <div class="row">
+			<div class="col-md-5 col-sm-6">
+            <label class="form-label">How long have you lived in your current address ?</label>
+            </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-4">
+                 <label for="years" class="form-label">Current Address </label>
+                <!--<textarea disabled class="form-control txtbox">{{Your_address}}</textarea>-->
+                <p>{{Your_address}}</p>
+                </div>
+                
+                </div>
+                <br>
+            <div class="row ">
+                
+             
+                <div class="col-md-4 col-sm-4 has-min-height-106">
+                
+                    <label for="years" class="form-label">Years </label>
+
+                    <select class="form-control txtbox" (change)="lessYears(); calcTotalYears();" id="years" [(ngModel)]="model.years" name="years" #years="ngModel">
+                        <option value="" >Select</option>
+                        <option value="0" >0 Year</option>
+                        <option value="1">1 Year</option>
+                        <option value="2">2 Years</option>
+                        <option value="3">3 Years</option>
+                        <option value="4">4 Years</option>
+                        <option value="5">5 Years</option>
+                        <option value="6">6 Years</option>
+                        <option value="7">7 Years</option>
+                        <option value="8">8 Years</option>
+                        <option value="9">9 Years</option>
+                        <option value="10">10 or More than 10 Years</option>
+                    </select>
+
+                </div>
+                <!--<small [hidden]="model.years=='0'" class="text-danger">
+                   Error {{configMsg?.title}} 
+                    </small>-->
+
+                <div class="col-md-4 col-sm-4 has-min-height-106">
+
+                    <label for="months" class="form-label">Months </label>
+
+                    <select class="form-control txtbox" [(ngModel)]="model.months" (change)="lessYears(); calcTotalYears();" id="months" name="months">
+                        <option value="0">0 Month</option>
+                        <option value="1">1 Month</option>
+                        <option value="2">2 Months</option>
+                        <option value="3">3 Months</option>
+                        <option value="4">4 Months</option>
+                        <option value="5">5 Months</option>
+                        <option value="6">6 Months</option>
+                        <option value="7">7 Months</option>
+                        <option value="8">8 Months</option>
+                        <option value="9">9 Months</option>
+                        <option value="10">10 Months</option>
+                        <option value="11">11 Months</option>
+
+                    </select>
+
+                </div>
+               
+                </div>
+                
+               <!-- <div class="row">
+                <div class="col-md-8 col-sm-10 has-min-height-106">
+                    <a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="moveToAddress()"> </a>
+                    <button class="btn btn-form-primary" data-toggle="tab"  [disabled]="model.years=='0' ||model.months=='0'" (click)="okButton('yesAddress')"><span class="ladda-label">ok</span></button>
+                </div>
+            </div>-->
+
+       
+        <!--<div>
+        
+    </div>-->
+
+
+
+        <div class="" *ngIf="anotherlongLiveDiv== true">
+
+
+            <!--ADDRESS-->
+
+            <div class="contact-info">
+                <div>
+                    <!--<h2>What is your Current Address?</h2>-->
+                    <div class="row">
+			            <div class="col-md-4 col-sm-6">
+                            <small class="text-danger" [hidden]="!setSameAddressError">{{configMsg?.sameAddress}}</small>
+                            <br>
+                    <label class="form-label">What was your Previous Address?</label>
+                    </div>
+                    </div>
+                    <small [hidden]="addrErr==false" class="text-danger">
+                                         {{configMsg?.addrNotFound}}
+                                </small>
+
+                    <div id="homeAutomaticAddress">
+                      <div class="row">
+			                    <div class="col-md-8 col-sm-8">
+                                <div class="form-group">
+                                    <!--label for="homeLookup" class="form-label">Was it overseas ?</label>-->
+                                    <div id="automaticLookUp">
+
+                                        <input type="text" [disabled]="no_address_found_flag=='Y' && !showCustomAddr" [(ngModel)]='model.newaddress' id='addline1'
+                                            name='addline1' #newaddress="ngModel" (keyup)="addressSelect()" autofocus class="form-control txtbox">
+                                        <div *ngIf="!model.newpostcode">We are unable to find your address. Try again or if you prefer, tell us your address
+                                            line by line here instead. <a href="JavaScript:void(0);" (click)="showCustomAddressFields()">(Click here)</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div  *ngIf="!showCustomAddr">
+                        <div class="form-group has-back-lookup">
+                            <div class="row">
+                                
+                                <div class="back-to-auto">
+                                <a href="JavaScript:void(0);" (click)="hideaddress()"> <img src="/assets/images/back_icon.svg" alt="back_icon"> Back to quick search </a>
+                                 </div>
+                                </div>
+                            
+                            <div class="row">
+                                
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="newhousenum" class="form-label">Unit/House No. </label>
+                                        <input type="text" class="form-control txtbox" id="newhousenum" [(ngModel)]="model.newhousenum" name="newhousenum" #newhousenum="ngModel">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="newstreetnum" class="form-label">Street number </label>
+                                        <input type="text" class="form-control txtbox" id="newstreetnum" [(ngModel)]="model.newstreetnum" name="newstreetnum" #newstreetnum="ngModel">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="newstreetname" class="form-label">Street name </label>
+                                        <input type="text" class="form-control txtbox" id="newstreetname" [(ngModel)]="model.newstreetname" name="newstreetname"
+                                            #newstreetname="ngModel">
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="newstreettype" class="form-label">Street type </label>
+                                        <select class="form-control txtbox" id="newstreettype" [(ngModel)]="model.newstreettype" name="newstreettype" #newstreettype="ngModel">
+                                            <option value="">Select</option>
+                                            <option *ngFor="let details of street" [ngValue]='details'>
+                                                {{details}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="newsuburb" class="form-label">Suburb </label>
+                                        <input type="text" class="form-control txtbox" id="newsuburb" [(ngModel)]="model.newsuburb" name="newsuburb" #newsuburb="ngModel">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="newstate" class="form-label">State</label>
+                                        <select class="form-control txtbox" id="newstate" [(ngModel)]="model.newstate" name="newstate" #newstate="ngModel">
+                                            <option value="">Select</option>
+                                            <option *ngFor="let details of state_drop" [ngValue]='details'>
+                                                {{details}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="newpostcode" class="form-label">Postcode</label>
+                                        <input type="text" class="form-control txtbox" id="newpostcode" [(ngModel)]="model.newpostcode" name="newpostcode" #newpostcode="ngModel">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+               <div class="row">
+			<div class="col-md-4 col-sm-6">
+            <label class="form-label">And how long did you live there for ?</label> <br>
+            </div>
+            </div>
+            <div class="row ">
+                
+                <div class="col-md-4 col-sm-4 has-min-height-106">
+
+                    <label for="anotheryears" class="form-label">Years </label>
+
+                    <select class="form-control txtbox" (change)="thirdlessyear(); calcTotalYears();" [(ngModel)]="model.anotheryears" id="anotheryears" name="anotheryears">
+                        <option value="">Select years</option>
+                        <option value="0">0 Year</option>
+                        <option value="1">1 Year</option>
+                        <option value="2">2 Years</option>
+                        <option value="3">3 Years</option>
+                        <option value="4">4 Years</option>
+                        <option value="5">5 Years</option>
+                        <option value="6">6 Years</option>
+                        <option value="7">7 Years</option>
+                        <option value="8">8 Years</option>
+                        <option value="9">9 Years</option>
+                        <option value="10">10 or More than 10 Years</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 col-sm-4 has-min-height-106">
+
+                    <label for="months" class="form-label">Months </label>
+                    <select class="form-control txtbox" [(ngModel)]="model.anothermonths" (change)="thirdlessyear(); calcTotalYears();" id="months" name="months">
+                      
+                        <option value="0">0 Month</option>
+                        <option value="1">1 Month</option>
+                        <option value="2">2 Months</option>
+                        <option value="3">3 Months</option>
+                        <option value="4">4 Months</option>
+                        <option value="5">5 Months</option>
+                        <option value="6">6 Months</option>
+                        <option value="7">7 Months</option>
+                        <option value="8">8 Months</option>
+                        <option value="9">9 Months</option>
+                        <option value="10">10 Months</option>
+                        <option value="11">11 Months</option>
+                        
+                    </select>
+
+                </div>
+                <!--<br>
+                <div class="col-md-8 col-sm-12 has-min-height-106">
+                    <a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="moveToAddress()"> </a>
+                    <button class="btn btn-form-primary" data-toggle="tab" [disabled]="model.anotheryears=='0' ||model.anothermonths=='0'" (click)="ok('noAddress')"><span class="ladda-label">ok</span></button>
+                </div>-->
+            </div>
+            </div>
+  
+
+        <div class="" *ngIf="thirdlessyear_v== true">
+
+
+            <!--ADDRESS-->
+
+            <div class="contact-info">
+                <div>
+                    <!--<h2>What is your Current Address?</h2>-->
+                    <div class="row">
+			<div class="col-md-8 col-sm-6">
+                    <label class="form-label">What was your Previous Address?</label>
+                    <small [hidden]="addrErr==false" class="text-danger">
+                                         {{configMsg?.addrNotFound}}
+                                </small>
+                                </div>
+                                </div>
+                    <div id="homeAutomaticAddress">
+                        <div class="row">
+
+                            <div class="col-md-8 col-sm-8">
+                                <div class="form-group">
+                                    <!--label for="homeLookup" class="form-label">Was it overseas ?</label>-->
+                                    <div id="automaticLookUp">
+
+                                        <input type="text" [disabled]="third_no_address_found_flag=='Y' && !thirdshowCustomAddr" [(ngModel)]='model.thirdaddress'
+                                            id='addline2' name='addline2' #thirdaddress="ngModel" (keyup)="addressSelect()" autofocus
+                                            class="form-control txtbox">
+                                        <div *ngIf="!model.thirdpostcode">We are unable to find your address. Try again or if you prefer, tell us your address
+                                            line by line here instead. <a href="JavaScript:void(0);" (click)="showCustomAddressFields()">(Click here)</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="!thirdshowCustomAddr">
+                        <div class="form-group has-back-lookup">
+                            <div class="row">
+
+                                <div class="back-to-auto">
+                                    <a href="JavaScript:void(0);" (click)="thirdhideaddress()"> <img src="/assets/images/back_icon.svg" alt="back_icon"> Back to quick search </a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="thirdhousenum" class="form-label">Unit/House No. </label>
+                                        <input type="text" class="form-control txtbox" id="thirdhousenum" [(ngModel)]="model.thirdhousenum" name="thirdhousenum"
+                                            #thirdhousenum="ngModel">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="thirdstreetnum" class="form-label">Street number </label>
+                                        <input type="text" class="form-control txtbox" id="thirdstreetnum" [(ngModel)]="model.thirdstreetnum" name="thirdstreetnum"
+                                            #thirdstreetnum="ngModel">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="thirdstreetname" class="form-label">Street name </label>
+                                        <input type="text" class="form-control txtbox" id="thirdstreetname" [(ngModel)]="model.thirdstreetname" name="thirdstreetname"
+                                            #thirdstreetname="ngModel">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="thirdstreettype" class="form-label">Street type </label>
+                                        <select class="form-control txtbox" id="thirdstreettype" [(ngModel)]="model.thirdstreettype" name="thirdstreettype" #thirdstreettype="ngModel">
+                                            <option value="">Select</option>
+                                            <option *ngFor="let details of street" [ngValue]='details'>
+                                                {{details}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="thirdsuburb" class="form-label">Suburb </label>
+                                        <input type="text" class="form-control txtbox" id="thirdsuburb" [(ngModel)]="model.thirdsuburb" name="thirdsuburb" #thirdsuburb="ngModel">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="thirdstate" class="form-label">State</label>
+                                        <select class="form-control txtbox" id="thirdstate" [(ngModel)]="model.thirdstate" name="thirdstate" #thirdstate="ngModel">
+                                            <option value="">Select</option>
+                                            <option *ngFor="let details of state_drop" [ngValue]='details'>
+                                                {{details}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 has-min-height-106">
+                                    <div class="form-group">
+                                        <label for="thirdpostcode" class="form-label">Postcode</label>
+                                        <input type="text" class="form-control txtbox" id="thirdpostcode" [(ngModel)]="model.thirdpostcode" name="thirdpostcode"
+                                            #thirdpostcode="ngModel">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <label class="form-label">And how long did you live there for ?</label> <br>
+            <div class="row">
+                <div class="col-md-4 col-sm-4 has-min-height-106">
+
+                    <label for="thirdyears" class="form-label">Years </label>
+
+                    <select class="form-control txtbox" [(ngModel)]="model.thirdyears"  (change)="calcTotalYears()" id="thirdyears" name="thirdyears">
+                        <option value="">Select years</option>
+                        <option value="0">0 Year</option>
+                        <option value="1">1 Year</option>
+                        <option value="2">2 Years</option>
+                        <option value="3">3 Years</option>
+                        <option value="4">4 Years</option>
+                        <option value="5">5 Years</option>
+                        <option value="6">6 Years</option>
+                        <option value="7">7 Years</option>
+                        <option value="8">8 Years</option>
+                        <option value="9">9 Years</option>
+                        <option value="10">10 or More than 10 Years</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4 col-sm-4 has-min-height-106">
+
+                    <label for="months" class="form-label">Months </label>
+                    <select class="form-control txtbox" [(ngModel)]="model.thirdmonths" (change)="calcTotalYears()" id="months" name="months">
+                
+                        <option value="0">0 Month</option>
+                        <option value="1">1 Month</option>
+                        <option value="2">2 Months</option>
+                        <option value="3">3 Months</option>
+                        <option value="4">4 Months</option>
+                        <option value="5">5 Months</option>
+                        <option value="6">6 Months</option>
+                        <option value="7">7 Months</option>
+                        <option value="8">8 Months</option>
+                        <option value="9">9 Months</option>
+                        <option value="10">10 Months</option>
+                        <option value="11">11 Months</option>
+                        
+                    </select>
+
+                </div>
+                <!--<br>
+                <div class="col-md-8 col-sm-12 has-min-height-106">
+                    <a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="moveToAddress()"> </a>
+                    <button class="btn btn-form-primary" data-toggle="tab" [disabled]="model.thirdyears=='0' ||model.anothermonths=='0'" (click)="ok('noAddress')"><span class="ladda-label">ok</span></button>
+                </div>-->
+            </div>
+        </div>
+            <div class="row">
+			            <div class="col-md-4 col-sm-8">
+            <label class="form-label">Who can we speak to if we aren't able to reach you ?</label>
+            </div>
+            </div>
+            <div class="row">
+                
+
+                <div class="col-md-4 col-sm-4 has-min-height-106">
+                    <div class="form-group">
+                        <div [ngClass]="{'form-group has-success has-feedback':(fullname.valid && fullname.dirty ) }">
+                            <div [ngClass]="{'form-group has-error has-feedback':(fullname.invalid && fullname.dirty && (!model.fullname==''))}">
+                                <label for="fullname" class="form-label">Full name</label>
+                                <input type="text" class="form-control txtbox" [(ngModel)]="model.fullname" id="fullname" name="fullname" #fullname="ngModel"
+                                    nameValidate>
+                                <span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(fullname.valid && fullname.dirty )}"></span>
+                                <span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(fullname.invalid && fullname.dirty )}"></span>
+                                <small [hidden]="fullname.valid || fullname.pristine || model.fullname==null || model.fullname==''" class="text-danger">
+                                {{configMsg?.name}}<!--This is a required field and Can contain letters and apostrophe-->
+                                    </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-4 has-min-height-106">
+                    <div class="form-group">
+                        <div [ngClass]="{'form-group has-success has-feedback':(phone.valid && phone.dirty) }">
+                            <div [ngClass]="{'form-group has-error has-feedback':(phone.invalid && phone.dirty)}">
+
+								<label for="phone" class="form-label">Mobile number </label>
+								
+									<input type="text" (keyup)="changeCallMatchingCustomerFlag()" class="form-control txtbox saveInfo" id="phone" [(ngModel)]="model.phone"
+										placeholder="04XXXXXXX" name="phone" #phone="ngModel" mobValidator>
+                                        
+									<span [ngClass]="{'glyphicon glyphicon-ok form-control-feedback':(phone.valid && phone.dirty)}"></span>
+									<span [ngClass]="{'glyphicon glyphicon-remove form-control-feedback':(phone.invalid && phone.dirty)}"></span>
+									<small [hidden]="phone.valid || (phone.pristine )" class="text-danger">
+                                {{configMsg?.mobile}}   <!--This is a required field  -->
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                <!-- <div class="col-md-8 col-sm-10 col-sm-push-3 has-min-height-106"> -->
+                    <div class="form-btn-wrapper">
+                    <a tabindex="0" class="btn btn-icon-back"> <img src="/assets/images/back-icon.svg" alt="back-icon" (click)="updateSection()"> </a>
+                    <!--<button type="button" tabindex="0" class="btn btn-form-primary ladda-button" [disabled]="!fullname.valid ||!phone.valid"
+                        data-dismiss="modal" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" (click)="NextPage()"><span class="ladda-label">CONTINUE</span></button>
+                        model.newaddress!(model.newpostcode==''||model.anothermonths=='0'||model.anotheryears=='0')&&!anotherlongLiveDiv)||
+                       ||model.months=='0'||model.years=='0'||!fullname.valid ||!phone.valid
+                        {{anotherlongLiveDiv}}{{model.anothermonths=='0'}}{{model.anotheryears=='0'}}add{{model.newaddress==''}}pos{{model.newpostcode==''}}-->
+                    <button type="button" tabindex="0" class="btn btn-form-primary ladda-button" [disabled]="(anotherlongLiveDiv&&(model.anothermonths=='0' || model.qanotheryears==''))||model.months=='0'||model.years==''||!fullname.valid ||!phone.valid"
+                        data-dismiss="modal" [ladda]="isLoading" data-style="expand-right" data-spinner-color="white" (click)="onSubmitMain()"><span class="ladda-label">CONTINUE</span></button>
+                </div>
+            </div>
+
+    </form>
+</div>
+
+<div id="success" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-pop matching-customer-details">
+		<!-- Modal content-->
+		<div class="modal-content ">
+			<div class="modal-body">
+				<div class="success-modal">
+					<button type="button" class="close" data-dismiss="modal" [routerLink]="['/home']" (click)="clear()"><img src="/assets/images/close.svg" alt=""></button>
+					<div class="center-content">
+						<span class="info-icon successicon"><img src="/assets/images/success.svg" alt=""></span>
+						<h2>Success!</h2>
+						<h4>Your {{model.product_type}} request has been submitted successfully.</h4>
+						<!--<div class="existing-member-login">
+							<div class="info-alert  center-msg">
+								<div class="alert-msg"> {{inf_loan}}
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</div>-->
+						</div>
+						<div>
+                        <!--<div class="existing-member-login">
+                            <div [hidden]="userExistingFlag" class="info-alert  center-msg">
+                                <div  class="alert-msg"> {{inf_003}}
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>-->
+                         <ul>
+              <li>You will receive all the details on your registered email address.</li>
+              <li>You can check the status of your application through our chat bot feature.</li>
+              <li>For any other issues You can call our customer care number 14000012222 .</li>
+              </ul>
+						<!--<div class="customer-details">
+							<div class="details-label">
+								<p class="cust-id">Application Reference</p>
+							</div>
+							<div class="sybmol">
+								<p class="cust-id"> :</p>
+							</div>
+							<div class="cus-details-value">
+								<p class="cust-id"><strong>{{model.application_id}}</strong></p>
+							</div>
+							<div class="clearfix"></div>
+						</div>-->
+						<a [routerLink]="['/home']" class="regbtn align_anchor_2" data-dismiss="modal" (click)="clear()">HOME</a>					 	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div id="onlineid-check" class="modal fade " role="dialog" data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog modal-pop matching-customer-details">
+		<!-- Modal content-->
+		<div class="modal-content ">
+			<div class="modal-body">
+				<div class="matching-customer-des ">
+					 <div >
+                        <h3>ID Check</h3>
+                        <p>Consent for this Electronic Verification of Identity</p>
+                        <p>The Anti-Money Laundering and Counter-Terrorism Financing Act 2006 requires Bank Australia to verify
+                            your identity before providing you with any of its financial services for the first time. 
+                        </p>
+                        <p>
+                            By selecting "YES" you consent to Bank Australia verify your identity by having a credit reporting agency
+                            check your personal information(name,address and date of birth)aginst personal information files held by the credit
+                            reporting agency.This will not be recorded as enquiry on your personal credit information file.
+                        </p>
+                        <div class="row" style="margin-bottom:10px">
+                            <div class="col-md-12">
+                                <input type="radio" class="styled" name="consent"   [(ngModel)]="nextflag" id="consentyes" value="yes">&nbsp;<b>Yes</b>
+                                , I would like to use Electronic Verifcation</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="radio" class="styled" name="consent"  [(ngModel)]="nextflag" id="consentno" value="no">&nbsp;<b>No</b>, I would
+                                like to skip this check and I am aware the account would be opened with debit freeze mode
+                                and would be enabled post ID check validation by submitting documents to bank manually
+                            </div>
+                        </div>
+                        
+                       
+                        <!--<p><button [class.btn-success]="nextflag" class="modal_radio" (click)="nextflag=true">YES</button> I would like to use Electronic Verifcation</p>
+                        <p><button [class.btn-success]="!nextflag"  class="modal_radio" (click)="nextflag=false" > NO</button> I would like to skip this check and I am aware the account would be opened 
+                        with debit freeze mode and would be enabled post ID check validation by submitting documents to bank manually
+                        </p>-->
+                       <!-- <div  class="online-check-links">
+                             <a [hidden]="model.is_admin" class="skip-btn" data-toggle="modal" data-dismiss="modal" (click)="getAccno()">NEXT</a>
+                        </div>-->
+                        <div *ngIf="nextflag"  class="online-check-links">
+                            <a [routerLink]="['../onlineIdCheck']"  class="btn btn-form-primary" data-dismiss="modal">NEXT</a>
+                        </div>
+                         <div *ngIf="!nextflag" class="online-check-links">
+                            <a class="btn btn-form-primary"  data-toggle="modal" data-dismiss="modal" (click)="successAccount()">NEXT</a>
+                        </div>
+                        <!--<div class="center-content">
+						<span class="info-icon"><img src="/assets/images/onlineid-user.svg" alt=""></span>
+						<h2>Please perform an <br> online ID check
+						</h2>
+						<div class="online-check-links"> <a [hidden]="isAdmin" class="skip-btn" data-toggle="modal" data-dismiss="modal" (click)="successAccount()">skip</a>
+							<a [routerLink]="['../onlineIdCheck']" class="btn btn-form-primary" data-dismiss="modal">CHECK NOW</a>
+						</div>
+						<br>
+						<br>-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div id="error-modal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-pop ">
+        <div class="modal-content ">
+            <div class="modal-body">
+                <div class="matching-customer-des">
+                    <button type="button" class="close" data-dismiss="modal"><img src="/assets/images/close.svg" alt=""></button>
+                    <div class="center-content">
+                        <h2 class="card-title page-heading-desktop">Duplicate Address</h2>
+                        <form>
+                            <div class="row">
+                                <div class="error-alert  center-msg">
+                                    <div class="alert-msg">{{configMsg?.sameAddress}}</div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                            <div class="form-btn-wrapper">
+                                <input type="button" class="btn btn-default button" data-dismiss="modal" value="Back" autofocus/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->

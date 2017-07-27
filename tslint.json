@@ -1,0 +1,29 @@
+{
+    "defaultSeverity": "error",
+    "extends": ["tslint:recommended"],
+    "jsRules": {},
+    "rules": {
+        "no-unused-variable": [true,"check-parameters",{ "ignore-pattern": "fdescribe|xdescribe|fit|xit|on*|/g " }],
+        "align": [false, "parameters", "statements"],
+        "whitespace": [false, "check-branch", "check-operator", "check-typecast"],
+        "comment-format": [false, "check-space", "check-uppercase"],
+        "quotemark": [false, "single", "avoid-escape"],
+        "no-console": [false, "log", "error"],
+        "no-var-keyword": false,
+        "one-line": [false, "check-catch", "check-finally", "check-else"],
+        "trailing-comma": [false, {"multiline": "always", "singleline": "never"}],
+        "arrow-parens": [false, "ban-single-arg-parens"],
+        "only-arrow-functions": false,
+        "no-empty": false,
+        "ordered-imports": false,
+        "prefer-const": [false, {"destructuring": "all"}],
+        "radix": false,
+        "no-shadowed-variable": false,
+        "variable-name": [false, "ban-keywords", "check-format", "allow-leading-underscore"],
+        "indent": [false, "spaces"],
+        "max-line-length": [true, 200],
+        "no-trailing-whitespace": false,
+        "object-literal-sort-keys": false
+    },
+    "rulesDirectory": []
+}

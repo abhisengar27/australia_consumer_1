@@ -1,0 +1,97 @@
+
+    <div class="list-group" style="margin-left: -27px;">
+
+        <div *ngIf="applicantType=='drivingLicenseInfo' || applicantType=='drivingLicenseInfoTwo'">
+            <div class="row col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [routerLink]="['drivingLicenseInfo']" class="list-group-item  text-center"><i class="material-icons" >person</i></a>
+                </div>
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [class.disabled]="true? HideShowFlag:'true'" [routerLink]="['drivingLicenseInfoTwo']" class="list-group-item text-center"><i class="material-icons" >group</i></a>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="applicantType=='applicantOneComponent' || applicantType=='applicantTwoComponent'">
+            <div class="row col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [routerLink]="['applicantOneComponent']" class="list-group-item  text-center"><i class="material-icons" >person</i></a>
+                </div>
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [class.disabled]="true? HideShowFlag:'true'" [routerLink]="['applicantTwoComponent']" class="list-group-item text-center"><i class="material-icons" >group</i></a>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="applicantType=='personalContactInfo' || applicantType=='personalContactInfoTwo'">
+            <div class="row col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [routerLink]="['personalContactInfo']" class="list-group-item  text-center"><i class="material-icons" >person</i></a>
+                </div>
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [class.disabled]="true? HideShowFlag:'true'" [routerLink]="['personalContactInfoTwo']" class="list-group-item text-center"><i class="material-icons" >group</i></a>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="applicantType=='taxInformation' || applicantType=='taxInformationTwo'">
+            <div class="row col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [routerLink]="['taxInformation']" class="list-group-item  text-center"><i class="material-icons" >person</i></a>
+                </div>
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [class.disabled]="true? HideShowFlag:'true'" [routerLink]="['taxInformationTwo']" class="list-group-item text-center"><i class="material-icons" >group</i></a>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="applicantType=='onlineIdCheck' || applicantType=='onlineIdCheckTwo'">
+            <div class="row col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [routerLink]="['onlineIdCheck']" class="list-group-item  text-center"><i class="material-icons" >person</i></a>
+                </div>
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [class.disabled]="true? HideShowFlag:'true'" [routerLink]="['onlineIdCheckTwo']" class="list-group-item text-center"><i class="material-icons" >group</i></a>
+                </div>
+            </div>
+        </div>
+
+
+        <div *ngIf="applicantType=='incomeExpense' || applicantType=='incomeExpenseTwo'">
+            <div class="row col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [routerLink]="['incomeExpense']" class="list-group-item  text-center"><i class="material-icons" >person</i></a>
+                </div>
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [class.disabled]="true? HideShowFlag:'true'" [routerLink]="['incomeExpenseTwo']" class="list-group-item text-center"><i class="material-icons" >group</i></a>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="applicantType=='assets' || applicantType=='assetsTwo'">
+            <div class="row col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [routerLink]="['assets']" class="list-group-item  text-center"><i class="material-icons" >person</i></a>
+                </div>
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [class.disabled]="true? HideShowFlag:'true'" [routerLink]="['assetsTwo']" class="list-group-item text-center"><i class="material-icons" >group</i></a>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="applicantType=='aboutYou' || applicantType=='aboutYouTwo'">
+            <div class="row col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [routerLink]="['aboutYou']" class="list-group-item  text-center"><i class="material-icons" >person</i></a>
+                </div>
+                <div class="col-lg-1 col-md-2 col-xs-2 col-sm-2">
+                    <a routerLinkActive="active" [class.disabled]="true? HideShowFlag:'true'" [routerLink]="['aboutYouTwo']" class="list-group-item text-center"><i class="material-icons" >group</i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <router-outlet (activate)="changeOfRoutes()"></router-outlet>
+    </div>
+

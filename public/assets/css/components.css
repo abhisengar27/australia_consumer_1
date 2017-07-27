@@ -1,0 +1,353 @@
+a{
+transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: linear;
+}
+/*component starts*/
+/*Step Nav starts*/
+	.component-outer {
+	width:1140px;
+	margin:0 auto;
+	padding:40px;
+}
+.horizontal-step-nav {
+	width:622px;
+	margin:0 auto;
+}
+.horizontal-step-nav ul {
+	padding:0;
+	list-style:none;
+}
+.horizontal-step-nav ul li {
+	display:inline-block;
+	width:24.5%;
+	text-align:center;
+	position:relative;
+}
+.horizontal-step-nav ul li span {
+	display:inline-block;
+	width:38px;
+	height:38px;
+	background: #CAD3DD;
+	font-size: 18px;
+	color: #FFFFFF;
+	letter-spacing: -0.37px;
+	border-radius:100%;
+	padding-top:6px;
+}
+.horizontal-step-nav ul li span:after {
+	content:'';
+	width:100%;
+	height:1px;
+	background:#CAD3DD;
+	position:absolute;
+	top:50%;
+	left:62%;
+}
+.horizontal-step-nav ul li:last-child span:after {
+	display:none;
+}
+.horizontal-step-nav ul li.completed span {
+	display:inline-block;
+	width:38px;
+	height:38px;
+	background: #FC7157;
+	font-size: 18px;
+	color: #FFFFFF;
+	letter-spacing: -0.37px;
+	border-radius:100%;
+	padding-top:6px;
+}
+.horizontal-step-nav ul li.completed span:after {
+	content:'';
+	width:100%;
+	height:1px;
+	background:#FC7157;
+	position:absolute;
+	top:50%;
+}
+.horizontal-step-nav ul li.completed span.stepvalue-hidden {
+	display:inline-block;
+}
+.horizontal-step-nav ul li.completed span.stepvalue {
+	display:none;
+}
+.horizontal-step-nav ul li.active span {
+	display:inline-block;
+	width:38px;
+	height:38px;
+	background: #FC7157;
+	font-size: 18px;
+	color: #FFFFFF;
+	letter-spacing: -0.37px;
+	border-radius:100%;
+	padding-top:6px;
+}
+.horizontal-step-nav ul li.active span:after {
+	content:'';
+	width:100%;
+	height:1px;
+	background:#CAD3DD;
+	position:absolute;
+	top:50%;
+}
+.horizontal-step-nav ul li span.stepvalue-hidden {
+	display:none;
+}
+.horizontal-step-nav ul li.active span.stepvalue-hidden {
+	display:none;
+}
+.horizontal-step-nav ul li.active span.stepvalue {
+	display:inline-block;
+}
+/*Step Nav ends*/
+	/*savings-modal starts*/
+	.modal-pop {
+	width:960px;
+	background: #FFFFFF;
+box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
+border-radius:0;
+border-top:3px solid #05549A;
+
+}
+.modal-pop .center-content {
+	width:430px;
+	margin:0 auto;
+	text-align:center;
+}
+.savings-act-icon {
+	width: 100px;
+height: 100px;
+	border-radius:100%;
+	background: #044B8A;
+	display:inline-block;
+	margin-top:58px;
+	margin-bottom:7px;
+}
+.savings-act-icon img {
+	margin-top:23px;
+	width:55px
+}
+.modal-pop .center-content h2 {
+	margin:0;
+	padding:0;
+	font-size: 30px;
+	color: #27323D;
+	letter-spacing: -0.73px;
+	font-weight:500;
+}
+.modal-pop .center-content h3 {
+	margin:0;
+	padding:0;
+	opacity: 0.8;
+	font-size: 22px;
+	color: rgba(39, 50, 61, 0.8);
+	letter-spacing: -0.49px;
+	font-weight:400;
+	margin-top:10px;
+}
+.modal-pop .center-content ul.act-type {
+	list-style:none;
+	padding:0;
+	margin-top:20px;
+	margin-bottom:10px;
+}
+.modal-pop .center-content ul.act-type li {
+	display:inline-block;
+	font-size: 18px;
+	color: #044B8A;
+	letter-spacing: -0.36px;
+	line-height: 31px;
+	margin-right:35px;
+	margin-left:35px;
+}
+.modal-pop .center-content ul.act-type li a {
+	width:82px;
+	height:80px;
+	border: 2px solid #044B8A;
+	border-radius:100%;
+	display:block;
+	margin:0 auto;
+}
+.modal-pop .center-content ul.act-type li a img {
+	margin-top:23px;
+}
+.modal-pop .center-content .existing-member-login {
+	font-size: 18px;
+	color: #FC7157;
+	letter-spacing: -0.36px;
+	line-height: 31px;
+	margin-bottom:58px;
+	display:block;
+	margin-top:20px;
+}
+.modal-pop-footer {
+	margin-top:15px;
+	font-weight:300;
+	font-size: 16px;
+	color: #27323D;
+	letter-spacing: -0.33px;
+	text-align:center;
+	
+}
+.modal-pop-footer p {
+	margin-bottom:5px;
+	font-weight:500;
+	
+}
+.modal-pop-footer ul {
+	padding:0;
+	margin-bottom:0px;
+    width: 84%;
+    margin: 0 auto;	padding-left:40px;
+}
+.modal-pop-footer ul li {
+	list-style-type:disc;
+	padding-left:0px;
+	text-align:left;
+}
+.modal-pop .close
+{
+opacity:1;
+margin-right:0px;
+margin-top:0px;
+position:absolute;
+right:26px;
+top:15px;
+
+}
+.modal-pop .close img
+{
+width:14px;
+}
+	/*savings-modal ends*/
+	.modal-pop.matching-customer-details .info-icon
+	{
+	width: 100px;
+height: 100px;
+border-radius: 100%;
+background: #044B8A;
+display: inline-block;
+margin-top: 58px;
+margin-bottom: 15px;
+	}
+	.modal-pop.matching-customer-details .info-icon img {
+	margin-top:20px;
+}
+.modal-pop.matching-customer-details .center-content {
+    width: 100%;
+}
+.modal-pop.matching-customer-details .existing-member-login
+{
+margin-bottom:20px;
+}
+.btn-secondary
+{
+background: #05549A;
+border-radius: 2px;
+font-weight:500;
+font-size: 18px;
+color: #FFFFFF;
+letter-spacing: -0.37px;
+padding:12px 24px;
+}
+.btn-secondary:hover, .btn-secondary:focus, .btn-secondary:active
+{
+color:#fff;
+background:#00437F;
+}
+.modal-pop.matching-customer-details .btn-secondary
+{
+margin-bottom:58px;
+}
+	
+/*component ends*/
+ @media screen and (max-width: 767px) {
+  /*Step Nav starts*/
+ .component-outer {
+ width: 100%;
+ margin: 0 auto;
+ padding: 10px;
+}
+.horizontal-step-nav {
+ width: 100%;
+ margin: 0 auto;
+}
+.horizontal-step-nav ul li {
+ width: 23.5%;
+}
+.horizontal-step-nav ul li span::after {
+ left: 77%;
+}
+/*Step Nav ends*/
+/*savings modal up*/
+.modal-pop {
+    width: 90%;
+}
+.savings-act-icon {
+    width: 90px;
+    height: 90px;
+	 margin:0 auto;
+	 margin-top: 36px;
+  }
+  .savings-act-icon img {
+    margin-top: 22px;
+    width: 50px;
+}
+.modal-pop .center-content h2 {
+ 
+    font-size: 22px;
+    color: #27323D;
+}
+.modal-pop .center-content h3 {
+  
+    font-size: 18px;
+}
+.modal-pop .center-content ul.act-type li a {
+    width: 70px;
+    height: 70px;
+  
+}
+.modal-pop .center-content ul.act-type li a img {
+    margin-top: 20px;
+}
+.modal-pop .center-content ul.act-type li {
+    
+    font-size: 16px;
+	 margin-left:12px;
+	 margin-right:12px;
+}
+.modal-pop .center-content .existing-member-login {
+    font-size: 16px;
+   
+}
+.modal-pop .center-content {
+    width: 100%;
+}
+.modal-pop-footer ul {
+    width: 98%;
+}
+/*savings modal up*/
+ }
+ @media screen and (min-width: 480px) and (max-width: 560px) {
+ .horizontal-step-nav ul li span::after {
+ left: 66%;
+}
+}
+ @media screen and (min-width: 561px) and (max-width: 640px) {
+ .horizontal-step-nav ul li span::after {
+ left: 63%;
+}
+}
+ @media screen and (min-width: 768px) and (max-width: 991px) {
+ .component-outer {
+ width: 100%;
+ margin: 0 auto;
+ padding: 10px;
+}
+/*savings modal up*/
+.modal-pop {
+    width: 95%;
+}
+/*savings modal up*/
+}

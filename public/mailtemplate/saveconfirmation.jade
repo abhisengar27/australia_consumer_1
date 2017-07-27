@@ -1,0 +1,76 @@
+doctype html
+html
+  head
+    title
+    style(type='text/css').
+      table{
+      border-collapse: collapse !important;
+      border:none;
+      }
+      td {
+      border-collapse: collapse;
+      border-spacing: 0;
+      margin: 0;
+      padding: 0;
+      border:none;
+      }
+      img{
+      display: block;
+      }
+      .divImg{
+      height:371px;
+      width:128px;
+      background-color:#054a8b;
+      }
+      .header-width > img {
+      height:372px;
+      }
+      .ptag{
+      height:371px;
+      font-size:20px;
+      width:862px;
+      padding-left:10px;
+      background-color: #eeeeee !important;
+      }
+  body
+    table
+      tr
+        td
+          table
+            tr
+              
+              td.header-width.img-responsive
+                img(src='https://empoweronboardaus.herokuapp.com/assets/images/header.jpg')
+      tr
+        td
+          table
+            tr
+              
+              td.ptag
+                p
+                  | Dear  #{data.fname} #{data.lname},
+                  br
+                  br
+                  | Your Online Account Opening Application has been successfully saved.
+                  br
+                  br
+                  |                 If you wish to resume the application 
+                  a(href='https://uploadfortheme.herokuapp.com/home/#{mobile}') Click Here.
+                  br
+                  br
+                  |                 If you wish to continue the application through Facebook messenger 
+                  a(href='http://m.me/1771954166388625?ref=#{mobile}') Click Here.
+                  br
+                  br
+                  br
+                  |                 Warm Regards,
+                  br
+                  |                 Latitude Bank
+      tr
+      tr
+        table
+          tr
+            
+            td.header-width.img-responsive
+              img(src='https://empoweronboardaus.herokuapp.com/assets/images/stamp.jpg')
+      tr
